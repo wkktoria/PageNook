@@ -16,10 +16,14 @@ class CategoryTest {
             entityManager.getTransaction().begin();
             entityManager.persist(category);
             entityManager.getTransaction().commit();
+            System.out.println("Category object has been persisted");
+
+            entityManager.getTransaction().begin();
+            entityManager.remove(category);
+            entityManager.getTransaction().commit();
+            System.out.println("Category object has been removed");
 
             entityManager.close();
-
-            System.out.println("Category object has been persisted");
         }
     }
 }
