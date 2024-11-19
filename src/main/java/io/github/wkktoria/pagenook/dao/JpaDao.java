@@ -1,6 +1,9 @@
 package io.github.wkktoria.pagenook.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+
+import java.util.List;
 
 public class JpaDao<E> {
     protected EntityManager entityManager;
@@ -29,5 +32,34 @@ public class JpaDao<E> {
         entityManager.getTransaction().commit();
 
         return entity;
+    }
+
+    public E find(Class<E> type, Object id) {
+        E entity = entityManager.find(type, id);
+
+        if (entity != null) {
+            entityManager.refresh(entity);
+        }
+
+        return entity;
+    }
+
+    public void delete(Class<E> type, Object id) {
+        entityManager.getTransaction().begin();
+
+        Object reference = entityManager.getReference(type, id);
+        entityManager.remove(reference);
+
+        entityManager.getTransaction().commit();
+    }
+
+    public List<E> findWithNamedQuery(final String queryName) {
+        Query query = entityManager.createNamedQuery(queryName);
+        return query.getResultList();
+    }
+
+    public long countWithNamedQuery(final String queryName) {
+        Query query = entityManager.createNamedQuery(queryName);
+        return (long) query.getSingleResult();
     }
 }

@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+        @NamedQuery(name = "Users.findAll", query = "select u from Users u order by u.fullName"),
+        @NamedQuery(name = "Users.countAll", query = "select count(*) from Users")
+})
 public class Users {
     private Integer userId;
     private String email;
