@@ -5,16 +5,16 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-        @NamedQuery(name = "Users.findAll", query = "select u from Users u order by u.fullName"),
-        @NamedQuery(name = "Users.countAll", query = "select count(*) from Users")
+        @NamedQuery(name = "Users.findAll", query = "select u from User u order by u.fullName"),
+        @NamedQuery(name = "Users.countAll", query = "select count(*) from User")
 })
-public class Users {
+public class User {
     private Integer userId;
     private String email;
     private String fullName;
     private String password;
 
-    public Users() {
+    public User() {
     }
 
     @Column(name = "user_id")

@@ -1,6 +1,6 @@
 package io.github.wkktoria.pagenook.dao;
 
-import io.github.wkktoria.pagenook.entity.Users;
+import io.github.wkktoria.pagenook.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -21,16 +21,16 @@ when running all the tests at once.
 In the future it should mock the database connection.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class UsersDAOTest {
+class UserDAOTest {
     private static EntityManagerFactory entityManagerFactory;
     private static EntityManager entityManager;
-    private static UsersDAO usersDAO;
+    private static UserDAO userDAO;
 
     @BeforeAll
     static void setUp() {
         entityManagerFactory = Persistence.createEntityManagerFactory("PageNook");
         entityManager = entityManagerFactory.createEntityManager();
-        usersDAO = new UsersDAO(entityManager);
+        userDAO = new UserDAO(entityManager);
     }
 
     @AfterAll
@@ -41,35 +41,35 @@ class UsersDAOTest {
 
     @Test
     void testCreate() {
-        Users user = new Users();
+        User user = new User();
         user.setEmail("testuser@gmail.com");
         user.setFullName("Test User");
         user.setPassword("Str0ngP@sw00rd");
 
-        Users createdUser = usersDAO.create(user);
+        User createdUser = userDAO.create(user);
 
         assertTrue(createdUser.getUserId() > 0);
     }
 
     @Test
     void testCreateFieldsNotSet() {
-        Users user = new Users();
+        User user = new User();
 
         assertThrows(PersistenceException.class, () -> {
-            usersDAO.create(user);
+            userDAO.create(user);
         });
     }
 
 
     @Test
     void testUpdate() {
-        Users user = new Users();
+        User user = new User();
         user.setUserId(1);
         user.setEmail("testuser@gmail.com");
         user.setFullName("Updated Test User");
         user.setPassword("Str0ngP@sw00rd");
 
-        Users updatedUser = usersDAO.update(user);
+        User updatedUser = userDAO.update(user);
 
         assertEquals("Updated Test User", updatedUser.getFullName());
     }
@@ -78,7 +78,7 @@ class UsersDAOTest {
     void testGetFound() {
         Integer userId = 1;
 
-        Users foundUser = usersDAO.get(userId);
+        User foundUser = userDAO.get(userId);
 
         assertNotNull(foundUser);
     }
@@ -87,7 +87,7 @@ class UsersDAOTest {
     void testGetNotFound() {
         Integer userId = -1;
 
-        Users foundUser = usersDAO.get(userId);
+        User foundUser = userDAO.get(userId);
 
         assertNull(foundUser);
     }
@@ -96,9 +96,9 @@ class UsersDAOTest {
     void testDelete() {
         Integer userId = 1;
 
-        usersDAO.delete(userId);
+        userDAO.delete(userId);
 
-        assertNull(usersDAO.get(userId));
+        assertNull(userDAO.get(userId));
     }
 
     @Test
@@ -106,20 +106,20 @@ class UsersDAOTest {
         Integer userId = -1;
 
         assertThrows(PersistenceException.class, () -> {
-            usersDAO.delete(userId);
+            userDAO.delete(userId);
         });
     }
 
     @Test
     void testListAll() {
-        List<Users> listUsers = usersDAO.listAll();
+        List<User> listUsers = userDAO.listAll();
 
         assertFalse(listUsers.isEmpty());
     }
 
     @Test
     void testCount() {
-        long totalUsers = usersDAO.count();
+        long totalUsers = userDAO.count();
 
         assertTrue(totalUsers > 0);
     }

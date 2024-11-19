@@ -4,9 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class UsersTest {
+class UserTest {
     public static void main(String[] args) {
-        Users user = new Users();
+        User user = new User();
         user.setEmail("testuser@gmail.com");
         user.setFullName("Test User");
         user.setPassword("Str0ngP@sw00rd");
@@ -17,12 +17,12 @@ class UsersTest {
             entityManager.getTransaction().begin();
             entityManager.persist(user);
             entityManager.getTransaction().commit();
-            System.out.println("Users object has been persisted");
+            System.out.println("User object has been persisted");
 
             entityManager.getTransaction().begin();
             entityManager.remove(user);
             entityManager.getTransaction().commit();
-            System.out.println("Users object has been removed");
+            System.out.println("User object has been removed");
 
             entityManager.close();
         }
