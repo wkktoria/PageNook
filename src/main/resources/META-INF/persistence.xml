@@ -6,7 +6,7 @@
     <persistence-unit name="PageNook">
         <properties>
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:mysql://${MYSQL_HOST}/pagenookdb"/>
+                      value="jdbc:mysql://${MYSQL_HOST}/${MYSQL_DATABASE}"/>
             <property name="jakarta.persistence.jdbc.user"
                       value="${MYSQL_USER}"/>
             <property name="jakarta.persistence.jdbc.password"
