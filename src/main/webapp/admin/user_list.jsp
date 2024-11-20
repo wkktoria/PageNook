@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +16,12 @@
     <a href="user_form.jsp">Create New User</a>
     <hr style="width: 60%"/>
 </div>
+
+<c:if test="${message != null}">
+    <div style="text-align: center">
+        <i>${message}</i>
+    </div>
+</c:if>
 
 <div style="text-align: center">
     <table style="border: 1px solid black; margin-left: auto; margin-right: auto;">

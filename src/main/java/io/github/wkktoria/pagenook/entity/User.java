@@ -17,6 +17,12 @@ public class User {
     public User() {
     }
 
+    public User(final String email, final String fullName, final String password) {
+        this.email = email;
+        this.fullName = fullName;
+        this.password = password;
+    }
+
     @Column(name = "user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

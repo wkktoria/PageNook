@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +17,7 @@
 </div>
 
 <div style="text-align: center">
-    <form action="create_user" method="post" onsubmit="validateFromInput()">
+    <form action="create_user" method="post" onsubmit="return isValidFormInput()">
         <div style="margin-bottom: 8px;">
             <label>Email:
                 <input id="email" type="email" name="email" size="20"/>
@@ -42,7 +43,7 @@
 <jsp:directive.include file="footer.jsp"/>
 
 <script type="text/javascript">
-    function validateFromInput() {
+    function isValidFormInput() {
         const fieldEmail = document.getElementById("email");
         const fieldFullName = document.getElementById("fullname");
         const fieldPassword = document.getElementById("password");
