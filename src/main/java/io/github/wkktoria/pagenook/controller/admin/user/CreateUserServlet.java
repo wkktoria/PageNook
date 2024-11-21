@@ -1,4 +1,4 @@
-package io.github.wkktoria.pagenook.controller.admin;
+package io.github.wkktoria.pagenook.controller.admin.user;
 
 import io.github.wkktoria.pagenook.service.UserService;
 import jakarta.servlet.ServletException;
