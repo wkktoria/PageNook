@@ -12,25 +12,43 @@
 <jsp:directive.include file="header.jsp"/>
 
 <div style="text-align: center">
-    <h2>Create New User</h2>
+    <c:choose>
+        <c:when test="${user != null}">
+            <c:set value="Edit User" var="headingText"/>
+        </c:when>
+        <c:otherwise>
+            <c:set value="Create New User" var="headingText"/>
+        </c:otherwise>
+    </c:choose>
+    <h2>${headingText}</h2>
     <hr style="width: 60%"/>
 </div>
 
 <div style="text-align: center">
-    <form action="create_user" method="post" onsubmit="return isValidFormInput()">
+    <c:choose>
+        <c:when test="${user != null}">
+            <c:set value="update_user" var="formAction"/>
+        </c:when>
+        <c:otherwise>
+            <c:set value="create_user" var="formAction"/>
+        </c:otherwise>
+    </c:choose>
+
+    <form action="${formAction}" method="post" onsubmit="return isValidFormInput()">
+        <input type="hidden" name="userId" value="${user.userId}"/>
         <div style="margin-bottom: 8px;">
             <label>Email:
-                <input id="email" type="email" name="email" size="20"/>
+                <input id="email" type="email" name="email" size="20" value="${user.email}"/>
             </label>
         </div>
         <div style="margin-bottom: 8px;">
             <label>Full name:
-                <input id="fullname" type="text" name="fullname" size="20"/>
+                <input id="fullname" type="text" name="fullname" size="20" value="${user.fullName}"/>
             </label>
         </div>
         <div style="margin-bottom: 8px;">
             <label>Password:
-                <input id="password" type="password" name="password" size="20"/>
+                <input id="password" type="password" name="password" size="20" value="${user.password}"/>
             </label>
         </div>
         <div style="margin-bottom: 8px;">

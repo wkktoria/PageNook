@@ -24,6 +24,13 @@ public class User {
         this.password = password;
     }
 
+    public User(final Integer userId, final String email, final String fullName, final String password) {
+        this.userId = userId;
+        this.email = email;
+        this.fullName = fullName;
+        this.password = password;
+    }
+
     @Column(name = "user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
