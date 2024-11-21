@@ -5,8 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-        @NamedQuery(name = "Users.findAll", query = "select u from User u order by u.fullName"),
-        @NamedQuery(name = "Users.countAll", query = "select count(*) from User")
+        @NamedQuery(name = "User.findAll", query = "select u from User u order by u.fullName"),
+        @NamedQuery(name = "User.countAll", query = "select count(*) from User"),
+        @NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
 public class User {
     private Integer userId;

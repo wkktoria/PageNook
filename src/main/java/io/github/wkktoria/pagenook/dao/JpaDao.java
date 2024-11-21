@@ -58,6 +58,12 @@ public class JpaDao<E> {
         return query.getResultList();
     }
 
+    public List<E> findWithNamedQuery(final String queryName, final String paramName, Object paramValue) {
+        Query query = entityManager.createNamedQuery(queryName);
+        query.setParameter(paramName, paramValue);
+        return query.getResultList();
+    }
+
     public long countWithNamedQuery(final String queryName) {
         Query query = entityManager.createNamedQuery(queryName);
         return (long) query.getSingleResult();

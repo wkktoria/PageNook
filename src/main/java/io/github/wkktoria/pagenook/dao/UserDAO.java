@@ -32,11 +32,21 @@ public class UserDAO extends JpaDao<User> implements GenericDAO<User> {
 
     @Override
     public List<User> listAll() {
-        return super.findWithNamedQuery("Users.findAll");
+        return super.findWithNamedQuery("User.findAll");
     }
 
     @Override
     public long count() {
-        return super.countWithNamedQuery("Users.countAll");
+        return super.countWithNamedQuery("User.countAll");
+    }
+
+    public User findByEmail(final String email) {
+        List<User> listUser = super.findWithNamedQuery("User.findByEmail", "email", email);
+
+        if (listUser != null && !listUser.isEmpty()) {
+            return listUser.getFirst();
+        }
+
+        return null;
     }
 }
