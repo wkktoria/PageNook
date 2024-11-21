@@ -5,7 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -20,7 +22,6 @@ when running all the tests at once.
 
 In the future it should mock the database connection.
  */
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserDAOTest {
     private static EntityManagerFactory entityManagerFactory;
     private static EntityManager entityManager;
