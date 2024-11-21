@@ -51,6 +51,10 @@
     </table>
 </div>
 
+<div style="text-align: center; margin-top: 16px;">
+    <input type="button" value="Back to Dashboard" onclick="history.back()"/>
+</div>
+
 <jsp:directive.include file="footer.jsp"/>
 </body>
 </html>
