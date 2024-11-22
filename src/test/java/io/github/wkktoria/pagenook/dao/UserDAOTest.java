@@ -20,7 +20,7 @@ unless the database is not empty and contains a record with ID equal to 1.
 The problem with already active transaction can occur
 when running all the tests at once.
 
-In the future it should mock the database connection.
+In the future there should be better approach used.
  */
 class UserDAOTest {
     private static EntityManagerFactory entityManagerFactory;
