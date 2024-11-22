@@ -2,16 +2,16 @@ package io.github.wkktoria.pagenook.dao;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
-    T create(T entity);
+public interface GenericDAO<E> {
+    E create(E entity);
 
-    T update(T entity);
+    E update(E entity);
 
-    T get(Object id);
+    E get(Object id);
 
     void delete(Object id);
 
-    List<T> listAll();
+    List<E> listAll();
 
     long count();
 }

@@ -23,7 +23,7 @@ public class UserService {
         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("PageNook");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        userDAO = new UserDAO(entityManager);
+        userDAO = new UserDAO(entityManagerFactory);
 
         this.request = request;
         this.response = response;

@@ -2,30 +2,21 @@ package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
 import jakarta.persistence.PersistenceException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
-Some of the tests (update, delete, listAll) won't pass,
-unless the database is not empty and contains a record with ID equal to 1.
-
-The problem with already active transaction can occur
-when running all the tests at once.
-
-In the future there should be better approach used.
- */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserDAOTest extends BaseDAOTest {
     private static UserDAO userDAO;
 
     @BeforeAll
     static void setUp() {
         BaseDAOTest.setUp();
-        userDAO = new UserDAO(entityManager);
+        userDAO = new UserDAO(entityManagerFactory);
+        userDAO.create(new User("testuser@gmail.com", "Test User", "Str0ngP@sw00rd"));
     }
 
     @AfterAll
@@ -34,6 +25,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(1)
     void testCreate() {
         User user = new User();
         user.setEmail("testuser@gmail.com");
@@ -46,6 +38,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(7)
     void testCreateFieldsNotSet() {
         User user = new User();
 
@@ -56,6 +49,7 @@ class UserDAOTest extends BaseDAOTest {
 
 
     @Test
+    @Order(2)
     void testUpdate() {
         User user = new User();
         user.setUserId(1);
@@ -69,6 +63,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(3)
     void testGetFound() {
         Integer userId = 1;
 
@@ -78,6 +73,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(8)
     void testGetNotFound() {
         Integer userId = -1;
 
@@ -87,6 +83,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(9)
     void testDelete() {
         Integer userId = 1;
 
@@ -96,6 +93,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(10)
     void testDeleteNonexistent() {
         Integer userId = -1;
 
@@ -105,6 +103,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(6)
     void testListAll() {
         List<User> listUsers = userDAO.listAll();
 
@@ -112,6 +111,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(5)
     void testCount() {
         long totalUsers = userDAO.count();
 
@@ -119,6 +119,7 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(4)
     void testFindByEmail() {
         final String email = "testuser@gmail.com";
         User user = userDAO.findByEmail(email);

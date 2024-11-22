@@ -10,7 +10,7 @@ class CategoryTest {
         category.setName("Test Category");
 
 
-        try (EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PageNook")) {
+        try (EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PageNookTest")) {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();

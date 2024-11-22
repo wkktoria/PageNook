@@ -11,7 +11,7 @@ class UserTest {
         user.setFullName("Test User");
         user.setPassword("Str0ngP@sw00rd");
 
-        try (EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PageNook")) {
+        try (EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PageNookTest")) {
             EntityManager entityManager = entityManagerFactory.createEntityManager();
 
             entityManager.getTransaction().begin();
