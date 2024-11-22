@@ -1,9 +1,6 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,22 +19,18 @@ when running all the tests at once.
 
 In the future there should be better approach used.
  */
-class UserDAOTest {
-    private static EntityManagerFactory entityManagerFactory;
-    private static EntityManager entityManager;
+class UserDAOTest extends BaseDAOTest {
     private static UserDAO userDAO;
 
     @BeforeAll
     static void setUp() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("PageNook");
-        entityManager = entityManagerFactory.createEntityManager();
+        BaseDAOTest.setUp();
         userDAO = new UserDAO(entityManager);
     }
 
     @AfterAll
     static void tearDown() {
-        entityManager.close();
-        entityManagerFactory.close();
+        BaseDAOTest.tearDown();
     }
 
     @Test
