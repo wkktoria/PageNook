@@ -8,7 +8,7 @@
         <span>Welcome Admin | </span><a href="#">Logout</a>
     </div>
     <div>
-        <a href="list_users">Users</a> |
+        <a href="list_user">Users</a> |
         <a href="#">Categories</a> |
         <a href="#">Books</a> |
         <a href="#">Customers</a> |
