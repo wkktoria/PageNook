@@ -3,7 +3,6 @@ package io.github.wkktoria.pagenook.service;
 import io.github.wkktoria.pagenook.dao.UserDAO;
 import io.github.wkktoria.pagenook.entity.User;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,13 +17,11 @@ public class UserService {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
-    public UserService(HttpServletRequest request, HttpServletResponse response) {
-        EntityManagerFactory entityManagerFactory = Persistence
-                .createEntityManagerFactory("PageNook");
-        userDAO = new UserDAO(entityManagerFactory);
-
+    public UserService(EntityManagerFactory entityManagerFactory, HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
+
+        userDAO = new UserDAO(entityManagerFactory);
     }
 
     public void listUsers() throws ServletException, IOException {
