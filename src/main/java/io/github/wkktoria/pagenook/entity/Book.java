@@ -44,7 +44,7 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
-    private io.github.wkktoria.pagenook.entity.Category category;
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -118,11 +118,11 @@ public class Book {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public io.github.wkktoria.pagenook.entity.Category getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(io.github.wkktoria.pagenook.entity.Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

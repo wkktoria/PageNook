@@ -7,6 +7,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "category", schema = "pagenookdb")
+@NamedQueries({
+        @NamedQuery(name = "Category.findAll", query = "select c from Category c order by c.name"),
+        @NamedQuery(name = "Category.countAll", query = "select count(*) from Category")
+})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +22,13 @@ public class Category {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private Set<Book> books = new HashSet<>(0);
+
+    public Category() {
+    }
+
+    public Category(final String name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

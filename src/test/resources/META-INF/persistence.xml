@@ -10,7 +10,7 @@
 
         <properties>
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:mysql://${MYSQL_HOST}/${MYSQL_DATABASE}"/>
+                      value="jdbc:mysql://${MYSQL_HOST}/${MYSQL_DATABASE}?createDatabaseIfNotExist=true"/>
             <property name="jakarta.persistence.jdbc.user"
                       value="${MYSQL_USER}"/>
             <property name="jakarta.persistence.jdbc.password"
