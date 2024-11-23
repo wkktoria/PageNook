@@ -2,7 +2,6 @@ package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.UserDAO;
 import io.github.wkktoria.pagenook.entity.User;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.servlet.RequestDispatcher;
@@ -22,7 +21,6 @@ public class UserService {
     public UserService(HttpServletRequest request, HttpServletResponse response) {
         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("PageNook");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         userDAO = new UserDAO(entityManagerFactory);
 
         this.request = request;
