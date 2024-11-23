@@ -2,13 +2,14 @@ package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
 import jakarta.persistence.PersistenceException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserDAOTest extends BaseDAOTest {
     private static UserDAO userDAO;
 
@@ -25,7 +26,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(1)
     void testCreate() {
         User user = new User();
         user.setEmail("testuser@gmail.com");
@@ -38,7 +38,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(7)
     void testCreateFieldsNotSet() {
         User user = new User();
 
@@ -49,7 +48,6 @@ class UserDAOTest extends BaseDAOTest {
 
 
     @Test
-    @Order(2)
     void testUpdate() {
         User user = new User();
         user.setUserId(1);
@@ -63,7 +61,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(3)
     void testGetFound() {
         Integer userId = 1;
 
@@ -73,7 +70,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(8)
     void testGetNotFound() {
         Integer userId = -1;
 
@@ -83,7 +79,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(9)
     void testDelete() {
         Integer userId = 1;
 
@@ -93,7 +88,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(10)
     void testDeleteNonexistent() {
         Integer userId = -1;
 
@@ -103,7 +97,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(6)
     void testListAll() {
         List<User> listUsers = userDAO.listAll();
 
@@ -111,7 +104,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(5)
     void testCount() {
         long totalUsers = userDAO.count();
 
@@ -119,7 +111,6 @@ class UserDAOTest extends BaseDAOTest {
     }
 
     @Test
-    @Order(4)
     void testFindByEmail() {
         final String email = "testuser@gmail.com";
         User user = userDAO.findByEmail(email);
