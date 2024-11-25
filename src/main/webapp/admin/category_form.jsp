@@ -35,7 +35,7 @@
     </c:choose>
 
     <form action="${formAction}" method="post" onsubmit="return isValidFormInput()">
-        <input type="hidden" name="id" value="${category.id}"/>
+        <input type="hidden" name="categoryId" value="${category.id}"/>
         <div style="margin-bottom: 8px;">
             <label>Name:
                 <input id="name" type="text" name="name" size="20" value="${category.name}"/>

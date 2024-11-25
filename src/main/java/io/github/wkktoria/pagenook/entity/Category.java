@@ -31,6 +31,11 @@ public class Category {
         this.name = name;
     }
 
+    public Category(final int id, final String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }
