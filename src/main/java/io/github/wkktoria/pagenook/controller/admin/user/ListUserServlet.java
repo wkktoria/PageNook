@@ -15,6 +15,6 @@ public class ListUserServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserService(entityManagerFactory, request, response);
-        userService.listUsers();
+        userService.listUser();
     }
 }

@@ -35,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${listUsers}" varStatus="status">
+        <c:forEach var="user" items="${listUser}" varStatus="status">
             <tr>
                 <td>${status.index + 1}</td>
                 <td>${user.userId}</td>

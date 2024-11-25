@@ -24,14 +24,14 @@ public class UserService {
         userDAO = new UserDAO(entityManagerFactory);
     }
 
-    public void listUsers() throws ServletException, IOException {
-        listUsers(null);
+    public void listUser() throws ServletException, IOException {
+        listUser(null);
     }
 
-    public void listUsers(String message) throws ServletException, IOException {
+    public void listUser(String message) throws ServletException, IOException {
         List<User> userList = userDAO.listAll();
 
-        request.setAttribute("listUsers", userList);
+        request.setAttribute("listUser", userList);
         request.setAttribute("message", message);
 
         final String listPage = "user_list.jsp";
@@ -53,7 +53,7 @@ public class UserService {
         } else {
             User newUser = new User(email, fullName, password);
             userDAO.create(newUser);
-            listUsers("New user has been created successfully.");
+            listUser("New user has been created successfully.");
         }
     }
 
@@ -93,7 +93,7 @@ public class UserService {
         } else {
             User user = new User(userId, email, fullName, password);
             userDAO.update(user);
-            listUsers("User has been updated successfully.");
+            listUser("User has been updated successfully.");
         }
     }
 
@@ -114,7 +114,7 @@ public class UserService {
             dispatcher.forward(request, response);
         } else {
             userDAO.delete(userId);
-            listUsers("User has been deleted successfully.");
+            listUser("User has been deleted successfully.");
         }
     }
 }
