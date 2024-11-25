@@ -9,7 +9,8 @@ import java.util.Set;
 @Table(name = "category", schema = "pagenookdb")
 @NamedQueries({
         @NamedQuery(name = "Category.findAll", query = "select c from Category c order by c.name"),
-        @NamedQuery(name = "Category.countAll", query = "select count(*) from Category")
+        @NamedQuery(name = "Category.countAll", query = "select count(*) from Category"),
+        @NamedQuery(name = "Category.findByName", query = "select c from Category c where c.name = :name")
 })
 public class Category {
     @Id
