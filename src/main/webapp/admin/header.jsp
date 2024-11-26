@@ -1,18 +1,42 @@
-<div style="text-align: center; margin-bottom: 32px">
-    <div style="margin-bottom: 16px;">
-        <img style="vertical-align:middle" src="../images/PageNookAdminLogo.svg" width="200" height="100"
+<div class="center">
+    <div>
+        <img style="vertical-align:middle" src="../images/pagenook-admin-logo.svg" width="200" height="100"
              alt="PageNook Admin Logo"/>
         <span style="vertical-align:middle; font-weight: bold; font-size: 32px">PageNook</span>
     </div>
     <div>
         <span>Welcome Admin | </span><a href="#">Logout</a>
     </div>
-    <div>
-        <a href="list_user">Users</a> |
-        <a href="list_category">Categories</a> |
-        <a href="#">Books</a> |
-        <a href="#">Customers</a> |
-        <a href="#">Reviews</a> |
-        <a href="#">Orders</a>
+    <div id="header-menu">
+        <div>
+            <a href="list_user">
+                <img src="../images/user.svg" alt="User" height="40" width="40"/><br/>Users
+            </a>
+        </div>
+        <div>
+            <a href="list_category">
+                <img src="../images/category.svg" alt="User" height="40" width="40"/><br/>Categories
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../images/book.svg" alt="User" height="40" width="40"/><br/>Books
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../images/customer.svg" alt="User" height="40" width="40"/><br/>Customers
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../images/review.svg" alt="User" height="40" width="40"/><br/>Reviews
+            </a>
+        </div>
+        <div>
+            <a href="#">
+                <img src="../images/order.svg" alt="User" height="40" width="40"/><br/>Orders
+            </a>
+        </div>
     </div>
 </div>

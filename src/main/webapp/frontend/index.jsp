@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/stylesheet.css">
     <title>PageNook - Online Bookstore</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>
 
-<div style="text-align: center">
+<div class="center">
     <h2>New Books:</h2>
     <h2>Best-Selling Books:</h2>
     <h2>Most Favored Books:</h2>

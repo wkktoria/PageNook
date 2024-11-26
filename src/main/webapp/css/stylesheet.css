@@ -1,0 +1,86 @@
+a:link {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: indigo;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+a:active {
+    color: red;
+}
+
+#header-menu {
+    display: table;
+    margin: 0 auto;
+}
+
+#header-menu div {
+    display: table-cell;
+    padding-right: 20px;
+}
+
+#header-menu a:link {
+    font-size: larger;
+}
+
+.page-heading {
+    color: darkblue;
+}
+
+.message {
+    font-style: italic;
+    color: blue;
+}
+
+.center {
+    text-align: center;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table th {
+    background: darkblue;
+    color: cornsilk;
+    font-size: larger;
+}
+
+table th, table td {
+    padding: 8px;
+}
+
+button {
+    padding: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: white;
+    color: dodgerblue;
+}
+
+button[type="submit"] {
+    font-weight: bold;
+}
+
+input {
+    border: 1px solid dodgerblue;
+    border-radius: 4px;
+    height: 20px;
+}
+
+table.form {
+    border: 0;
+    padding: 4px;
+}

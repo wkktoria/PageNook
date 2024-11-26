@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/stylesheet.css">
     <title>Create New Category | PageNook - Administration</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>
 
-<div style="text-align: center">
+<div class="center">
     <c:choose>
         <c:when test="${category != null}">
             <c:set value="Edit Category" var="headingText"/>
@@ -20,11 +21,11 @@
             <c:set value="Create New Category" var="headingText"/>
         </c:otherwise>
     </c:choose>
-    <h2>${headingText}</h2>
+    <h1 class="page-heading">${headingText}</h1>
     <hr style="width: 60%"/>
 </div>
 
-<div style="text-align: center">
+<div class="center">
     <c:choose>
         <c:when test="${category != null}">
             <c:set value="update_category" var="formAction"/>
@@ -36,15 +37,20 @@
 
     <form action="${formAction}" method="post" onsubmit="return isValidFormInput()">
         <input type="hidden" name="categoryId" value="${category.id}"/>
-        <div style="margin-bottom: 8px;">
-            <label>Name:
-                <input id="name" type="text" name="name" size="20" value="${category.name}"/>
-            </label>
-        </div>
-        <div style="margin-bottom: 8px;">
-            <input type="submit" value="Save"/>
-            <input type="button" value="Cancel" onclick="history.back()"/>
-        </div>
+        <table class="form">
+            <tr>
+                <td>Name:</td>
+                <td><label>
+                    <input type="text" name="name" value="${category.name}"/>
+                </label></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                    <button type="button" onclick="history.back()">Cancel</button>
+                </td>
+            </tr>
+        </table>
     </form>
 </div>
 

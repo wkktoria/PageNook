@@ -1,4 +1,4 @@
-<div style="text-align: center; margin-top: 32px">
+<div class="center">
     <h4>Copyright (c) 2024 by PageNook Co., Ltd</h4>
     <a href="#">About Us</a> |
     <a href="#">Contact Us</a> |

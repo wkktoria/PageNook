@@ -6,25 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/stylesheet.css">
     <title>Manage Categories | PageNook - Administration</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>
 
-<div style="text-align: center">
-    <h2>Categories Management</h2>
+<div class="center">
+    <h1 class="page-heading">Categories Management</h1>
     <a href="category_form.jsp">Create New Category</a>
     <hr style="width: 60%"/>
 </div>
 
 <c:if test="${message != null}">
-    <div style="text-align: center">
-        <i>${message}</i>
+    <div class="center">
+        <h4 class="message">${message}</h4>
     </div>
 </c:if>
 
-<div style="text-align: center">
-    <table style="border: 1px solid black; margin-left: auto; margin-right: auto;">
+<div class="center">
+    <table>
         <thead>
         <tr>
             <th scope="col">Index</th>
@@ -47,10 +48,6 @@
         </c:forEach>
         </tbody>
     </table>
-</div>
-
-<div style="text-align: center; margin-top: 16px;">
-    <input type="button" value="Back to Dashboard" onclick="history.back()"/>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>
