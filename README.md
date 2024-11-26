@@ -13,7 +13,7 @@
 ./mvnw jetty:run
 ```
 
-Or (if `MAVEN_OPTS` are not configured yet):
+Or (if `MAVEN_OPTS` is not configured yet):
 
 ```shell
 MAVEN_OPTS="-DMYSQL_HOST=localhost:3306 -DMYSQL_DATABASE=pagenookdb -DMYSQL_USER=mysql_user_username -DMYSQL_PASSWORD=mysql_user_password" ./mvnw jetty:run
@@ -21,7 +21,7 @@ MAVEN_OPTS="-DMYSQL_HOST=localhost:3306 -DMYSQL_DATABASE=pagenookdb -DMYSQL_USER
 
 ## Running Database Migration
 
-1. Create `flyway.conf` file with database connection details, set up:
+1. Create `flyway.conf` (see: [flyway_example.conf](flyway_example.conf)) file with database connection details, set up:
     - `flyway.url`,
     - `flyway.user`,
     - `flyway.password`.
