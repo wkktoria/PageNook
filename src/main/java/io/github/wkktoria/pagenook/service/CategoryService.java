@@ -94,4 +94,19 @@ public class CategoryService {
             listCategory("Category has been updated successfully.");
         }
     }
+
+    public void deleteCategory() throws ServletException, IOException {
+        final int categoryId = Integer.parseInt(request.getParameter("id"));
+
+        if (categoryDAO.get(categoryId) == null) {
+            final String message = "Could not find category with ID " + categoryId + ", or it might have been deleted.";
+            request.setAttribute("message", message);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            categoryDAO.delete(categoryId);
+            listCategory("Category has been deleted successfully.");
+        }
+    }
 }
