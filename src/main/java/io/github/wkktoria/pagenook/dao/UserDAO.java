@@ -1,15 +1,10 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
-import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 
 public class UserDAO extends JpaDao<User> implements GenericDAO<User> {
-    public UserDAO(final EntityManagerFactory entityManagerFactory) {
-        super(entityManagerFactory);
-    }
-
     @Override
     public User create(User user) {
         return super.create(user);

@@ -16,7 +16,7 @@ class UserDAOTest extends BaseDAOTest {
     @BeforeAll
     static void setUp() {
         BaseDAOTest.setUp();
-        userDAO = new UserDAO(entityManagerFactory);
+        userDAO = new UserDAO();
         userDAO.create(new User("testuser@gmail.com", "Test User", "Str0ngP@sw00rd"));
     }
 

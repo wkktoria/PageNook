@@ -11,5 +11,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
+
+        <mapping class="io.github.wkktoria.pagenook.entity.User"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.Category"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.Book"/>
     </session-factory>
 </hibernate-configuration>

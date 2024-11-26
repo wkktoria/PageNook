@@ -15,7 +15,7 @@ class CategoryDAOTest extends BaseDAOTest {
     @BeforeAll
     static void setUp() {
         BaseDAOTest.setUp();
-        categoryDAO = new CategoryDAO(entityManagerFactory);
+        categoryDAO = new CategoryDAO();
         categoryDAO.create(new Category("Test Category"));
     }
 

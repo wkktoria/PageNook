@@ -1,15 +1,10 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Category;
-import jakarta.persistence.EntityManagerFactory;
 
 import java.util.List;
 
 public class CategoryDAO extends JpaDao<Category> implements GenericDAO<Category> {
-    public CategoryDAO(final EntityManagerFactory entityManagerFactory) {
-        super(entityManagerFactory);
-    }
-
     @Override
     public Category create(Category category) {
         return super.create(category);

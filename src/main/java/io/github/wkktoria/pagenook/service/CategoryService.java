@@ -2,7 +2,6 @@ package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.CategoryDAO;
 import io.github.wkktoria.pagenook.entity.Category;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,12 +16,11 @@ public class CategoryService {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
-    public CategoryService(EntityManagerFactory entityManagerFactory,
-                           HttpServletRequest request, HttpServletResponse response) {
+    public CategoryService(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
 
-        categoryDAO = new CategoryDAO(entityManagerFactory);
+        categoryDAO = new CategoryDAO();
     }
 
     public void listCategory() throws ServletException, IOException {
