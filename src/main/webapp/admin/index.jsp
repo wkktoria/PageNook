@@ -18,7 +18,7 @@
     <h3>Quick Actions:</h3>
     <a href="#">New Book</a> |
     <a href="user_form.jsp">New User</a> |
-    <a href="#">New Category</a> |
+    <a href="category_form.jsp">New Category</a> |
     <a href="#">New Customer</a>
     <hr style="width: 60%"/>
 </div>
