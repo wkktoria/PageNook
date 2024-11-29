@@ -26,13 +26,13 @@ MAVEN_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -
 - Build Docker image:
 
 ```shell
-docker build -t pagenook .`
+docker build -t pagenook .
 ```
 
 - Create Docker container:
 
 ```shell
-docker create -p 8082:8082 -e CATALINA_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -DMYSQL_USER=username -DMYSQL_PASSWORD=password" --name pagenook pagenook`
+docker create -p 8082:8082 -e CATALINA_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -DMYSQL_USER=username -DMYSQL_PASSWORD=password" --name pagenook pagenook
 ```
 
 - Start the container:
