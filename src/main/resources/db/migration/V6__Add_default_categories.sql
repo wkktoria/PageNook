@@ -1,11 +1,11 @@
-insert into pagenookdb.category(name)
+insert into pagenook.category(name)
 values ('Programming');
 
-insert into pagenookdb.category(name)
+insert into pagenook.category(name)
 values ('Science');
 
-insert into pagenookdb.category(name)
+insert into pagenook.category(name)
 values ('Sport');
 
-insert into pagenookdb.category(name)
+insert into pagenook.category(name)
 values ('Politics');
