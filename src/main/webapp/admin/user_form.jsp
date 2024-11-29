@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <title>Create New User | PageNook - Administration</title>
 </head>
 <body>
@@ -35,7 +40,7 @@
         </c:otherwise>
     </c:choose>
 
-    <form action="${formAction}" method="post" onsubmit="return isValidFormInput()">
+    <form action="${formAction}" method="post" id="user-form">
         <input type="hidden" name="userId" value="${user.userId}"/>
         <table class="form">
             <tr>
@@ -56,7 +61,7 @@
             <tr>
                 <td colspan="2">
                     <button type="submit">Save</button>
-                    <button type="button" onclick="history.back()">Cancel</button>
+                    <button type="button" id="button-cancel">Cancel</button>
                 </td>
             </tr>
         </table>
@@ -66,31 +71,30 @@
 <jsp:directive.include file="footer.jsp"/>
 
 <script type="text/javascript">
-    function isValidFormInput() {
-        const fieldEmail = document.getElementById("email");
-        const fieldFullName = document.getElementById("fullname");
-        const fieldPassword = document.getElementById("password");
+    $(document).ready(function () {
+        $("#user-form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                fullname: "required",
+                password: "required",
+            },
+            messages: {
+                email: {
+                    required: "Please enter an email address.",
+                    email: "Please enter a valid email address.",
+                },
+                fullname: "Please enter a full name.",
+                password: "Please enter a password.",
+            }
+        });
 
-        if (fieldEmail.value.length === 0) {
-            alert("Email is required!");
-            fieldEmail.focus();
-            return false;
-        }
-
-        if (fieldFullName.value.length === 0) {
-            alert("Full name is required!");
-            fieldFullName.focus();
-            return false;
-        }
-
-        if (fieldPassword.value.length === 0) {
-            alert("Password is required!");
-            fieldPassword.focus();
-            return false;
-        }
-
-        return true;
-    }
+        $("#button-cancel").click(function () {
+            history.back();
+        });
+    });
 </script>
 </body>
 </html>

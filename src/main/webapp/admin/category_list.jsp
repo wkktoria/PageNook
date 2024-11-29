@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <title>Manage Categories | PageNook - Administration</title>
 </head>
 <body>
@@ -42,7 +47,7 @@
                 <td>${category.name}</td>
                 <td>
                     <a href="edit_category?id=${category.id}">Edit</a> |
-                    <a href="javascript:confirmDelete(${category.id})">Delete</a>
+                    <a href="javascript:void(0)" class="delete-link" id="${category.id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -53,11 +58,16 @@
 <jsp:directive.include file="footer.jsp"/>
 
 <script type="text/javascript">
-    function confirmDelete(categoryId) {
-        if (confirm('Are you sure you want to delete the category with ID ' + categoryId + '?')) {
-            window.location = 'delete_category?id=' + categoryId;
-        }
-    }
+    $(document).ready(function () {
+        $(".delete-link").each(function () {
+            $(this).on("click", function () {
+                const categoryId = $(this).attr("id");
+                if (confirm("Are you sure you want do delete the category with ID " + categoryId + "?")) {
+                    window.location = "delete_category?id=" + categoryId;
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

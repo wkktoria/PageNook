@@ -43,6 +43,12 @@ a:active {
     text-align: center;
 }
 
+.error {
+    color: red;
+    margin: 5px;
+    font-style: italic;
+}
+
 table {
     border: 1px solid black;
     border-collapse: collapse;
@@ -67,7 +73,7 @@ button {
 
 button:hover {
     background-color: white;
-    color: dodgerblue;
+    color: green;
 }
 
 button[type="submit"] {
@@ -75,7 +81,7 @@ button[type="submit"] {
 }
 
 input {
-    border: 1px solid dodgerblue;
+    border: 1px solid green;
     border-radius: 4px;
     height: 20px;
 }

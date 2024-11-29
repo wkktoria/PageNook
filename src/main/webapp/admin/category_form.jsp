@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <title>Create New Category | PageNook - Administration</title>
 </head>
 <body>
@@ -35,7 +40,7 @@
         </c:otherwise>
     </c:choose>
 
-    <form action="${formAction}" method="post" onsubmit="return isValidFormInput()">
+    <form action="${formAction}" method="post" id="category-form">
         <input type="hidden" name="categoryId" value="${category.id}"/>
         <table class="form">
             <tr>
@@ -47,7 +52,7 @@
             <tr>
                 <td colspan="2">
                     <button type="submit">Save</button>
-                    <button type="button" onclick="history.back()">Cancel</button>
+                    <button type="button" id="button-cancel">Cancel</button>
                 </td>
             </tr>
         </table>
@@ -57,17 +62,19 @@
 <jsp:directive.include file="footer.jsp"/>
 
 <script type="text/javascript">
-    function isValidFormInput() {
-        const fieldName = document.getElementById("name");
+    $(document).ready(function () {
+        $('#category-form').validate({
+            rules: {
+                name: "required"
+            }, messages: {
+                name: "Please enter a category name."
+            }
+        });
 
-        if (fieldName.value.length === 0) {
-            alert("Category name is required!");
-            fieldName.focus();
-            return false;
-        }
-
-        return true;
-    }
+        $("#button-cancel").click(function () {
+            history.back();
+        });
+    });
 </script>
 </body>
 </html>

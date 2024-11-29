@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <title>Manage Users | PageNook - Administration</title>
 </head>
 <body>
@@ -44,7 +49,7 @@
                 <td>${user.fullName}</td>
                 <td>
                     <a href="edit_user?id=${user.userId}">Edit</a> |
-                    <a href="javascript:confirmDelete(${user.userId})">Delete</a>
+                    <a class="delete-link" href="javascript:void(0)" id="${user.userId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -55,11 +60,16 @@
 <jsp:directive.include file="footer.jsp"/>
 
 <script type="text/javascript">
-    function confirmDelete(userId) {
-        if (confirm('Are you sure you want to delete the user with ID ' + userId + '?')) {
-            window.location = 'delete_user?id=' + userId;
-        }
-    }
+    $(document).ready(function () {
+        $(".delete-link").each(function () {
+            $(this).on("click", function () {
+                const userId = $(this).attr("id");
+                if (confirm("Are you sure you want do delete the user with ID " + userId + "?")) {
+                    window.location = "delete_user?id=" + userId;
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
