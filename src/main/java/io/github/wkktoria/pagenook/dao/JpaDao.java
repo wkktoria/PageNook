@@ -23,19 +23,6 @@ public class JpaDao<E> {
         session.close();
 
         return entity;
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        entityManager.getTransaction().begin();
-//
-//        entityManager.persist(entity);
-//        entityManager.flush();
-//        entityManager.refresh(entity);
-//
-//        entityManager.getTransaction().commit();
-//
-//        entityManager.close();
-//
-//        return entity;
     }
 
     public E update(E entity) {
@@ -48,17 +35,6 @@ public class JpaDao<E> {
         session.close();
 
         return entity;
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        entityManager.getTransaction().begin();
-//
-//        entity = entityManager.merge(entity);
-//
-//        entityManager.getTransaction().commit();
-//
-//        entityManager.close();
-//
-//        return entity;
     }
 
     public E find(Class<E> type, Object id) {
@@ -73,18 +49,6 @@ public class JpaDao<E> {
         session.close();
 
         return entity;
-
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        E entity = entityManager.find(type, id);
-//
-//        if (entity != null) {
-//            entityManager.refresh(entity);
-//        }
-//
-//        entityManager.close();
-//
-//        return entity;
     }
 
     public void delete(Class<E> type, Object id) {
@@ -96,19 +60,6 @@ public class JpaDao<E> {
 
         transaction.commit();
         session.close();
-
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        // This prevents infinity loop when deleting nonexistent entity.
-//        try (entityManager) {
-//            entityManager.getTransaction().begin();
-//            Object reference = entityManager.getReference(type, id);
-//            entityManager.remove(reference);
-//
-//            entityManager.getTransaction().commit();
-//        } catch (Exception e) {
-//            throw new PersistenceException();
-//        }
     }
 
     public List<E> findWithNamedQuery(final String queryName) {
@@ -121,15 +72,6 @@ public class JpaDao<E> {
         session.close();
 
         return result;
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        Query query = entityManager.createNamedQuery(queryName);
-//
-//        List<E> result = query.getResultList();
-//
-//        entityManager.close();
-//
-//        return result;
     }
 
     public List<E> findWithNamedQuery(final String queryName, final String paramName, Object paramValue) {
@@ -143,16 +85,6 @@ public class JpaDao<E> {
         session.close();
 
         return result;
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        Query query = entityManager.createNamedQuery(queryName);
-//        query.setParameter(paramName, paramValue);
-//
-//        List<E> result = query.getResultList();
-//
-//        entityManager.close();
-//
-//        return result;
     }
 
     public List<E> findWithNamedQuery(final String queryName, final Map<String, Object> parameters) {
@@ -183,14 +115,5 @@ public class JpaDao<E> {
         session.close();
 
         return result;
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        Query query = entityManager.createNamedQuery(queryName);
-//
-//        long result = (long) query.getSingleResult();
-//
-//        entityManager.close();
-//
-//        return result;
     }
 }
