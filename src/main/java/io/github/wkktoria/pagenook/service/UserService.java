@@ -116,4 +116,24 @@ public class UserService {
             listUser("User has been deleted successfully.");
         }
     }
+
+    public void login() throws ServletException, IOException {
+        final String email = request.getParameter("email");
+        final String password = request.getParameter("password");
+
+        boolean loginResult = userDAO.checkLogin(email, password);
+
+        if (loginResult) {
+            request.getSession().setAttribute("useremail", email);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");
+            dispatcher.forward(request, response);
+        } else {
+            final String message = "Login failed.";
+            request.setAttribute("message", message);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
 }

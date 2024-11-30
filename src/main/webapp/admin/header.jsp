@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="center">
     <div>
         <img style="vertical-align:middle" src="../images/pagenook-admin-logo.svg" width="200" height="100"
@@ -5,7 +6,7 @@
         <span style="vertical-align:middle; font-weight: bold; font-size: 32px">PageNook</span>
     </div>
     <div>
-        <span>Welcome Admin | </span><a href="#">Logout</a>
+        <span>Welcome, <c:out value="${sessionScope.useremail}"/> | </span><a href="#">Logout</a>
     </div>
     <div id="header-menu">
         <div>

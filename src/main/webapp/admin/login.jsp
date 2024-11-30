@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,6 +19,10 @@
 <div class="center">
     <h1 class="page-heading">PageNook Administration</h1>
     <h2>Admin Login</h2>
+
+    <c:if test="${message != null}">
+        <h4 class="message">${message}</h4>
+    </c:if>
 
     <form action="login" method="post" id="login-form">
         <table class="form">
