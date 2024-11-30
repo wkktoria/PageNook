@@ -2,7 +2,9 @@ package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserDAO extends JpaDao<User> implements GenericDAO<User> {
     @Override
@@ -43,5 +45,15 @@ public class UserDAO extends JpaDao<User> implements GenericDAO<User> {
         }
 
         return null;
+    }
+
+    public boolean checkLogin(final String email, final String password) {
+        Map<String, Object> parameters = new HashMap<>() {{
+            put("email", email);
+            put("password", password);
+        }};
+        List<User> listUser = super.findWithNamedQuery("User.checkLogin", parameters);
+
+        return listUser.size() == 1;
     }
 }

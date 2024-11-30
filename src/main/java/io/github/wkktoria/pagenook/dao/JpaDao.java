@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class JpaDao<E> {
     public E create(E entity) {
@@ -151,6 +153,24 @@ public class JpaDao<E> {
 //        entityManager.close();
 //
 //        return result;
+    }
+
+    public List<E> findWithNamedQuery(final String queryName, final Map<String, Object> parameters) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Query query = session.createNamedQuery(queryName, Entity.class);
+
+        Set<Map.Entry<String, Object>> setParameters = parameters.entrySet();
+
+        for (Map.Entry<String, Object> entry : setParameters) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        List<E> result = query.getResultList();
+
+        session.close();
+
+        return result;
     }
 
     public long countWithNamedQuery(final String queryName) {

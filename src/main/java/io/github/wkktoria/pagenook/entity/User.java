@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "User.findAll", query = "select u from User u order by u.fullName"),
         @NamedQuery(name = "User.countAll", query = "select count(*) from User"),
-        @NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
+        @NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email"),
+        @NamedQuery(name = "User.checkLogin", query = "select u from User u where u.email = :email and u.password = :password")
 })
 public class User {
     private Integer userId;
