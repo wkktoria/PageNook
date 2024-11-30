@@ -14,8 +14,6 @@
     <title>Login | PageNook - Administration</title>
 </head>
 <body>
-<jsp:directive.include file="header.jsp"/>
-
 <div class="center">
     <h1 class="page-heading">PageNook Administration</h1>
     <h2>Admin Login</h2>

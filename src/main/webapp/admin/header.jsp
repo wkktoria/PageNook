@@ -6,7 +6,7 @@
         <span style="vertical-align:middle; font-weight: bold; font-size: 32px">PageNook</span>
     </div>
     <div>
-        <span>Welcome, <c:out value="${sessionScope.useremail}"/> | </span><a href="#">Logout</a>
+        <span>Welcome, <c:out value="${sessionScope.useremail}"/> | </span><a href="logout">Logout</a>
     </div>
     <div id="header-menu">
         <div>
