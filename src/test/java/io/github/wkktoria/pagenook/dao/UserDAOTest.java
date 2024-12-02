@@ -41,7 +41,7 @@ class UserDAOTest extends BaseDAOTest {
     void testCreateFieldsNotSet() {
         User user = new User();
 
-        assertThrows(PersistenceException.class, () -> {
+        assertThrows(Exception.class, () -> {
             userDAO.create(user);
         });
     }

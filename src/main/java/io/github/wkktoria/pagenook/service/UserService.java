@@ -2,6 +2,7 @@ package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.UserDAO;
 import io.github.wkktoria.pagenook.entity.User;
+import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,6 +69,9 @@ public class UserService {
 
             final String message = "Could not find user with ID " + userId + ".";
             request.setAttribute("message", message);
+        } else {
+            user.setPassword(null);
+            request.setAttribute("user", user);
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destinationPage);
@@ -90,7 +94,15 @@ public class UserService {
             RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
             dispatcher.forward(request, response);
         } else {
-            User user = new User(userId, email, fullName, password);
+            User user = new User();
+            user.setUserId(userId);
+            user.setFullName(fullName);
+            user.setEmail(email);
+
+            if (password != null && !password.isEmpty()) {
+                user.setPassword(HashGeneratorUtil.generateMD5(password));
+            }
+
             userDAO.update(user);
             listUser("User has been updated successfully.");
         }

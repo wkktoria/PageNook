@@ -1,6 +1,7 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
+import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 public class UserDAO extends JpaDao<User> implements GenericDAO<User> {
     @Override
     public User create(User user) {
+        user.setPassword(HashGeneratorUtil.generateMD5(user.getPassword()));
         return super.create(user);
     }
 
@@ -50,7 +52,7 @@ public class UserDAO extends JpaDao<User> implements GenericDAO<User> {
     public boolean checkLogin(final String email, final String password) {
         Map<String, Object> parameters = new HashMap<>() {{
             put("email", email);
-            put("password", password);
+            put("password", HashGeneratorUtil.generateMD5(password));
         }};
         List<User> listUser = super.findWithNamedQuery("User.checkLogin", parameters);
 
