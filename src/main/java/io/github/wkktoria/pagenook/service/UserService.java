@@ -46,10 +46,7 @@ public class UserService {
 
         if (userDAO.findByEmail(email) != null) {
             final String message = "Could not create user. A user with email " + email + " already exists.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            forwardToPageWithMessage("message.jsp", message);
         } else {
             User newUser = new User(email, fullName, password);
             userDAO.create(newUser);
@@ -89,10 +86,7 @@ public class UserService {
 
         if (userByEmail != null && !Objects.equals(userByEmail.getUserId(), userById.getUserId())) {
             final String message = "Could not update user. User with email " + email + " already exists.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            forwardToPageWithMessage("message.jsp", message);
         } else {
             User user = new User();
             user.setUserId(userId);
@@ -106,10 +100,7 @@ public class UserService {
                 listUser("User has been updated successfully.");
             } else {
                 final String message = "Could not update user, because password is empty.";
-                request.setAttribute("message", message);
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-                dispatcher.forward(request, response);
+                forwardToPageWithMessage("message.jsp", message);
             }
         }
     }
@@ -119,16 +110,10 @@ public class UserService {
 
         if (userDAO.get(userId) == null) {
             final String message = "Could not find user with ID " + userId + ".";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            forwardToPageWithMessage("message.jsp", message);
         } else if (userId == 1) {
             final String message = "The default admin user account cannot be deleted.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            forwardToPageWithMessage("message.jsp", message);
         } else {
             userDAO.delete(userId);
             listUser("User has been deleted successfully.");
@@ -148,10 +133,14 @@ public class UserService {
             dispatcher.forward(request, response);
         } else {
             final String message = "Login failed.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-            dispatcher.forward(request, response);
+            forwardToPageWithMessage("login.jsp", message);
         }
+    }
+
+    private void forwardToPageWithMessage(final String page, final String message) throws ServletException, IOException {
+        request.setAttribute("message", message);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+        dispatcher.forward(request, response);
     }
 }
