@@ -12,8 +12,12 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <mapping class="io.github.wkktoria.pagenook.entity.User"/>
-        <mapping class="io.github.wkktoria.pagenook.entity.Category"/>
         <mapping class="io.github.wkktoria.pagenook.entity.Book"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.BookOrder"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.Category"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.Customer"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.OrderDetail"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.Review"/>
+        <mapping class="io.github.wkktoria.pagenook.entity.User"/>
     </session-factory>
 </hibernate-configuration>

@@ -2,66 +2,84 @@ package io.github.wkktoria.pagenook.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "order_detail", schema = "pagenookdb", indexes = {
+@Table(name = "order_detail", indexes = {
         @Index(name = "order_fk_idx", columnList = "order_id"),
         @Index(name = "book_fk_2_idx", columnList = "book_id")
 })
-public class OrderDetail {
-    @EmbeddedId
+public class OrderDetail implements Serializable {
     private OrderDetailId id = new OrderDetailId();
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
-    private BookOrder order;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+    private BookOrder bookOrder;
+    private int quantity;
+    private float subtotal;
 
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
-
-    @Column(name = "subtotal", nullable = false)
-    private Float subtotal;
-
-    public BookOrder getOrder() {
-        return order;
+    public OrderDetail() {
     }
 
-    public void setOrder(BookOrder order) {
-        this.order = order;
+    public OrderDetail(OrderDetailId id) {
+        this.id = id;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
+    public OrderDetail(OrderDetailId id, Book book, BookOrder bookOrder, int quantity, float subtotal) {
+        this.id = id;
         this.book = book;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
+        this.bookOrder = bookOrder;
         this.quantity = quantity;
-    }
-
-    public Float getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(Float subtotal) {
         this.subtotal = subtotal;
     }
 
+    @EmbeddedId
+
+    @AttributeOverrides({@AttributeOverride(name = "orderId", column = @Column(name = "order_id", nullable = false)),
+            @AttributeOverride(name = "bookId", column = @Column(name = "book_id", nullable = false))})
     public OrderDetailId getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(OrderDetailId id) {
         this.id = id;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id", insertable = false, updatable = false, nullable = false)
+    public Book getBook() {
+        return this.book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+        this.id.setBook(book);
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", insertable = false, updatable = false, nullable = false)
+    public BookOrder getBookOrder() {
+        return this.bookOrder;
+    }
+
+    public void setBookOrder(BookOrder bookOrder) {
+        this.bookOrder = bookOrder;
+        this.id.setBookOrder(bookOrder);
+    }
+
+    @Column(name = "quantity", nullable = false)
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Column(name = "subtotal", nullable = false, precision = 12, scale = 0)
+    public float getSubtotal() {
+        return this.subtotal;
+    }
+
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
     }
 }

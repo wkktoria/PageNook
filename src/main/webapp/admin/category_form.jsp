@@ -41,7 +41,7 @@
     </c:choose>
 
     <form action="${formAction}" method="post" id="category-form">
-        <input type="hidden" name="categoryId" value="${category.id}"/>
+        <input type="hidden" name="categoryId" value="${category.categoryId}"/>
         <table class="form">
             <tr>
                 <td>Name:</td>

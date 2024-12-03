@@ -80,7 +80,7 @@ public class CategoryService {
         Category categoryById = categoryDAO.get(categoryId);
         Category categoryByName = categoryDAO.findByName(name);
 
-        if (categoryByName != null && !Objects.equals(categoryByName.getId(), categoryById.getId())) {
+        if (categoryByName != null && !Objects.equals(categoryByName.getCategoryId(), categoryById.getCategoryId())) {
             final String message = "Could not update category. Category with name " + name + " already exists.";
             request.setAttribute("message", message);
 

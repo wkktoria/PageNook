@@ -31,13 +31,13 @@ class CategoryDAOTest extends BaseDAOTest {
 
         Category createdCategory = categoryDAO.create(category);
 
-        assertTrue(createdCategory.getId() > 0);
+        assertTrue(createdCategory.getCategoryId() > 0);
     }
 
     @Test
     void testUpdate() {
         Category category = new Category();
-        category.setId(1);
+        category.setCategoryId(1);
         category.setName("Updated Test Category");
 
         Category updatedCategory = categoryDAO.update(category);

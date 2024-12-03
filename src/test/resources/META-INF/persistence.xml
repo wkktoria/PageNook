@@ -4,9 +4,13 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="PageNookTest">
-        <class>io.github.wkktoria.pagenook.entity.User</class>
-        <class>io.github.wkktoria.pagenook.entity.Category</class>
         <class>io.github.wkktoria.pagenook.entity.Book</class>
+        <class>io.github.wkktoria.pagenook.entity.BookOrder</class>
+        <class>io.github.wkktoria.pagenook.entity.Category</class>
+        <class>io.github.wkktoria.pagenook.entity.Customer</class>
+        <class>io.github.wkktoria.pagenook.entity.OrderDetail</class>
+        <class>io.github.wkktoria.pagenook.entity.Review</class>
+        <class>io.github.wkktoria.pagenook.entity.User</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url"

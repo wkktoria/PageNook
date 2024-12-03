@@ -43,11 +43,11 @@
         <c:forEach var="category" items="${listCategory}" varStatus="status">
             <tr>
                 <td>${status.index + 1}</td>
-                <td>${category.id}</td>
+                <td>${category.categoryId}</td>
                 <td>${category.name}</td>
                 <td>
-                    <a href="edit_category?id=${category.id}">Edit</a> |
-                    <a href="javascript:void(0)" class="delete-link" id="${category.id}">Delete</a>
+                    <a href="edit_category?id=${category.categoryId}">Edit</a> |
+                    <a href="javascript:void(0)" class="delete-link" id="${category.categoryId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

@@ -18,7 +18,7 @@
 
     <div>
         <c:forEach var="category" items="${listCategory}" varStatus="status">
-            <a href="view_category?id=${category.id}">
+            <a href="view_category?id=${category.categoryId}">
                 <c:out value="${category.name}"/>
             </a><c:if test="${not status.last}"> | </c:if>
         </c:forEach>

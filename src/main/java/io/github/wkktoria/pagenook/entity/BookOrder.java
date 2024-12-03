@@ -2,113 +2,149 @@ package io.github.wkktoria.pagenook.entity;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "book_order", schema = "pagenookdb", indexes = {
+@Table(name = "book_order", indexes = {
         @Index(name = "customer_fk_2_idx", columnList = "customer_id")
 })
-public class BookOrder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id", nullable = false)
-    private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private io.github.wkktoria.pagenook.entity.Customer customer;
-
-    @Column(name = "order_date", nullable = false)
-    private Instant orderDate;
-
-    @Column(name = "shipping_address", nullable = false, length = 256)
+public class BookOrder implements Serializable {
+    private Integer orderId;
+    private Customer customer;
+    private Date orderDate;
     private String shippingAddress;
-
-    @Column(name = "recipient_name", nullable = false, length = 30)
     private String recipientName;
-
-    @Column(name = "recipient_phone", nullable = false, length = 15)
     private String recipientPhone;
-
-    @Column(name = "payment_method", nullable = false, length = 20)
     private String paymentMethod;
-
-    @Column(name = "total", nullable = false)
-    private Float total;
-
-    @Column(name = "status", nullable = false, length = 20)
+    private float total;
     private String status;
+    private Set<OrderDetail> orderDetails = new HashSet<>(0);
 
-    public Integer getId() {
-        return id;
+    public BookOrder() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipientName,
+                     String recipientPhone, String paymentMethod, float total, String status) {
+        this.customer = customer;
+        this.orderDate = orderDate;
+        this.shippingAddress = shippingAddress;
+        this.recipientName = recipientName;
+        this.recipientPhone = recipientPhone;
+        this.paymentMethod = paymentMethod;
+        this.total = total;
+        this.status = status;
     }
 
-    public io.github.wkktoria.pagenook.entity.Customer getCustomer() {
-        return customer;
+    public BookOrder(Customer customer, Date orderDate, String shippingAddress, String recipientName,
+                     String recipientPhone, String paymentMethod, float total, String status, Set<OrderDetail> orderDetails) {
+        this.customer = customer;
+        this.orderDate = orderDate;
+        this.shippingAddress = shippingAddress;
+        this.recipientName = recipientName;
+        this.recipientPhone = recipientPhone;
+        this.paymentMethod = paymentMethod;
+        this.total = total;
+        this.status = status;
+        this.orderDetails = orderDetails;
     }
 
-    public void setCustomer(io.github.wkktoria.pagenook.entity.Customer customer) {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+
+    @Column(name = "order_id", unique = true, nullable = false)
+    public Integer getOrderId() {
+        return this.orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", nullable = false)
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public Instant getOrderDate() {
-        return orderDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "order_date", nullable = false, length = 19)
+    public Date getOrderDate() {
+        return this.orderDate;
     }
 
-    public void setOrderDate(Instant orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
+    @Column(name = "shipping_address", nullable = false, length = 256)
     public String getShippingAddress() {
-        return shippingAddress;
+        return this.shippingAddress;
     }
 
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
+    @Column(name = "recipient_name", nullable = false, length = 30)
     public String getRecipientName() {
-        return recipientName;
+        return this.recipientName;
     }
 
     public void setRecipientName(String recipientName) {
         this.recipientName = recipientName;
     }
 
+    @Column(name = "recipient_phone", nullable = false, length = 15)
     public String getRecipientPhone() {
-        return recipientPhone;
+        return this.recipientPhone;
     }
 
     public void setRecipientPhone(String recipientPhone) {
         this.recipientPhone = recipientPhone;
     }
 
+    @Column(name = "payment_method", nullable = false, length = 20)
     public String getPaymentMethod() {
-        return paymentMethod;
+        return this.paymentMethod;
     }
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public Float getTotal() {
-        return total;
+    @Column(name = "total", nullable = false, precision = 12, scale = 0)
+    public float getTotal() {
+        return this.total;
     }
 
-    public void setTotal(Float total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 
+    @Column(name = "status", nullable = false, length = 20)
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<OrderDetail> getOrderDetails() {
+        return this.orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

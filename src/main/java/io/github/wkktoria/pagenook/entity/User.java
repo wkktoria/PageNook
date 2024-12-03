@@ -2,6 +2,10 @@ package io.github.wkktoria.pagenook.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "users")
 @NamedQueries({
@@ -10,23 +14,22 @@ import jakarta.persistence.*;
         @NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email"),
         @NamedQuery(name = "User.checkLogin", query = "select u from User u where u.email = :email and u.password = :password")
 })
-public class User {
+public class User implements Serializable {
     private Integer userId;
     private String email;
     private String fullName;
     private String password;
 
+    public User(Integer userId, String email, String fullName, String password) {
+        this(email, fullName, password);
+        this.userId = userId;
+    }
+
     public User() {
     }
 
-    public User(final String email, final String fullName, final String password) {
-        this.email = email;
-        this.fullName = fullName;
-        this.password = password;
-    }
-
-    public User(final Integer userId, final String email, final String fullName, final String password) {
-        this.userId = userId;
+    public User(String email, String fullName, String password) {
+        super();
         this.email = email;
         this.fullName = fullName;
         this.password = password;
@@ -34,39 +37,37 @@ public class User {
 
     @Column(name = "user_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(final Integer userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(final String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name")
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(final String fullName) {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(final String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }
