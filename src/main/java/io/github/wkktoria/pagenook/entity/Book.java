@@ -11,6 +11,9 @@ import java.util.*;
 }, uniqueConstraints = {
         @UniqueConstraint(name = "title_UNIQUE", columnNames = {"title"})
 })
+@NamedQueries({
+        @NamedQuery(name = "Book.findAll", query = "select b from Book b")
+})
 public class Book implements Serializable {
     private Integer bookId;
     private Category category;
@@ -19,6 +22,7 @@ public class Book implements Serializable {
     private String description;
     private String isbn;
     private byte[] image;
+    private String base64Image;
     private float price;
     private Date publishDate;
     private Date lastUpdateTime;
@@ -124,7 +128,8 @@ public class Book implements Serializable {
         this.isbn = isbn;
     }
 
-    @Column(name = "image", nullable = false)
+    @Lob
+    @Column(name = "image", nullable = false, columnDefinition = "longblob")
     public byte[] getImage() {
         return this.image;
     }
@@ -188,5 +193,16 @@ public class Book implements Serializable {
 
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    @Transient
+    public String getBase64Image() {
+        this.base64Image = Base64.getEncoder().encodeToString(this.image);
+        return this.base64Image;
+    }
+
+    @Transient
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
     }
 }

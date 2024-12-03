@@ -1,0 +1,1 @@
+alter table `book` modify `image` longblob not null;

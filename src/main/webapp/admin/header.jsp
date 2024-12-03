@@ -20,7 +20,7 @@
             </a>
         </div>
         <div>
-            <a href="#">
+            <a href="list_book">
                 <img src="../images/book.svg" alt="User" height="40" width="40"/><br/>Books
             </a>
         </div>
