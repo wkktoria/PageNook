@@ -36,8 +36,7 @@ class CategoryDAOTest extends BaseDAOTest {
 
     @Test
     void testUpdate() {
-        Category category = new Category();
-        category.setCategoryId(1);
+        Category category = categoryDAO.listAll().getFirst();
         category.setName("Updated Test Category");
 
         Category updatedCategory = categoryDAO.update(category);
@@ -47,7 +46,7 @@ class CategoryDAOTest extends BaseDAOTest {
 
     @Test
     void testGet() {
-        Integer categoryId = 1;
+        Integer categoryId = categoryDAO.listAll().getFirst().getCategoryId();
 
         Category foundCategory = categoryDAO.get(categoryId);
 
@@ -56,7 +55,7 @@ class CategoryDAOTest extends BaseDAOTest {
 
     @Test
     void testDelete() {
-        Integer categoryId = 1;
+        Integer categoryId = categoryDAO.listAll().getFirst().getCategoryId();
 
         categoryDAO.delete(categoryId);
 

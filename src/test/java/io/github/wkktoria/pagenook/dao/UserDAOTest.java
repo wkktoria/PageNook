@@ -49,11 +49,9 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testUpdate() {
-        User user = new User();
-        user.setUserId(1);
-        user.setEmail("testuser@gmail.com");
+        User user = userDAO.listAll().getFirst();
         user.setFullName("Updated Test User");
-        user.setPassword("Str0ngP@sw00rd");
+        user.setEmail("updateduser@gmail.com");
 
         User updatedUser = userDAO.update(user);
 
@@ -62,7 +60,7 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testGetFound() {
-        Integer userId = 1;
+        Integer userId = userDAO.listAll().getFirst().getUserId();
 
         User foundUser = userDAO.get(userId);
 
@@ -80,7 +78,7 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testDelete() {
-        Integer userId = 1;
+        Integer userId = userDAO.listAll().getFirst().getUserId();
 
         userDAO.delete(userId);
 
