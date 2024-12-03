@@ -101,10 +101,16 @@ public class UserService {
 
             if (password != null && !password.isEmpty()) {
                 user.setPassword(HashGeneratorUtil.generateMD5(password));
-            }
 
-            userDAO.update(user);
-            listUser("User has been updated successfully.");
+                userDAO.update(user);
+                listUser("User has been updated successfully.");
+            } else {
+                final String message = "Could not update user, because password is empty.";
+                request.setAttribute("message", message);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
+                dispatcher.forward(request, response);
+            }
         }
     }
 
