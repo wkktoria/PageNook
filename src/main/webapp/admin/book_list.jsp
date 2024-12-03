@@ -19,7 +19,7 @@
 
 <div class="center">
     <h1 class="page-heading">Books Management</h1>
-    <a href="book_form.jsp">Create New Book</a>
+    <a href="new_book">Create New Book</a>
     <hr style="width: 60%"/>
 </div>
 

@@ -12,7 +12,8 @@ import java.util.*;
         @UniqueConstraint(name = "title_UNIQUE", columnNames = {"title"})
 })
 @NamedQueries({
-        @NamedQuery(name = "Book.findAll", query = "select b from Book b")
+        @NamedQuery(name = "Book.findAll", query = "select b from Book b"),
+        @NamedQuery(name = "Book.findByTitle", query = "select b from Book b where b.title = :title")
 })
 public class Book implements Serializable {
     private Integer bookId;

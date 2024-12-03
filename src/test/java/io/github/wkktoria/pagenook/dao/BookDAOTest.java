@@ -13,8 +13,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookDAOTest extends BaseDAOTest {
     private static BookDAO bookDAO;
@@ -60,5 +61,28 @@ class BookDAOTest extends BaseDAOTest {
         Book createdBook = bookDAO.create(newBook);
 
         assertTrue(createdBook.getBookId() > 0);
+    }
+
+    @Test
+    void testListAll() {
+        List<Book> listBooks = bookDAO.listAll();
+
+        assertFalse(listBooks.isEmpty());
+    }
+
+    @Test
+    void testFindByTitleNotExists() {
+        final String title = "Non-Existent Title";
+        Book book = bookDAO.findByTitle(title);
+
+        assertNull(book);
+    }
+
+    @Test
+    void testFindByTitleExists() {
+        final String title = "Test Title";
+        Book book = bookDAO.findByTitle(title);
+
+        assertNotNull(book);
     }
 }

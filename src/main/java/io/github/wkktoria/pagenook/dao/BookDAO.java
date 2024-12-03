@@ -46,4 +46,14 @@ public class BookDAO extends JpaDao<Book> implements GenericDAO<Book> {
     public void delete(Class<Book> type, Object id) {
         super.delete(type, id);
     }
+
+    public Book findByTitle(final String title) {
+        List<Book> result = super.findWithNamedQuery("Book.findByTitle", "title", title);
+
+        if (!result.isEmpty()) {
+            return result.getFirst();
+        }
+
+        return null;
+    }
 }
