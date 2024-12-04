@@ -54,7 +54,12 @@
                     </label>
                     <select name="category" id="category">
                         <c:forEach var="category" items="${listCategory}">
-                            <option value="${category.categoryId}">${category.name}</option>
+                            <c:if test="${category.categoryId eq book.category.categoryId}">
+                                <option value="${category.categoryId}" selected>${category.name}</option>
+                            </c:if>
+                            <c:if test="${category.categoryId ne book.category.categoryId}">
+                                <option value="${category.categoryId}">${category.name}</option>
+                            </c:if>
                         </c:forEach>
                     </select>
                 </td>
@@ -84,7 +89,8 @@
                 <td>
                     <label for="bookImage"></label><input id="bookImage" type="file" name="bookImage" size="20"/>
                     <br/>
-                    <img id="thumbnail" alt="Image Preview" src="" style="width: 20%; margin-top: 10px;"/>
+                    <img id="thumbnail" alt="Image Preview" src="data:image/jpg;base64,${book.base64Image}"
+                         style="width: 20%; margin-top: 10px;"/>
                 </td>
             </tr>
             <tr>
@@ -96,7 +102,7 @@
                 <td>Description:</td>
                 <td>
                     <label for="description"></label>
-                    <textarea rows="5" cols="50" name="description" id="description"></textarea>
+                    <textarea rows="5" cols="50" name="description" id="description">${book.description}</textarea>
                 </td>
             </tr>
             <tr>
