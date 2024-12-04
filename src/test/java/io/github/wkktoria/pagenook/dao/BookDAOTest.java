@@ -2,6 +2,7 @@ package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Book;
 import io.github.wkktoria.pagenook.entity.Category;
+import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -96,5 +97,40 @@ class BookDAOTest extends BaseDAOTest {
         Book updatedBook = bookDAO.update(book);
 
         assertEquals(category.getName(), updatedBook.getCategory().getName());
+    }
+
+    @Test
+    void testDeleteSuccess() {
+        Integer bookId = bookDAO.listAll().getLast().getBookId();
+
+        bookDAO.delete(bookId);
+
+        assertNull(bookDAO.get(bookId));
+    }
+
+    @Test
+    void testDeleteFail() {
+        Integer bookId = -1;
+
+        assertThrows(PersistenceException.class,
+                () -> bookDAO.delete(bookId));
+    }
+
+    @Test
+    void testGetFail() {
+        Integer bookId = -1;
+
+        Book book = bookDAO.get(bookId);
+
+        assertNull(book);
+    }
+
+    @Test
+    void testGetSuccess() {
+        Integer bookId = bookDAO.listAll().getFirst().getBookId();
+
+        Book book = bookDAO.get(bookId);
+
+        assertNotNull(book);
     }
 }

@@ -13,13 +13,13 @@ public class BookDAO extends JpaDao<Book> implements GenericDAO<Book> {
     }
 
     @Override
-    public Book get(Object id) {
-        return null;
+    public Book get(Object bookId) {
+        return super.find(Book.class, bookId);
     }
 
     @Override
-    public void delete(Object id) {
-
+    public void delete(Object bookId) {
+        super.delete(Book.class, bookId);
     }
 
     @Override
@@ -41,11 +41,6 @@ public class BookDAO extends JpaDao<Book> implements GenericDAO<Book> {
     @Override
     public Book find(Class<Book> type, Object id) {
         return super.find(type, id);
-    }
-
-    @Override
-    public void delete(Class<Book> type, Object id) {
-        super.delete(type, id);
     }
 
     public Book findByTitle(final String title) {
