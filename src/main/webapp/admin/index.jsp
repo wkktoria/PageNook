@@ -11,12 +11,12 @@
 <jsp:directive.include file="header.jsp"/>
 
 <div class="center">
-    <h1 class="page-heading">Administrative Dashboard</h1>
+    <h1 class="pageHeading">Administrative Dashboard</h1>
     <hr style="width: 60%"/>
 </div>
 
 <div class="center">
-    <h2 class="page-heading">Quick Actions:</h2>
+    <h2 class="pageHeading">Quick Actions:</h2>
     <a href="#">New Book</a> |
     <a href="user_form.jsp">New User</a> |
     <a href="category_form.jsp">New Category</a> |
@@ -25,17 +25,17 @@
 </div>
 
 <div class="center">
-    <h2 class="page-heading">Recent Sales:</h2>
+    <h2 class="pageHeading">Recent Sales:</h2>
     <hr style="width: 60%"/>
 </div>
 
 <div class="center">
-    <h2 class="page-heading">Recent Reviews:</h2>
+    <h2 class="pageHeading">Recent Reviews:</h2>
     <hr style="width: 60%"/>
 </div>
 
 <div class="center">
-    <h2 class="page-heading">Statistics:</h2>
+    <h2 class="pageHeading">Statistics:</h2>
     <hr style="width: 60%"/>
 </div>
 

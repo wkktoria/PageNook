@@ -15,14 +15,14 @@
 </head>
 <body>
 <div class="center">
-    <h1 class="page-heading">PageNook Administration</h1>
+    <h1 class="pageHeading">PageNook Administration</h1>
     <h2>Admin Login</h2>
 
     <c:if test="${message != null}">
         <h4 class="message">${message}</h4>
     </c:if>
 
-    <form action="login" method="post" id="login-form">
+    <form action="login" method="post" id="loginForm">
         <table class="form">
             <tr>
                 <td>Email:</td>
@@ -49,7 +49,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#login-form").validate({
+        $("#loginForm").validate({
             rules: {
                 email: {
                     required: true,

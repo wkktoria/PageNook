@@ -26,7 +26,7 @@
             <c:set value="Create New User" var="headingText"/>
         </c:otherwise>
     </c:choose>
-    <h1 class="page-heading">${headingText}</h1>
+    <h1 class="pageHeading">${headingText}</h1>
     <hr style="width: 60%"/>
 </div>
 
@@ -40,7 +40,7 @@
         </c:otherwise>
     </c:choose>
 
-    <form action="${formAction}" method="post" id="user-form">
+    <form action="${formAction}" method="post" id="userForm">
         <input type="hidden" name="userId" value="${user.userId}"/>
         <table class="form">
             <tr>
@@ -61,7 +61,7 @@
             <tr>
                 <td colspan="2">
                     <button type="submit">Save</button>
-                    <button type="button" id="button-cancel">Cancel</button>
+                    <button type="button" id="buttonCancel">Cancel</button>
                 </td>
             </tr>
         </table>
@@ -72,7 +72,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#user-form").validate({
+        $("#userForm").validate({
             rules: {
                 email: {
                     required: true,
@@ -95,7 +95,7 @@
             }
         });
 
-        $("#button-cancel").click(function () {
+        $("#buttonCancel").click(function () {
             history.back();
         });
     });

@@ -8,7 +8,7 @@
     <div>
         <span>Welcome, <c:out value="${sessionScope.useremail}"/> | </span><a href="logout">Logout</a>
     </div>
-    <div id="header-menu">
+    <div id="headerMenu">
         <div>
             <a href="list_user">
                 <img src="../images/user.svg" alt="User" height="40" width="40"/><br/>Users

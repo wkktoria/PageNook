@@ -16,21 +16,21 @@ a:active {
     color: red;
 }
 
-#header-menu {
+#headerMenu {
     display: table;
     margin: 0 auto;
 }
 
-#header-menu div {
+#headerMenu div {
     display: table-cell;
     padding-right: 20px;
 }
 
-#header-menu a:link {
+#headerMenu a:link {
     font-size: larger;
 }
 
-.page-heading {
+.pageHeading {
     color: darkblue;
 }
 

@@ -18,7 +18,7 @@
 <jsp:directive.include file="header.jsp"/>
 
 <div class="center">
-    <h1 class="page-heading">Categories Management</h1>
+    <h1 class="pageHeading">Categories Management</h1>
     <a href="category_form.jsp">Create New Category</a>
     <hr style="width: 60%"/>
 </div>
@@ -47,7 +47,7 @@
                 <td>${category.name}</td>
                 <td>
                     <a href="edit_category?id=${category.categoryId}">Edit</a> |
-                    <a href="javascript:void(0)" class="delete-link" id="${category.categoryId}">Delete</a>
+                    <a href="javascript:void(0)" class="deleteLink" id="${category.categoryId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -59,7 +59,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".delete-link").each(function () {
+        $(".deleteLink").each(function () {
             $(this).on("click", function () {
                 const categoryId = $(this).attr("id");
                 if (confirm("Are you sure you want do delete the category with ID " + categoryId + "?")) {

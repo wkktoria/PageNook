@@ -18,7 +18,7 @@
 <jsp:directive.include file="header.jsp"/>
 
 <div class="center">
-    <h1 class="page-heading">Books Management</h1>
+    <h1 class="pageHeading">Books Management</h1>
     <a href="new_book">Create New Book</a>
     <hr style="width: 60%"/>
 </div>
@@ -59,7 +59,7 @@
                 <td>${book.lastUpdateTime}</td>
                 <td>
                     <a href="edit_book?id=${book.bookId}">Edit</a> |
-                    <a class="delete-link" href="javascript:void(0)" id="${book.bookId}">Delete</a>
+                    <a class="deleteLink" href="javascript:void(0)" id="${book.bookId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -71,7 +71,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".delete-link").each(function () {
+        $(".deleteLink").each(function () {
             $(this).on("click", function () {
                 const bookId = $(this).attr("id");
                 if (confirm("Are you sure you want do delete the book with ID " + bookId + "?")) {
