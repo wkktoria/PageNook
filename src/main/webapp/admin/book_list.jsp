@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,8 +56,8 @@
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.category.name}</td>
-                <td>${book.price}</td>
-                <td>${book.lastUpdateTime}</td>
+                <td>$${book.price}</td>
+                <td><fmt:formatDate pattern="MM/dd/yyyy" value='${book.lastUpdateTime}'/></td>
                 <td>
                     <a href="edit_book?id=${book.bookId}">Edit</a> |
                     <a class="deleteLink" href="javascript:void(0)" id="${book.bookId}">Delete</a>

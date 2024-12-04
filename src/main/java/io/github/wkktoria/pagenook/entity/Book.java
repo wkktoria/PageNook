@@ -207,4 +207,16 @@ public class Book implements Serializable {
     public void setBase64Image(String base64Image) {
         this.base64Image = base64Image;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(bookId, book.bookId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(bookId);
+    }
 }

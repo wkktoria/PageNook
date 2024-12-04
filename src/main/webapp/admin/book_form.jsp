@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,7 +83,9 @@
             <tr>
                 <td>Publish Date:</td>
                 <td><label for="publishDate"></label><input id="publishDate" type="text" name="publishDate"
-                                                            size="20" value="${book.publishDate}"/></td>
+                                                            size="20"
+                                                            value="<fmt:formatDate pattern="MM/dd/yyyy" value='${book.publishDate}'/>"/>
+                </td>
             </tr>
             <tr>
                 <td>Book Image:</td>
@@ -132,7 +135,9 @@
                 author: "required",
                 isbn: "required",
                 publishDate: "required",
+                <c:if test="${book == null}">
                 bookImage: "required",
+                </c:if>
                 price: "required",
                 description: "required"
             },
