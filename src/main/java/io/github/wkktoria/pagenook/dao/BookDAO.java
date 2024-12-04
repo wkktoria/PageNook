@@ -29,7 +29,7 @@ public class BookDAO extends JpaDao<Book> implements GenericDAO<Book> {
 
     @Override
     public long count() {
-        return 0;
+        return super.countWithNamedQuery("Book.countAll");
     }
 
     @Override

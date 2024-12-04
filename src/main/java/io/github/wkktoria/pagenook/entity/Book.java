@@ -13,7 +13,8 @@ import java.util.*;
 })
 @NamedQueries({
         @NamedQuery(name = "Book.findAll", query = "select b from Book b"),
-        @NamedQuery(name = "Book.findByTitle", query = "select b from Book b where b.title = :title")
+        @NamedQuery(name = "Book.findByTitle", query = "select b from Book b where b.title = :title"),
+        @NamedQuery(name = "Book.countAll", query = "select count(*) from Book b")
 })
 public class Book implements Serializable {
     private Integer bookId;
