@@ -7,8 +7,9 @@ import java.util.List;
 
 public class BookDAO extends JpaDao<Book> implements GenericDAO<Book> {
     @Override
-    public Book update(Book entity) {
-        return super.update(entity);
+    public Book update(Book book) {
+        book.setLastUpdateTime(new Date());
+        return super.update(book);
     }
 
     @Override

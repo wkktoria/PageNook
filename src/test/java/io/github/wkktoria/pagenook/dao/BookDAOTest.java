@@ -85,4 +85,16 @@ class BookDAOTest extends BaseDAOTest {
 
         assertNotNull(book);
     }
+
+    @Test
+    void testUpdate() {
+        Category category = categoryDAO.listAll().getLast();
+
+        Book book = bookDAO.listAll().getFirst();
+        book.setCategory(category);
+
+        Book updatedBook = bookDAO.update(book);
+
+        assertEquals(category.getName(), updatedBook.getCategory().getName());
+    }
 }
