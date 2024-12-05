@@ -17,7 +17,7 @@
 
 <div class="center">
     <h2 class="pageHeading">Quick Actions:</h2>
-    <a href="book_form.jsp">New Book</a> |
+    <a href="new_book">New Book</a> |
     <a href="user_form.jsp">New User</a> |
     <a href="category_form.jsp">New Category</a> |
     <a href="#">New Customer</a>
