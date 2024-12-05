@@ -164,4 +164,21 @@ public class BookService {
             book.setImage(imageBytes);
         }
     }
+
+    public void deleteBook() throws ServletException, IOException {
+        Integer bookId = Integer.parseInt(request.getParameter("id"));
+
+        if (bookDAO.get(bookId) == null) {
+            final String message = "Could not find book with ID " + bookId + ", or it might have been deleted.";
+            request.setAttribute("message", message);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            bookDAO.delete(bookId);
+
+            final String message = "The book has been deleted successfully.";
+            listBook(message);
+        }
+    }
 }
