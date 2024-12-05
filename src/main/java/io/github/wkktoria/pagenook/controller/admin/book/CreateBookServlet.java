@@ -13,8 +13,8 @@ import java.text.ParseException;
 
 @WebServlet("/admin/create_book")
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 10,
-        maxFileSize = 1024 * 300,
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024,
         maxRequestSize = 1024 * 1024
 )
 public class CreateBookServlet extends HttpServlet {
