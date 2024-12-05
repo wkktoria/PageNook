@@ -188,7 +188,7 @@ public class BookService {
         Category category = categoryDAO.get(categoryId);
 
         if (category == null) {
-            final String message = "Sorry, the category ID " + categoryId + " is not available.";
+            final String message = "Sorry, the category with ID " + categoryId + " is not available.";
             request.setAttribute("message", message);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("frontend/message.jsp");
@@ -207,6 +207,30 @@ public class BookService {
 
         final String listPage = "frontend/book_list_by_category.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(listPage);
+        dispatcher.forward(request, response);
+    }
+
+    public void viewBookDetails() throws ServletException, IOException {
+        final Integer bookId = Integer.parseInt(request.getParameter("id"));
+        Book book = bookDAO.get(bookId);
+
+        if (book == null) {
+            final String message = "Sorry, the book with ID " + bookId + " is not available.";
+            request.setAttribute("message", message);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("frontend/message.jsp");
+            dispatcher.forward(request, response);
+
+            return;
+        }
+
+        request.setAttribute("book", book);
+
+        List<Category> listCategory = categoryDAO.listAll();
+        request.setAttribute("listCategory", listCategory);
+
+        final String detailsPage = "frontend/book_details.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(detailsPage);
         dispatcher.forward(request, response);
     }
 }
