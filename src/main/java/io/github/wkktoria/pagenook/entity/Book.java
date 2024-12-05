@@ -17,6 +17,7 @@ import java.util.*;
         @NamedQuery(name = "Book.countAll", query = "select count(*) from Book b"),
         @NamedQuery(name = "Book.findByCategory",
                 query = "select b from Book b join Category c on b.category.categoryId = c.categoryId and c.categoryId = :categoryId"),
+        @NamedQuery(name = "Book.listNew", query = "select b from Book b order by b.publishDate desc"),
 })
 public class Book implements Serializable {
     private Integer bookId;

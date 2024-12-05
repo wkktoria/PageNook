@@ -147,4 +147,11 @@ class BookDAOTest extends BaseDAOTest {
         List<Book> listBooks = bookDAO.listByCategory(categoryId);
         assertFalse(listBooks.isEmpty());
     }
+
+    @Test
+    void testListNewBooks() {
+        List<Book> listNewBooks = bookDAO.listNewBooks();
+
+        assertEquals(4, listNewBooks.size());
+    }
 }

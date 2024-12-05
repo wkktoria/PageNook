@@ -105,6 +105,20 @@ public class JpaDao<E> {
         return result;
     }
 
+    public List<E> findWithNamedQuery(final String queryName, int first, int max) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Query query = session.createNamedQuery(queryName, Entity.class);
+        query.setFirstResult(first);
+        query.setMaxResults(max);
+
+        List<E> result = query.getResultList();
+
+        session.close();
+
+        return result;
+    }
+
     public long countWithNamedQuery(final String queryName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
