@@ -17,7 +17,7 @@
 
 <div class="center" style="width: 80%; margin: 0 auto;">
     <c:forEach var="book" items="${listBook}">
-        <div style="display: inline-block; margin: 20px; float: left;">
+        <div style="display: inline-block; margin: 20px;">
             <div>
                 <a href="view_book?id=${book.bookId}">
                     <img src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover" width="128" height="164"/>
