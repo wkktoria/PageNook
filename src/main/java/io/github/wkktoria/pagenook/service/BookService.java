@@ -186,6 +186,17 @@ public class BookService {
         Integer categoryId = Integer.parseInt(request.getParameter("id"));
 
         Category category = categoryDAO.get(categoryId);
+
+        if (category == null) {
+            final String message = "Sorry, the category ID " + categoryId + " is not available.";
+            request.setAttribute("message", message);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("frontend/message.jsp");
+            dispatcher.forward(request, response);
+
+            return;
+        }
+
         request.setAttribute("category", category);
 
         List<Category> listCategory = categoryDAO.listAll();
