@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @WebServlet("/admin/list_book")
 public class ListBookServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BookService bookService = new BookService(request, response);
