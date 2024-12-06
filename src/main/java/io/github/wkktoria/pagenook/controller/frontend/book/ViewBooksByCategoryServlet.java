@@ -1,4 +1,4 @@
-package io.github.wkktoria.pagenook.controller.frontend;
+package io.github.wkktoria.pagenook.controller.frontend.book;
 
 import io.github.wkktoria.pagenook.service.BookService;
 import jakarta.servlet.ServletException;

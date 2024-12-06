@@ -233,4 +233,22 @@ public class BookService {
         RequestDispatcher dispatcher = request.getRequestDispatcher(detailsPage);
         dispatcher.forward(request, response);
     }
+
+    public void search() throws ServletException, IOException {
+        final String keyword = request.getParameter("keyword");
+        List<Book> result;
+
+        if (keyword.isEmpty()) {
+            result = bookDAO.listAll();
+        } else {
+            result = bookDAO.search(keyword);
+        }
+
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("result", result);
+
+        final String resultPage = "frontend/search_result.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(resultPage);
+        dispatcher.forward(request, response);
+    }
 }

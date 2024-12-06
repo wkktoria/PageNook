@@ -6,14 +6,16 @@
     </div>
 
     <div>
-        <label>
-            <input type="text" name="keyword" size="50"/>
-        </label>
-        <input type="button" value="Search"/>
+        <form action="search" method="get">
+            <label>
+                <input type="text" name="keyword" size="50"/>
+            </label>
+            <input type="submit" value="Search"/>
 
-        <a href="#">Sign In</a> |
-        <a href="#">Register</a> |
-        <a href="#">Cart</a>
+            <a href="#">Sign In</a> |
+            <a href="#">Register</a> |
+            <a href="#">Cart</a>
+        </form>
     </div>
 
     <div>

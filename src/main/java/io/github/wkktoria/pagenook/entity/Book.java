@@ -18,6 +18,8 @@ import java.util.*;
         @NamedQuery(name = "Book.findByCategory",
                 query = "select b from Book b join Category c on b.category.categoryId = c.categoryId and c.categoryId = :categoryId"),
         @NamedQuery(name = "Book.listNew", query = "select b from Book b order by b.publishDate desc"),
+        @NamedQuery(name = "Book.search", query = "select b from Book b where b.title like '%' || :keyword || '%'"
+                + " or b.author like '%' || :keyword || '%'" + " or b.description like '%' || :keyword || '%'"),
 })
 public class Book implements Serializable {
     private Integer bookId;

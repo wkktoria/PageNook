@@ -9,11 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/view_book")
-public class ViewBookServlet extends HttpServlet {
+@WebServlet("/search")
+public class SearchBookServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BookService bookService = new BookService(request, response);
-        bookService.viewBookDetails();
+        bookService.search();
     }
 }
