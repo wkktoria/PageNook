@@ -31,7 +31,7 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top;">
+            <td style="vertical-align: top; text-align: justify;">
                 ${book.description}
             </td>
         </tr>
