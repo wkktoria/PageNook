@@ -199,9 +199,6 @@ public class BookService {
 
         request.setAttribute("category", category);
 
-        List<Category> listCategory = categoryDAO.listAll();
-        request.setAttribute("listCategory", listCategory);
-
         List<Book> listBook = bookDAO.listByCategory(categoryId);
         request.setAttribute("listBook", listBook);
 
@@ -225,9 +222,6 @@ public class BookService {
         }
 
         request.setAttribute("book", book);
-
-        List<Category> listCategory = categoryDAO.listAll();
-        request.setAttribute("listCategory", listCategory);
 
         final String detailsPage = "frontend/book_details.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(detailsPage);

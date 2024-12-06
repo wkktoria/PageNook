@@ -1,9 +1,7 @@
 package io.github.wkktoria.pagenook.controller.frontend;
 
 import io.github.wkktoria.pagenook.dao.BookDAO;
-import io.github.wkktoria.pagenook.dao.CategoryDAO;
 import io.github.wkktoria.pagenook.entity.Book;
-import io.github.wkktoria.pagenook.entity.Category;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,10 +16,6 @@ import java.util.List;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CategoryDAO categoryDAO = new CategoryDAO();
-        List<Category> listCategory = categoryDAO.listAll();
-        request.setAttribute("listCategory", listCategory);
-
         BookDAO bookDAO = new BookDAO();
         List<Book> listNewBooks = bookDAO.listNewBooks();
         request.setAttribute("listNewBooks", listNewBooks);
