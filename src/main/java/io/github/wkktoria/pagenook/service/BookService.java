@@ -4,6 +4,7 @@ import io.github.wkktoria.pagenook.dao.BookDAO;
 import io.github.wkktoria.pagenook.dao.CategoryDAO;
 import io.github.wkktoria.pagenook.entity.Book;
 import io.github.wkktoria.pagenook.entity.Category;
+import io.github.wkktoria.pagenook.util.CommonUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,9 +42,7 @@ public class BookService {
         }
 
         final String listPage = "book_list.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(listPage);
-
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(listPage, request, response);
     }
 
     public void listBook() throws ServletException, IOException {
@@ -55,8 +54,7 @@ public class BookService {
         request.setAttribute("listCategory", listCategory);
 
         final String newPage = "book_form.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(newPage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(newPage, request, response);
     }
 
     public void createBook() throws ParseException, ServletException, IOException {
@@ -99,8 +97,7 @@ public class BookService {
 
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(destinationPage, request, response);
     }
 
     public void updateBook() throws ServletException, IOException {
@@ -110,7 +107,7 @@ public class BookService {
         Book existingBook = bookDAO.get(bookId);
         Book bookByTitle = bookDAO.findByTitle(title);
 
-        if (!existingBook.equals(bookByTitle)) {
+        if (bookByTitle != null && !existingBook.equals(bookByTitle)) {
             final String message = "Could not update book, because there's another book having the same title.";
             listBook(message);
 
@@ -170,10 +167,7 @@ public class BookService {
 
         if (bookDAO.get(bookId) == null) {
             final String message = "Could not find book with ID " + bookId + ", or it might have been deleted.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             bookDAO.delete(bookId);
 
@@ -189,11 +183,7 @@ public class BookService {
 
         if (category == null) {
             final String message = "Sorry, the category with ID " + categoryId + " is not available.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("frontend/message.jsp");
-            dispatcher.forward(request, response);
-
+            CommonUtil.showMessageFrontend(message, request, response);
             return;
         }
 
@@ -213,19 +203,14 @@ public class BookService {
 
         if (book == null) {
             final String message = "Sorry, the book with ID " + bookId + " is not available.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("frontend/message.jsp");
-            dispatcher.forward(request, response);
-
+            CommonUtil.showMessageFrontend(message, request, response);
             return;
         }
 
         request.setAttribute("book", book);
 
         final String detailsPage = "frontend/book_details.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(detailsPage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(detailsPage, request, response);
     }
 
     public void search() throws ServletException, IOException {
@@ -242,7 +227,6 @@ public class BookService {
         request.setAttribute("result", result);
 
         final String resultPage = "frontend/search_result.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(resultPage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(resultPage, request, response);
     }
 }

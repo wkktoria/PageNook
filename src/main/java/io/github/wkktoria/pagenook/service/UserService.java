@@ -2,6 +2,7 @@ package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.UserDAO;
 import io.github.wkktoria.pagenook.entity.User;
+import io.github.wkktoria.pagenook.util.CommonUtil;
 import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -46,7 +47,7 @@ public class UserService {
 
         if (userDAO.findByEmail(email) != null) {
             final String message = "Could not create user. A user with email " + email + " already exists.";
-            forwardToPageWithMessage("message.jsp", message);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             User newUser = new User(email, fullName, password);
             userDAO.create(newUser);
@@ -71,8 +72,7 @@ public class UserService {
             request.setAttribute("user", user);
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(destinationPage, request, response);
     }
 
     public void updateUser() throws ServletException, IOException {
@@ -86,7 +86,7 @@ public class UserService {
 
         if (userByEmail != null && !Objects.equals(userByEmail.getUserId(), userById.getUserId())) {
             final String message = "Could not update user. User with email " + email + " already exists.";
-            forwardToPageWithMessage("message.jsp", message);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             User user = new User();
             user.setUserId(userId);
@@ -100,7 +100,7 @@ public class UserService {
                 listUser("User has been updated successfully.");
             } else {
                 final String message = "Could not update user, because password is empty.";
-                forwardToPageWithMessage("message.jsp", message);
+                CommonUtil.showMessageBackend(message, request, response);
             }
         }
     }
@@ -110,10 +110,10 @@ public class UserService {
 
         if (userDAO.get(userId) == null) {
             final String message = "Could not find user with ID " + userId + ".";
-            forwardToPageWithMessage("message.jsp", message);
+            CommonUtil.showMessageBackend(message, request, response);
         } else if (userId == 1) {
             final String message = "The default admin user account cannot be deleted.";
-            forwardToPageWithMessage("message.jsp", message);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             userDAO.delete(userId);
             listUser("User has been deleted successfully.");
@@ -128,19 +128,10 @@ public class UserService {
 
         if (loginResult) {
             request.getSession().setAttribute("useremail", email);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");
-            dispatcher.forward(request, response);
+            CommonUtil.forwardToPage("/admin/", request, response);
         } else {
             final String message = "Login failed.";
-            forwardToPageWithMessage("login.jsp", message);
+            CommonUtil.forwardToPage("login.jsp", message, request, response);
         }
-    }
-
-    private void forwardToPageWithMessage(final String page, final String message) throws ServletException, IOException {
-        request.setAttribute("message", message);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-        dispatcher.forward(request, response);
     }
 }

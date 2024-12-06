@@ -2,7 +2,7 @@ package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.CategoryDAO;
 import io.github.wkktoria.pagenook.entity.Category;
-import jakarta.servlet.RequestDispatcher;
+import io.github.wkktoria.pagenook.util.CommonUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,9 +34,7 @@ public class CategoryService {
         request.setAttribute("message", message);
 
         final String listPage = "category_list.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(listPage);
-
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(listPage, request, response);
     }
 
     public void createCategory() throws ServletException, IOException {
@@ -44,10 +42,7 @@ public class CategoryService {
 
         if (categoryDAO.findByName(name) != null) {
             final String message = "Could not create category. A category with name " + name + " already exists.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             Category newCategory = new Category(name);
             categoryDAO.create(newCategory);
@@ -69,8 +64,7 @@ public class CategoryService {
             request.setAttribute("message", message);
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher(destinationPage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(destinationPage, request, response);
     }
 
     public void updateCategory() throws ServletException, IOException {
@@ -82,10 +76,7 @@ public class CategoryService {
 
         if (categoryByName != null && !Objects.equals(categoryByName.getCategoryId(), categoryById.getCategoryId())) {
             final String message = "Could not update category. Category with name " + name + " already exists.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             Category category = new Category(categoryId, name);
             categoryDAO.update(category);
@@ -98,10 +89,7 @@ public class CategoryService {
 
         if (categoryDAO.get(categoryId) == null) {
             final String message = "Could not find category with ID " + categoryId + ", or it might have been deleted.";
-            request.setAttribute("message", message);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("message.jsp");
-            dispatcher.forward(request, response);
+            CommonUtil.showMessageBackend(message, request, response);
         } else {
             categoryDAO.delete(categoryId);
             listCategory("Category has been deleted successfully.");
