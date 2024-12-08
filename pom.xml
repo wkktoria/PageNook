@@ -17,6 +17,7 @@
         <junit.version>5.10.2</junit.version>
         <jetty.version>12.0.15</jetty.version>
         <flyway.version>10.15.0</flyway.version>
+        <hibernate.version>6.4.5.Final</hibernate.version>
     </properties>
 
     <dependencies>
@@ -47,8 +48,13 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.4.5.Final</version>
+            <version>${hibernate.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
