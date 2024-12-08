@@ -13,6 +13,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(name = "customer", uniqueConstraints = {
         @UniqueConstraint(name = "email_UNIQUE", columnNames = {"email"})
 })
+@NamedQueries({
+        @NamedQuery(name = "Customer.findAll", query = "select c from Customer c order by c.registerDate desc"),
+        @NamedQuery(name = "Customer.countAll", query = "select count(c.email) from Customer c"),
+})
 public class Customer implements Serializable {
     private Integer customerId;
     private String email;
