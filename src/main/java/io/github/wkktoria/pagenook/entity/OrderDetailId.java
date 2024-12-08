@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class OrderDetailId implements Serializable {
@@ -34,5 +35,17 @@ public class OrderDetailId implements Serializable {
 
     public void setBookOrder(BookOrder bookOrder) {
         this.bookOrder = bookOrder;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderDetailId that = (OrderDetailId) o;
+        return Objects.equals(book, that.book) && Objects.equals(bookOrder, that.bookOrder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(book, bookOrder);
     }
 }
