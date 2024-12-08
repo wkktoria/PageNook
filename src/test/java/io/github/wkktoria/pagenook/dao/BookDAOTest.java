@@ -178,4 +178,12 @@ class BookDAOTest extends BaseDAOTest {
 
         assertFalse(result.isEmpty());
     }
+
+    @Test
+    void testCountByCategory() {
+        final int categoryId = 1;
+        long numOfBooks = bookDAO.countByCategory(categoryId);
+
+        assertTrue(numOfBooks > 0);
+    }
 }

@@ -1,5 +1,6 @@
 package io.github.wkktoria.pagenook.service;
 
+import io.github.wkktoria.pagenook.dao.BookDAO;
 import io.github.wkktoria.pagenook.dao.CategoryDAO;
 import io.github.wkktoria.pagenook.entity.Category;
 import io.github.wkktoria.pagenook.util.CommonUtil;
@@ -86,10 +87,14 @@ public class CategoryService {
 
     public void deleteCategory() throws ServletException, IOException {
         final int categoryId = Integer.parseInt(request.getParameter("id"));
+        final BookDAO bookDAO = new BookDAO();
+        final long numberOfBooks = bookDAO.countByCategory(categoryId);
 
         if (categoryDAO.get(categoryId) == null) {
             final String message = "Could not find category with ID " + categoryId + ", or it might have been deleted.";
             CommonUtil.showMessageBackend(message, request, response);
+        } else if (numberOfBooks > 0) {
+            listCategory("Could not delete the category (ID: " + categoryId + "), because it currently contains some books.");
         } else {
             categoryDAO.delete(categoryId);
             listCategory("Category has been deleted successfully.");
