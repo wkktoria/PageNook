@@ -1,6 +1,7 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Customer;
+import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,7 @@ public class CustomerDAO extends JpaDao<Customer> implements GenericDAO<Customer
     @Override
     public Customer create(Customer customer) {
         customer.setRegisterDate(new Date());
+        customer.setPassword(HashGeneratorUtil.generateMD5(customer.getPassword()));
         return super.create(customer);
     }
 
@@ -35,5 +37,15 @@ public class CustomerDAO extends JpaDao<Customer> implements GenericDAO<Customer
     @Override
     public long count() {
         return super.countWithNamedQuery("Customer.countAll");
+    }
+
+    public Customer findByEmail(final String email) {
+        List<Customer> result = super.findWithNamedQuery("Customer.findByEmail", "email", email);
+
+        if (!result.isEmpty()) {
+            return result.getFirst();
+        }
+
+        return null;
     }
 }

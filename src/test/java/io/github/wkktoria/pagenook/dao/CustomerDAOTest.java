@@ -102,4 +102,12 @@ class CustomerDAOTest extends BaseDAOTest {
         assertTrue(totalCustomers > 0);
 
     }
+
+    @Test
+    void testFindByEmail() {
+        final String email = customerDAO.listAll().getFirst().getEmail();
+        Customer customer = customerDAO.findByEmail(email);
+
+        assertNotNull(customer);
+    }
 }

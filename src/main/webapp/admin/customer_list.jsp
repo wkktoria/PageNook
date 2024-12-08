@@ -20,7 +20,7 @@
 
 <div class="center">
     <h1 class="page-heading">Customers Management</h1>
-    <a href="new_customer">Create New Customer</a>
+    <a href="customer_form.jsp">Create New Customer</a>
     <hr style="width: 60%"/>
 </div>
 
