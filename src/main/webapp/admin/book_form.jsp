@@ -31,7 +31,7 @@
             <c:set value="Create New Book" var="headingText"/>
         </c:otherwise>
     </c:choose>
-    <h1 class="pageHeading">${headingText}</h1>
+    <h1 class="page-heading">${headingText}</h1>
     <hr style="width: 60%"/>
 </div>
 

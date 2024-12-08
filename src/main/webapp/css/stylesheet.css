@@ -30,7 +30,42 @@ a:active {
     font-size: larger;
 }
 
-.pageHeading {
+#bookTitle {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#author {
+    font-size: larger;
+    font-style: italic;
+}
+
+#description {
+    text-align: justify;
+    vertical-align: top;
+}
+
+#searchImage {
+    display: inline-block;
+    margin: 20px;
+    width: 10%;
+}
+
+#searchDescription {
+    display: inline-block;
+    margin: 20px;
+    vertical-align: top;
+    width: 50%;
+    text-align: left;
+}
+
+#searchPrice {
+    display: inline-block;
+    margin: 20px;
+    vertical-align: top;
+}
+
+.page-heading {
     color: darkblue;
 }
 
@@ -47,6 +82,38 @@ a:active {
     color: red;
     margin: 5px;
     font-style: italic;
+}
+
+div.book {
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+}
+
+table.book {
+    width: 80%;
+    margin: 0 auto;
+    border: 0;
+}
+
+.book-group {
+    width: 80%;
+    margin: 0 auto;
+    border: 0;
+}
+
+.next-row {
+    clear: both;
+}
+
+img.book-small {
+    width: 128px;
+    height: 164px;
+}
+
+img.book-large {
+    width: 240px;
+    height: 300px;
 }
 
 table {

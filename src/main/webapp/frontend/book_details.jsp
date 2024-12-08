@@ -11,15 +11,15 @@
 <jsp:directive.include file="header.jsp"/>
 
 <div class="center">
-    <table style="width: 80%; border: 0;">
+    <table class="book">
         <tr>
             <td colspan="3" style="text-align: left;">
-                <h2>${book.title}</h2> by ${book.author}
+                <p id="bookTitle">${book.title}</p> by <span id="author">${book.author}</span>
             </td>
         </tr>
         <tr>
             <td rowspan="2">
-                <img src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover" width="240" height="300"/>
+                <img class="book-large" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
             </td>
             <td style="vertical-align: top; text-align: left;">
                 Average Rating
@@ -31,7 +31,7 @@
             </td>
         </tr>
         <tr>
-            <td style="vertical-align: top; text-align: justify;">
+            <td id="description">
                 ${book.description}
             </td>
         </tr>

@@ -18,7 +18,7 @@
 <jsp:directive.include file="header.jsp"/>
 
 <div class="center">
-    <h1 class="pageHeading">Users Management</h1>
+    <h1 class="page-heading">Users Management</h1>
     <a href="user_form.jsp">Create New User</a>
     <hr style="width: 60%"/>
 </div>
@@ -49,7 +49,7 @@
                 <td>${user.fullName}</td>
                 <td>
                     <a href="edit_user?id=${user.userId}">Edit</a> |
-                    <a class="deleteLink" href="javascript:void(0)" id="${user.userId}">Delete</a>
+                    <a class="delete-link" href="javascript:void(0)" id="${user.userId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -61,7 +61,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".deleteLink").each(function () {
+        $(".delete-link").each(function () {
             $(this).on("click", function () {
                 const userId = $(this).attr("id");
                 if (confirm("Are you sure you want do delete the user with ID " + userId + "?")) {

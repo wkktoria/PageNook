@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="center">
-    <h1 class="pageHeading">PageNook Administration</h1>
+    <h1 class="page-heading">PageNook Administration</h1>
     <h2>Admin Login</h2>
 
     <c:if test="${message != null}">
