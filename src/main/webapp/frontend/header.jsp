@@ -16,7 +16,7 @@
             <input type="submit" value="Search"/>
 
             <a href="#">Sign In</a> |
-            <a href="#">Register</a> |
+            <a href="register">Register</a> |
             <a href="#">Cart</a>
         </form>
     </div>

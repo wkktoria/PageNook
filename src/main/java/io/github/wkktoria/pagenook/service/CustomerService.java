@@ -49,23 +49,8 @@ public class CustomerService {
             final String message = "Could not crete new customer. The email " + email + " is already registered by another customer.";
             listCustomers(message);
         } else {
-            final String fullName = request.getParameter("fullname");
-            final String password = request.getParameter("password");
-            final String phone = request.getParameter("phone");
-            final String address = request.getParameter("address");
-            final String city = request.getParameter("city");
-            final String zipCode = request.getParameter("zipcode");
-            final String country = request.getParameter("country");
-
             Customer newCustomer = new Customer();
-            newCustomer.setEmail(email);
-            newCustomer.setFullname(fullName);
-            newCustomer.setPassword(password);
-            newCustomer.setPhone(phone);
-            newCustomer.setAddress(address);
-            newCustomer.setCity(city);
-            newCustomer.setZipcode(zipCode);
-            newCustomer.setCountry(country);
+            readCustomerFields(newCustomer);
 
             customerDAO.create(newCustomer);
 
@@ -105,27 +90,14 @@ public class CustomerService {
             message = "Could not update the customer with ID " + customerId
                     + ", because there's an existing customer having the same email.";
         } else {
-            final String fullName = request.getParameter("fullname");
-            final String password = request.getParameter("password");
-            final String phone = request.getParameter("phone");
-            final String address = request.getParameter("address");
-            final String city = request.getParameter("city");
-            final String zipCode = request.getParameter("zipcode");
-            final String country = request.getParameter("country");
-
-
             Customer customerById = customerDAO.get(customerId);
             customerById.setCustomerId(customerId);
-            customerById.setEmail(email);
-            customerById.setFullname(fullName);
+            readCustomerFields(customerById);
+
+            final String password = customerById.getPassword();
 
             if (password != null && !password.isEmpty()) {
                 customerById.setPassword(HashGeneratorUtil.generateMD5(password));
-                customerById.setPhone(phone);
-                customerById.setAddress(address);
-                customerById.setCity(city);
-                customerById.setZipcode(zipCode);
-                customerById.setCountry(country);
 
                 customerDAO.update(customerById);
 
@@ -149,5 +121,45 @@ public class CustomerService {
             customerDAO.delete(customerId);
             listCustomers("Customer has been deleted successfully.");
         }
+    }
+
+    public void registerCustomer() throws ServletException, IOException {
+        final String email = request.getParameter("email");
+        Customer existingCustomer = customerDAO.findByEmail(email);
+        String message;
+
+        if (existingCustomer != null) {
+            message = "Could not register. The email " + email + " is already registered by another customer.";
+        } else {
+            Customer newCustomer = new Customer();
+            readCustomerFields(newCustomer);
+
+            customerDAO.create(newCustomer);
+
+            message = "You have registered successfully. Thank you.<br/>"
+                    + "<a href='login'>Click here</a> to login.";
+        }
+
+        CommonUtil.showMessageFrontend(message, request, response);
+    }
+
+    private void readCustomerFields(Customer customer) {
+        final String email = request.getParameter("email");
+        final String fullName = request.getParameter("fullname");
+        final String password = request.getParameter("password");
+        final String phone = request.getParameter("phone");
+        final String address = request.getParameter("address");
+        final String city = request.getParameter("city");
+        final String zipCode = request.getParameter("zipcode");
+        final String country = request.getParameter("country");
+
+        customer.setEmail(email);
+        customer.setFullname(fullName);
+        customer.setPassword(password);
+        customer.setPhone(phone);
+        customer.setAddress(address);
+        customer.setCity(city);
+        customer.setZipcode(zipCode);
+        customer.setCountry(country);
     }
 }
