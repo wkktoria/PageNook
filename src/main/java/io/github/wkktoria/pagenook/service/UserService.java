@@ -81,27 +81,22 @@ public class UserService {
         String fullName = request.getParameter("fullname");
         String password = request.getParameter("password");
 
-        User userById = userDAO.get(userId);
         User userByEmail = userDAO.findByEmail(email);
 
-        if (userByEmail != null && !Objects.equals(userByEmail.getUserId(), userById.getUserId())) {
+        if (userByEmail != null && !Objects.equals(userByEmail.getUserId(), userId)) {
             final String message = "Could not update user. User with email " + email + " already exists.";
             CommonUtil.showMessageBackend(message, request, response);
         } else {
-            User user = new User();
-            user.setUserId(userId);
-            user.setFullName(fullName);
-            user.setEmail(email);
+            User userById = userDAO.get(userId);
+            userById.setFullName(fullName);
+            userById.setEmail(email);
 
             if (password != null && !password.isEmpty()) {
-                user.setPassword(HashGeneratorUtil.generateMD5(password));
-
-                userDAO.update(user);
-                listUser("User has been updated successfully.");
-            } else {
-                final String message = "Could not update user, because password is empty.";
-                CommonUtil.showMessageBackend(message, request, response);
+                userById.setPassword(HashGeneratorUtil.generateMD5(password));
             }
+
+            userDAO.update(userById);
+            listUser("User has been updated successfully.");
         }
     }
 

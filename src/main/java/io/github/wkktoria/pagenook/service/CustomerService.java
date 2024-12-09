@@ -92,20 +92,11 @@ public class CustomerService {
                     + ", because there's an existing customer having the same email.";
         } else {
             Customer customerById = customerDAO.get(customerId);
-            customerById.setCustomerId(customerId);
             readCustomerFields(customerById);
 
-            final String password = customerById.getPassword();
+            customerDAO.update(customerById);
 
-            if (password != null && !password.isEmpty()) {
-                customerById.setPassword(HashGeneratorUtil.generateMD5(password));
-
-                customerDAO.update(customerById);
-
-                message = "The customer has been updated successfully.";
-            } else {
-                message = "Could not update customer, because password is empty.";
-            }
+            message = "The customer has been updated successfully.";
         }
 
         listCustomers(message);
@@ -184,7 +175,11 @@ public class CustomerService {
 
         customer.setEmail(email);
         customer.setFullname(fullName);
-        customer.setPassword(password);
+
+        if (password != null && !password.isEmpty()) {
+            customer.setPassword(HashGeneratorUtil.generateMD5(password));
+        }
+
         customer.setPhone(phone);
         customer.setAddress(address);
         customer.setCity(city);
