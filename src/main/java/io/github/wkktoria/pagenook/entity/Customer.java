@@ -17,6 +17,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
         @NamedQuery(name = "Customer.findAll", query = "select c from Customer c order by c.registerDate desc"),
         @NamedQuery(name = "Customer.countAll", query = "select count(c.email) from Customer c"),
         @NamedQuery(name = "Customer.findByEmail", query = "select c from Customer c where c.email = :email"),
+        @NamedQuery(name = "Customer.checkLogin",
+                query = "select c from Customer c where c.email = :email and c.password = :password"),
 })
 public class Customer implements Serializable {
     private Integer customerId;

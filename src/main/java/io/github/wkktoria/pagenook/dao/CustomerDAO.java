@@ -4,7 +4,9 @@ import io.github.wkktoria.pagenook.entity.Customer;
 import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerDAO extends JpaDao<Customer> implements GenericDAO<Customer> {
     @Override
@@ -44,6 +46,20 @@ public class CustomerDAO extends JpaDao<Customer> implements GenericDAO<Customer
 
         if (!result.isEmpty()) {
             return result.getFirst();
+        }
+
+        return null;
+    }
+
+    public Customer checkLogin(final String email, final String password) {
+        Map<String, Object> parameters = new HashMap<>() {{
+            put("email", email);
+            put("password", HashGeneratorUtil.generateMD5(password));
+        }};
+        List<Customer> listCustomer = super.findWithNamedQuery("Customer.checkLogin", parameters);
+
+        if (!listCustomer.isEmpty()) {
+            return listCustomer.getFirst();
         }
 
         return null;

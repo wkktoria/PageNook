@@ -4,6 +4,7 @@ import io.github.wkktoria.pagenook.dao.CustomerDAO;
 import io.github.wkktoria.pagenook.entity.Customer;
 import io.github.wkktoria.pagenook.util.CommonUtil;
 import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -141,6 +142,34 @@ public class CustomerService {
         }
 
         CommonUtil.showMessageFrontend(message, request, response);
+    }
+
+    public void showLogin() throws ServletException, IOException {
+        final String loginPage = "frontend/login.jsp";
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
+        dispatcher.forward(request, response);
+    }
+
+    public void doLogin() throws ServletException, IOException {
+        final String email = request.getParameter("email");
+        final String password = request.getParameter("password");
+
+        Customer customer = customerDAO.checkLogin(email, password);
+
+        if (customer == null) {
+            final String message = "Login failed. Please check your email and password.";
+            request.setAttribute("message", message);
+            showLogin();
+        } else {
+            request.getSession().setAttribute("loggedCustomer", customer);
+            showCustomerProfile();
+        }
+    }
+
+    public void showCustomerProfile() throws ServletException, IOException {
+        final String profilePage = "frontend/customer_profile.jsp";
+        CommonUtil.forwardToPage(profilePage, request, response);
     }
 
     private void readCustomerFields(Customer customer) {

@@ -15,8 +15,15 @@
             </label>
             <input type="submit" value="Search"/>
 
-            <a href="#">Sign In</a> |
-            <a href="register">Register</a> |
+            <c:if test="${loggedCustomer == null}">
+                <a href="login">Sign In</a> |
+                <a href="register">Register</a> |
+            </c:if>
+            <c:if test="${loggedCustomer != null}">
+                <a href="view_profile">Welcome, ${loggedCustomer.fullname}</a> |
+                <a href="view_orders">My Orders</a> |
+                <a href="logout">Logout</a> |
+            </c:if>
             <a href="#">Cart</a>
         </form>
     </div>
