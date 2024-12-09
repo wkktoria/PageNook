@@ -137,4 +137,17 @@ public class CustomerService {
 
         listCustomers(message);
     }
+
+    public void deleteCustomer() throws ServletException, IOException {
+        final Integer customerId = Integer.parseInt(request.getParameter("id"));
+
+        if (customerDAO.get(customerId) == null) {
+            final String message = "Could not find customer with ID " + customerId
+                    + ", or it has been deleted by another admin.";
+            CommonUtil.showMessageBackend(message, request, response);
+        } else {
+            customerDAO.delete(customerId);
+            listCustomers("Customer has been deleted successfully.");
+        }
+    }
 }
