@@ -116,11 +116,13 @@
                     email: true
                 },
                 fullname: "required",
+                <c:if test="${customer == null}">
                 password: "required",
                 confirmPassword: {
                     required: true,
                     equalTo: "#password"
                 },
+                </c:if>
                 phone: "required",
                 address: "required",
                 city: "required",
@@ -133,11 +135,13 @@
                     email: "Please enter a valid e-mail address.",
                 },
                 fullname: "Please enter full name.",
+                <c:if test="${customer == null}">
                 password: "Please enter password.",
                 confirmPassword: {
                     required: "Please confirm password.",
                     equalTo: "Confirm password does not match the password.",
                 },
+                </c:if>
                 phone: "Please enter phone number.",
                 address: "Pleas enter address.",
                 city: "Please enter city.",

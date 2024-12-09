@@ -3,12 +3,14 @@ package io.github.wkktoria.pagenook.service;
 import io.github.wkktoria.pagenook.dao.CustomerDAO;
 import io.github.wkktoria.pagenook.entity.Customer;
 import io.github.wkktoria.pagenook.util.CommonUtil;
+import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomerService {
     private final CustomerDAO customerDAO;
@@ -70,5 +72,69 @@ public class CustomerService {
             final String message = "New customer has been created successfully.";
             listCustomers(message);
         }
+    }
+
+    public void editCustomer() throws ServletException, IOException {
+        final Integer customerId = Integer.parseInt(request.getParameter("id"));
+        Customer customer = customerDAO.get(customerId);
+
+        String destinationPage = "customer_form.jsp";
+
+        if (customer == null) {
+            destinationPage = "message.jsp";
+
+            final String message = "Could not find customer with ID " + customerId + ".";
+            request.setAttribute("message", message);
+        } else {
+            customer.setPassword(null);
+            request.setAttribute("customer", customer);
+        }
+
+        CommonUtil.forwardToPage(destinationPage, request, response);
+    }
+
+    public void updateCustomer() throws ServletException, IOException {
+        final Integer customerId = Integer.parseInt(request.getParameter("customerId"));
+        final String email = request.getParameter("email");
+
+        Customer customerByEmail = customerDAO.findByEmail(email);
+
+        String message;
+
+        if (customerByEmail != null && !Objects.equals(customerByEmail.getCustomerId(), customerId)) {
+            message = "Could not update the customer with ID " + customerId
+                    + ", because there's an existing customer having the same email.";
+        } else {
+            final String fullName = request.getParameter("fullname");
+            final String password = request.getParameter("password");
+            final String phone = request.getParameter("phone");
+            final String address = request.getParameter("address");
+            final String city = request.getParameter("city");
+            final String zipCode = request.getParameter("zipcode");
+            final String country = request.getParameter("country");
+
+
+            Customer customerById = customerDAO.get(customerId);
+            customerById.setCustomerId(customerId);
+            customerById.setEmail(email);
+            customerById.setFullname(fullName);
+
+            if (password != null && !password.isEmpty()) {
+                customerById.setPassword(HashGeneratorUtil.generateMD5(password));
+                customerById.setPhone(phone);
+                customerById.setAddress(address);
+                customerById.setCity(city);
+                customerById.setZipcode(zipCode);
+                customerById.setCountry(country);
+
+                customerDAO.update(customerById);
+
+                message = "The customer has been updated successfully.";
+            } else {
+                message = "Could not update customer, because password is empty.";
+            }
+        }
+
+        listCustomers(message);
     }
 }

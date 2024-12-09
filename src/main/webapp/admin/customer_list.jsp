@@ -55,8 +55,8 @@
                 <td>${customer.country}</td>
                 <td><fmt:formatDate pattern="MM/dd/yyyy" value='${customer.registerDate}'/></td>
                 <td>
-                    <a href="edit_customer?id=${book.bookId}">Edit</a> |
-                    <a class="delete-link" href="javascript:void(0)" id="${book.bookId}">Delete</a>
+                    <a href="edit_customer?id=${customer.customerId}">Edit</a> |
+                    <a class="delete-link" href="javascript:void(0)" id="${customer.customerId}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
