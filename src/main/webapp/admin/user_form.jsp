@@ -89,7 +89,7 @@
                     email: "Please enter a valid email address.",
                 },
                 fullname: "Please enter a full name.",
-                <c:if test="${user != null}">
+                <c:if test="${user == null}">
                 password: "Please enter a password.",
                 </c:if>
             }
