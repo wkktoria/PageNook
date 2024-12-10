@@ -92,6 +92,10 @@ a:active {
     font-style: italic;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 div.book {
     display: inline-block;
     margin: 20px;
