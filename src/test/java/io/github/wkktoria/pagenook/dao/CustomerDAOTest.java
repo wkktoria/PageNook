@@ -2,9 +2,7 @@ package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Customer;
 import jakarta.persistence.PersistenceException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -12,6 +10,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * If the database is empty, it may be needed to run testCreate first to make rest of the tests work properly.
+ */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CustomerDAOTest extends BaseDAOTest {
     private static CustomerDAO customerDAO;
 
@@ -27,6 +29,7 @@ class CustomerDAOTest extends BaseDAOTest {
     }
 
     @Test
+    @Order(1)
     void testCreate() {
         Customer customer = new Customer();
         customer.setEmail("customer " + DateFormat.getDateTimeInstance().format(new Date()) + "@email.com");
