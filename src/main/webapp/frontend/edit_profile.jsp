@@ -17,7 +17,7 @@
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
             integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="
             crossorigin="anonymous"></script>
-    <title>Register as a Customer | PageNook - Online Bookstore</title>
+    <title>Edit Customer Profile | PageNook - Online Bookstore</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>
