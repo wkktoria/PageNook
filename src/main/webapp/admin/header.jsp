@@ -32,7 +32,7 @@
             </a>
         </div>
         <div>
-            <a href="#">
+            <a href="list_review">
                 <img src="../images/review.svg" alt="User" height="40" width="40"/><br/>Reviews
             </a>
         </div>
