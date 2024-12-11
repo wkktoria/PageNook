@@ -12,6 +12,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
         @Index(name = "book_fk_idx", columnList = "book_id"),
         @Index(name = "customer_fk_idx", columnList = "customer_id")
 })
+@NamedQueries({
+        @NamedQuery(name = "Review.listAll", query = "select r from Review r order by r.reviewTime desc"),
+        @NamedQuery(name = "Review.countAll", query = "select count(r) from Review r")
+})
 public class Review implements Serializable {
     private Integer reviewId;
     private Book book;
