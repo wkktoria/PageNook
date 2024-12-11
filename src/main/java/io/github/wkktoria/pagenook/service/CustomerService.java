@@ -168,6 +168,13 @@ public class CustomerService {
         CommonUtil.forwardToPage(editPage, request, response);
     }
 
+    public void updateCustomerProfile() throws ServletException, IOException {
+        Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+        readCustomerFields(customer);
+        customerDAO.update(customer);
+        showCustomerProfile();
+    }
+
     private void readCustomerFields(Customer customer) {
         final String email = request.getParameter("email");
         final String fullName = request.getParameter("fullname");
@@ -178,7 +185,10 @@ public class CustomerService {
         final String zipCode = request.getParameter("zipcode");
         final String country = request.getParameter("country");
 
-        customer.setEmail(email);
+        if (email != null && !email.isEmpty()) {
+            customer.setEmail(email);
+        }
+
         customer.setFullname(fullName);
 
         if (password != null && !password.isEmpty()) {

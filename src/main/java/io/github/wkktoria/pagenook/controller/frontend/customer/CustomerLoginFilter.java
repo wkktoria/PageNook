@@ -9,6 +9,10 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class CustomerLoginFilter implements Filter {
+    private static final String[] loginRequiredUrls = {
+            "/view_profile", "/edit_profile", "/update_profile"
+    };
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -23,12 +27,23 @@ public class CustomerLoginFilter implements Filter {
 
         boolean loggedIn = session != null && session.getAttribute("loggedCustomer") != null;
 
-        if (!loggedIn && path.startsWith("/view_profile")) {
+        final String requestUrl = httpRequest.getRequestURL().toString();
+
+        if (!loggedIn && isLoginRequired(requestUrl)) {
             final String loginPage = "frontend/login.jsp";
             RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
             dispatcher.forward(request, response);
         } else {
             chain.doFilter(request, response);
         }
+    }
+
+    private boolean isLoginRequired(final String requestUrl) {
+        for (String loginRequiredUrl : loginRequiredUrls) {
+            if (requestUrl.contains(loginRequiredUrl)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
