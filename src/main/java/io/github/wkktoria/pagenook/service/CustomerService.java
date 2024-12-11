@@ -163,6 +163,11 @@ public class CustomerService {
         CommonUtil.forwardToPage(profilePage, request, response);
     }
 
+    public void showCustomerProfileEditForm() throws ServletException, IOException {
+        final String editPage = "frontend/edit_profile.jsp";
+        CommonUtil.forwardToPage(editPage, request, response);
+    }
+
     private void readCustomerFields(Customer customer) {
         final String email = request.getParameter("email");
         final String fullName = request.getParameter("fullname");
