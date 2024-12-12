@@ -225,4 +225,22 @@ public class Book implements Serializable {
     public int hashCode() {
         return Objects.hashCode(bookId);
     }
+
+    @Transient
+    public float getAverageRating() {
+        float averageRating = 0;
+        float sum = 0;
+
+        if (reviews.isEmpty()) {
+            return sum;
+        }
+
+        for (Review review : reviews) {
+            sum += review.getRating();
+        }
+
+        averageRating = sum / reviews.size();
+
+        return averageRating;
+    }
 }
