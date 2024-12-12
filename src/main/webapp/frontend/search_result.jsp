@@ -43,7 +43,7 @@
                             </h2>
                         </div>
                         <div>
-                            Average rating
+                            <jsp:directive.include file="book_rating.jsp"/>
                         </div>
                         <div>
                             <i>by ${book.author}</i>
