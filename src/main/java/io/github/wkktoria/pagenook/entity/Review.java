@@ -105,4 +105,17 @@ public class Review implements Serializable {
     public void setReviewTime(Date reviewTime) {
         this.reviewTime = reviewTime;
     }
+
+    @Transient
+    public String getStars() {
+        StringBuilder result = new StringBuilder();
+
+        int numberOfStarsOn = rating;
+
+        result.append("on,".repeat(Math.max(0, numberOfStarsOn)));
+
+        result.append("off,".repeat(Math.max(0, 5 - (numberOfStarsOn + 1) + 1)));
+
+        return result.substring(0, result.length() - 1);
+    }
 }

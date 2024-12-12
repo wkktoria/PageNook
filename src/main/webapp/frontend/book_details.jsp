@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +26,7 @@
             </td>
             <td style="vertical-align: top; text-align: left;">
                 <jsp:directive.include file="book_rating.jsp"/>
+                <a href="#reviews"> ${fn:length(book.reviews)} Reviews</a>
             </td>
             <td rowspan="2" style="vertical-align: top; width: 20%;">
                 <h2>$${book.price}</h2>
@@ -37,12 +40,43 @@
             </td>
         </tr>
         <tr>
-            <td><br/></td>
+            <td></td>
         </tr>
         <tr>
-            <td><h2>Customer Reviews</h2></td>
+            <td><h2 id="reviews">Customer Reviews</h2></td>
             <td colspan="2" class="center">
                 <button>Write a Customer Review</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="left">
+                <table style="border: 0; margin: 0;">
+                    <c:forEach items="${book.reviews}" var="review">
+                        <tr>
+                            <td>
+                                <c:forTokens items="${review.stars}" delims="," var="star">
+                                    <c:if test="${star eq 'on'}">
+                                        <img alt="Star" src="images/rating-on.svg"/>
+                                    </c:if>
+
+                                    <c:if test="${star eq 'off'}">
+                                        <img alt="Empty Star" src="images/rating-off.svg"/>
+                                    </c:if>
+                                </c:forTokens>
+                                <b>${review.headline}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>by ${review.customer.fullname} on ${review.reviewTime}</td>
+                        </tr>
+                        <tr>
+                            <td><i>${review.comment}</i></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </c:forEach>
+                </table>
             </td>
         </tr>
     </table>

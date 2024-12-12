@@ -177,16 +177,11 @@ public class Book implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
     public Set<Review> getReviews() {
-        TreeSet<Review> sortedReview = new TreeSet<>(new Comparator<>() {
-            @Override
-            public int compare(Review review1, Review review2) {
-                return review2.getReviewTime().compareTo(review1.getReviewTime());
-            }
+        TreeSet<Review> sortedReviews = new TreeSet<>(
+                (review1, review2) -> review2.getReviewTime().compareTo(review1.getReviewTime()));
 
-        });
-
-        sortedReview.addAll(reviews);
-        return sortedReview;
+        sortedReviews.addAll(reviews);
+        return sortedReviews;
 
     }
 
