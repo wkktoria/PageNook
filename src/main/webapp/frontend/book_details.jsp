@@ -23,7 +23,7 @@
                 <img class="book-large" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
             </td>
             <td style="vertical-align: top; text-align: left;">
-                Average Rating
+                <jsp:directive.include file="book_rating.jsp"/>
             </td>
             <td rowspan="2" style="vertical-align: top; width: 20%;">
                 <h2>$${book.price}</h2>

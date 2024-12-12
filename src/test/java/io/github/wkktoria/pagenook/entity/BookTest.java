@@ -63,4 +63,44 @@ class BookTest {
 
         assertEquals(4, averageRating);
     }
+
+    @Test
+    void testGetRatingStringNoReviews() {
+        float averageRating = 0;
+
+        Book book = new Book();
+        String ratingString = book.getRatingString(averageRating);
+
+        assertEquals("off,off,off,off,off", ratingString);
+    }
+
+    @Test
+    void testGetRatingStringAllMaxRatingReviews() {
+        float averageRating = 5;
+
+        Book book = new Book();
+        String ratingString = book.getRatingString(averageRating);
+
+        assertEquals("on,on,on,on,on", ratingString);
+    }
+
+    @Test
+    void testGetRatingStringAverageRatingWithAHalf() {
+        float averageRating = 3.5f;
+
+        Book book = new Book();
+        String ratingString = book.getRatingString(averageRating);
+
+        assertEquals("on,on,on,half,off", ratingString);
+    }
+
+    @Test
+    void testGetRatingStringAverageRatingWithAHalfAtLastPlace() {
+        float averageRating = 4.5f;
+
+        Book book = new Book();
+        String ratingString = book.getRatingString(averageRating);
+
+        assertEquals("on,on,on,on,half", ratingString);
+    }
 }

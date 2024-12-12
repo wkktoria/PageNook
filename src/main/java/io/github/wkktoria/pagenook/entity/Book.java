@@ -228,7 +228,7 @@ public class Book implements Serializable {
 
     @Transient
     public float getAverageRating() {
-        float averageRating = 0;
+        float averageRating;
         float sum = 0;
 
         if (reviews.isEmpty()) {
@@ -242,5 +242,31 @@ public class Book implements Serializable {
         averageRating = sum / reviews.size();
 
         return averageRating;
+    }
+
+    @Transient
+    public String getRatingString(final float averageRating) {
+        StringBuilder result = new StringBuilder();
+
+        int numberOfStarsOn = (int) averageRating;
+
+        result.append("on,".repeat(Math.max(0, numberOfStarsOn)));
+
+        int next = numberOfStarsOn + 1;
+
+        if (averageRating > numberOfStarsOn) {
+            result.append("half,");
+            next++;
+        }
+
+        result.append("off,".repeat(Math.max(0, 5 - next + 1)));
+
+        return result.substring(0, result.length() - 1);
+    }
+
+    @Transient
+    public String getRatingStars() {
+        float averageRating = getAverageRating();
+        return getRatingString(averageRating);
     }
 }
