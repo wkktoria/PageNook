@@ -3,7 +3,9 @@ package io.github.wkktoria.pagenook.dao;
 import io.github.wkktoria.pagenook.entity.Review;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReviewDAO extends JpaDao<Review> implements GenericDAO<Review> {
     @Override
@@ -35,5 +37,19 @@ public class ReviewDAO extends JpaDao<Review> implements GenericDAO<Review> {
     @Override
     public long count() {
         return super.countWithNamedQuery("Review.countAll");
+    }
+
+    public Review findByCustomerAndBook(final int customerId, final int bookId) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("customerId", customerId);
+        parameters.put("bookId", bookId);
+
+        List<Review> result = super.findWithNamedQuery("Review.findByCustomerAndBook", parameters);
+
+        if (!result.isEmpty()) {
+            return result.getFirst();
+        }
+
+        return null;
     }
 }

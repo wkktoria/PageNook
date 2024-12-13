@@ -90,4 +90,24 @@ class ReviewDAOTest {
 
         assertNull(reviewDAO.get(reviewId));
     }
+
+    @Test
+    void testFindByCustomerAndBookFound() {
+        int customerId = customerDAO.listAll().getFirst().getCustomerId();
+        int bookId = bookDAO.listAll().getFirst().getBookId();
+
+        Review result = reviewDAO.findByCustomerAndBook(customerId, bookId);
+
+        assertNotNull(result);
+    }
+
+    @Test
+    void testFindByCustomerAndBookNotFound() {
+        int customerId = -1;
+        int bookId = -1;
+
+        Review result = reviewDAO.findByCustomerAndBook(customerId, bookId);
+
+        assertNull(result);
+    }
 }
