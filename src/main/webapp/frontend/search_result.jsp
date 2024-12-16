@@ -54,7 +54,7 @@
                     </div>
                     <div id="searchPrice">
                         <h3><b>$${book.price}</b></h3>
-                        <h3><a href="#">Add to Cart</a></h3>
+                        <h3><a href="add_to_cart?bookId=${book.bookId}">Add to Cart</a></h3>
                     </div>
                 </div>
             </c:forEach>
