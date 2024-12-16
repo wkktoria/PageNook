@@ -8,6 +8,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -153,8 +154,17 @@ public class CustomerService {
             request.setAttribute("message", message);
             showLogin();
         } else {
+            HttpSession session = request.getSession();
             request.getSession().setAttribute("loggedCustomer", customer);
-            showCustomerProfile();
+            Object objectRedirectUrl = session.getAttribute("redirectUrl");
+
+            if (objectRedirectUrl != null) {
+                final String redirectUrl = objectRedirectUrl.toString();
+                session.removeAttribute("redirectUrl");
+                response.sendRedirect(redirectUrl);
+            } else {
+                showCustomerProfile();
+            }
         }
     }
 

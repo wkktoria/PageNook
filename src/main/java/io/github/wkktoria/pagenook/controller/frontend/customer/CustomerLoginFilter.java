@@ -1,8 +1,10 @@
 package io.github.wkktoria.pagenook.controller.frontend.customer;
 
+import io.github.wkktoria.pagenook.util.CommonUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
@@ -10,7 +12,7 @@ import java.io.IOException;
 @WebFilter("/*")
 public class CustomerLoginFilter implements Filter {
     private static final String[] loginRequiredUrls = {
-            "/view_profile", "/edit_profile", "/update_profile"
+            "/view_profile", "/edit_profile", "/update_profile", "/write_review"
     };
 
     @Override
@@ -30,9 +32,17 @@ public class CustomerLoginFilter implements Filter {
         final String requestUrl = httpRequest.getRequestURL().toString();
 
         if (!loggedIn && isLoginRequired(requestUrl)) {
+            final String queryString = httpRequest.getQueryString();
+            String redirectUrl = requestUrl;
+
+            if (queryString != null) {
+                redirectUrl = redirectUrl.concat("?").concat(queryString);
+            }
+
+            session.setAttribute("redirectUrl", redirectUrl);
+
             final String loginPage = "frontend/login.jsp";
-            RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
-            dispatcher.forward(request, response);
+            CommonUtil.forwardToPage(loginPage, (HttpServletRequest) request, (HttpServletResponse) response);
         } else {
             chain.doFilter(request, response);
         }
