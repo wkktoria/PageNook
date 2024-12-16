@@ -51,4 +51,8 @@ public class ShoppingCart {
     public void clear() {
         cart.clear();
     }
+
+    public int getTotalItems() {
+        return cart.size();
+    }
 }

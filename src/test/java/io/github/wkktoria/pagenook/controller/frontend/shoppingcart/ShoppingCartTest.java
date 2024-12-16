@@ -86,4 +86,22 @@ class ShoppingCartTest {
 
         assertEquals(0, cart.getTotalQuantity());
     }
+
+    @Test
+    void testGetTotalItemsWhenCartIsEmpty() {
+        ShoppingCart emptyCart = new ShoppingCart();
+        assertEquals(0, emptyCart.getTotalItems());
+    }
+
+    @Test
+    void testGetTotalItemsWhenThereAreSomeBooksInCart() {
+        ShoppingCart cart = new ShoppingCart();
+        Book firstBook = new Book(1);
+        Book secondBook = new Book(2);
+
+        cart.addItem(firstBook);
+        cart.addItem(secondBook);
+
+        assertEquals(2, cart.getTotalItems());
+    }
 }
