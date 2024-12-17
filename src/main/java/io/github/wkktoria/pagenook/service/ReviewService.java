@@ -116,4 +116,18 @@ public class ReviewService {
         final String message = "The review has been updated successfully.";
         listAllReview(message);
     }
+
+    public void deleteReview() throws ServletException, IOException {
+        Integer reviewId = Integer.parseInt(request.getParameter("id"));
+
+        if (reviewDAO.get(reviewId) == null) {
+            final String message = "Could not find review with ID " + reviewId + ", or it might have been deleted by another admin.";
+            CommonUtil.showMessageBackend(message, request, response);
+        } else {
+            reviewDAO.delete(reviewId);
+
+            final String message = "The review has been deleted successfully.";
+            listAllReview(message);
+        }
+    }
 }
