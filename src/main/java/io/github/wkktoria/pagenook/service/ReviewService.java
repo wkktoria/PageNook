@@ -28,13 +28,21 @@ public class ReviewService {
         bookDAO = new BookDAO();
     }
 
-    public void listAllReview() throws ServletException, IOException {
+    public void listAllReview(final String message) throws ServletException, IOException {
         List<Review> listReview = reviewDAO.listAll();
 
         request.setAttribute("listReview", listReview);
 
+        if (message != null) {
+            request.setAttribute("message", message);
+        }
+
         final String listPage = "review_list.jsp";
         CommonUtil.forwardToPage(listPage, request, response);
+    }
+
+    public void listAllReview() throws ServletException, IOException {
+        listAllReview(null);
     }
 
     public void showReviewForm() throws ServletException, IOException {
@@ -79,5 +87,33 @@ public class ReviewService {
 
         final String messagePage = "frontend/review_done.jsp";
         CommonUtil.forwardToPage(messagePage, request, response);
+    }
+
+    public void editReview() throws ServletException, IOException {
+        Integer reviewId = Integer.parseInt(request.getParameter("id"));
+        Review review = reviewDAO.get(reviewId);
+
+        if (review == null) {
+            final String message = "Could not find review with ID " + reviewId + ".";
+            CommonUtil.showMessageBackend(message, request, response);
+        } else {
+            request.setAttribute("review", review);
+            CommonUtil.forwardToPage("review_form.jsp", request, response);
+        }
+    }
+
+    public void updateReview() throws ServletException, IOException {
+        final Integer reviewId = Integer.parseInt(request.getParameter("reviewId"));
+        final String headline = request.getParameter("headline");
+        final String comment = request.getParameter("comment");
+
+        Review review = reviewDAO.get(reviewId);
+        review.setHeadline(headline);
+        review.setComment(comment);
+
+        reviewDAO.update(review);
+
+        final String message = "The review has been updated successfully.";
+        listAllReview(message);
     }
 }
