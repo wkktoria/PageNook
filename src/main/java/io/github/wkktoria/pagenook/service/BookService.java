@@ -134,7 +134,6 @@ public class BookService {
         try {
             publishDate = dateFormat.parse(request.getParameter("publishDate"));
         } catch (ParseException e) {
-            e.printStackTrace();
             throw new ServletException("Error parsing publish date (format is MM/dd/yyyy)");
         }
 
@@ -169,10 +168,15 @@ public class BookService {
             final String message = "Could not find book with ID " + bookId + ", or it might have been deleted.";
             CommonUtil.showMessageBackend(message, request, response);
         } else {
-            bookDAO.delete(bookId);
+            if (!bookDAO.get(bookId).getReviews().isEmpty()) {
+                final String message = "Could not delete the book with ID " + bookId + ", because it has reviews.";
+                CommonUtil.showMessageBackend(message, request, response);
+            } else {
+                bookDAO.delete(bookId);
 
-            final String message = "The book has been deleted successfully.";
-            listBook(message);
+                final String message = "The book has been deleted successfully.";
+                listBook(message);
+            }
         }
     }
 
