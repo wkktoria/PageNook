@@ -1,6 +1,7 @@
 package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.CustomerDAO;
+import io.github.wkktoria.pagenook.dao.ReviewDAO;
 import io.github.wkktoria.pagenook.entity.Customer;
 import io.github.wkktoria.pagenook.util.CommonUtil;
 import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
@@ -16,6 +17,7 @@ import java.util.Objects;
 
 public class CustomerService {
     private final CustomerDAO customerDAO;
+    private final ReviewDAO reviewDAO;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
@@ -24,6 +26,7 @@ public class CustomerService {
         this.response = response;
 
         customerDAO = new CustomerDAO();
+        reviewDAO = new ReviewDAO();
     }
 
     public void listCustomers(final String message) throws ServletException, IOException {
@@ -111,8 +114,15 @@ public class CustomerService {
                     + ", or it has been deleted by another admin.";
             CommonUtil.showMessageBackend(message, request, response);
         } else {
-            customerDAO.delete(customerId);
-            listCustomers("Customer has been deleted successfully.");
+            long reviewCount = reviewDAO.countByCustomer(customerId);
+
+            if (reviewCount > 0) {
+                final String message = "Could not delete the customer with ID " + customerId + ", because he/she posted reviews for books.";
+                CommonUtil.showMessageBackend(message, request, response);
+            } else {
+                customerDAO.delete(customerId);
+                listCustomers("Customer has been deleted successfully.");
+            }
         }
     }
 

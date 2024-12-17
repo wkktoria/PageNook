@@ -17,6 +17,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
         @NamedQuery(name = "Review.countAll", query = "select count(r) from Review r"),
         @NamedQuery(name = "Review.findByCustomerAndBook",
                 query = "select r from Review  r where r.customer.customerId = :customerId and r.book.bookId = :bookId"),
+        @NamedQuery(name = "Review.countByCustomer", query = "select count(r.reviewId) from Review r where r.customer.customerId = :customerId"),
 })
 public class Review implements Serializable {
     private Integer reviewId;
