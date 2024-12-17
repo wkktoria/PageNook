@@ -12,7 +12,8 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <title>Create New Category | PageNook - Administration</title>
+    <title><c:if test="${category != null}">Edit Category</c:if><c:if
+            test="${category == null}">Create New Category</c:if> | PageNook - Administration</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>

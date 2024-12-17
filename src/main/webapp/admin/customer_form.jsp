@@ -17,7 +17,8 @@
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
             integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="
             crossorigin="anonymous"></script>
-    <title>Create New Customer | PageNook - Administration</title>
+    <title><c:if test="${customer != null}">Edit Customer</c:if><c:if
+            test="${customer == null}">Create New Customer</c:if> | PageNook - Administration</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>

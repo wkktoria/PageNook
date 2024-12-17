@@ -12,7 +12,8 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <title>Create New User | PageNook - Administration</title>
+    <title><c:if test="${user != null}">Edit User</c:if><c:if test="${user == null}">Create New User</c:if> | PageNook -
+        Administration</title>
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>
