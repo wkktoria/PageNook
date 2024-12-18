@@ -162,4 +162,15 @@ public class BookOrder implements Serializable {
     public int hashCode() {
         return Objects.hashCode(orderId);
     }
+
+    @Transient
+    public int getBookCopies() {
+        int total = 0;
+
+        for (final OrderDetail orderDetail : orderDetails) {
+            total += orderDetail.getQuantity();
+        }
+
+        return total;
+    }
 }

@@ -37,7 +37,7 @@
             </a>
         </div>
         <div>
-            <a href="#">
+            <a href="list_order">
                 <img src="../images/order.svg" alt="User" height="40" width="40"/><br/>Orders
             </a>
         </div>
