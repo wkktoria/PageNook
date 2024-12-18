@@ -40,9 +40,7 @@
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Subtotal</th>
-                        <th>
-                            <a href="#">Clear Cart</a>
-                        </th>
+                        <th></th>
                     </tr>
                     <c:forEach items="${cart.items}" var="item" varStatus="status">
                         <tr>
@@ -84,6 +82,9 @@
                             <button type="submit">Update</button>
                         </td>
                         <td>
+                            <input type="button" id="clearCart" value="Clear Cart"/>
+                        </td>
+                        <td>
                             <a href="${pageContext.request.contextPath}/">Continue Shopping</a>
                         </td>
                         <td>
@@ -119,6 +120,10 @@
                 },
                 </c:forEach>
             },
+        });
+
+        $("#clearCart").click(function () {
+            window.location = "clear_cart";
         });
     });
 </script>
