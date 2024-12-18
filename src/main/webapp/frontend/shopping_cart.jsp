@@ -31,8 +31,8 @@
         <h2>Your cart is empty.</h2>
     </c:if>
     <c:if test="${cart.totalItems > 0}">
-        <div>
-            <form>
+        <form action="update_cart" method="post" id="cartForm">
+            <div>
                 <table>
                     <tr>
                         <th>No.</th>
@@ -52,7 +52,13 @@
                                      alt="Book Cover"/>
                             </td>
                             <td><span id="bookTitle">${item.key.title}</span></td>
-                            <td>${item.value}</td>
+                            <td>
+                                <input type="hidden" name="bookId" value="${item.key.bookId}"/>
+                                <label>
+                                    <input type="number" name="quantity${status.index + 1}" value="${item.value}"
+                                           size="5"/>
+                                </label>
+                            </td>
                             <td><fmt:formatNumber value="${item.key.price}" type="currency"/></td>
                             <td><fmt:formatNumber value="${item.value * item.key.price}" type="currency"/></td>
                             <td><a href="remove_from_cart?bookId=${item.key.bookId}">Remove</a></td>
@@ -67,8 +73,24 @@
                         <td><b><fmt:formatNumber value="${cart.totalAmount}" type="currency"/></b></td>
                     </tr>
                 </table>
-            </form>
-        </div>
+            </div>
+            <div>
+                <table style="border: 0;">
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="submit">Update</button>
+                        </td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/">Continue Shopping</a>
+                        </td>
+                        <td>
+                            <a href="#">Checkout</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
     </c:if>
 </div>
 
@@ -76,7 +98,26 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+        $('#cartForm').validate({
+            rules: {
+                <c:forEach items="${cart.items}" var="item" varStatus="status">
+                quantity${status.index + 1}: {
+                    required: true,
+                    number: true,
+                    min: 1,
+                },
+                </c:forEach>
+            },
+            messages: {
+                <c:forEach items="${cart.items}" var="item" varStatus="status">
+                quantity${status.index + 1}: {
+                    required: "Please enter quantity.",
+                    number: "Quantity must be a number.",
+                    min: "Quantity must be greater than 0."
+                },
+                </c:forEach>
+            },
+        });
     });
 </script>
 </body>
