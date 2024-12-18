@@ -187,7 +187,7 @@ class BookDAOTest extends BaseDAOTest {
 
     @Test
     void testCountByCategory() {
-        final int categoryId = 1;
+        final int categoryId = categoryDAO.listAll().getFirst().getCategoryId();
         long numOfBooks = bookDAO.countByCategory(categoryId);
 
         assertTrue(numOfBooks > 0);
