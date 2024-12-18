@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The customer and book database tables should contain some records to make these tests works properly.
@@ -106,5 +107,20 @@ class OrderDAOTest extends BaseDAOTest {
         BookOrder savedOrder = orderDAO.create(order);
 
         assertTrue(savedOrder != null && savedOrder.getOrderDetails().size() == 2);
+    }
+
+    @Test
+    void testGet() {
+        Integer orderId = orderDAO.listAll().getFirst().getOrderId();
+        BookOrder order = orderDAO.get(orderId);
+
+        assertNotNull(order);
+    }
+
+    @Test
+    void testListAll() {
+        List<BookOrder> listOrders = orderDAO.listAll();
+
+        assertFalse(listOrders.isEmpty());
     }
 }

@@ -14,6 +14,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(name = "book_order", indexes = {
         @Index(name = "customer_fk_2_idx", columnList = "customer_id")
 })
+@NamedQueries(
+        @NamedQuery(name = "BookOrder.findAll", query = "select bo from BookOrder bo order by bo.orderDate desc")
+)
 public class BookOrder implements Serializable {
     private Integer orderId;
     private Customer customer;

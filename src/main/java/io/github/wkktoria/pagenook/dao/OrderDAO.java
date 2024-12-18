@@ -15,8 +15,8 @@ public class OrderDAO extends JpaDao<BookOrder> implements GenericDAO<BookOrder>
     }
 
     @Override
-    public BookOrder get(Object id) {
-        return null;
+    public BookOrder get(Object orderId) {
+        return super.find(BookOrder.class, orderId);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class OrderDAO extends JpaDao<BookOrder> implements GenericDAO<BookOrder>
 
     @Override
     public List<BookOrder> listAll() {
-        return List.of();
+        return super.findWithNamedQuery("BookOrder.findAll");
     }
 
     @Override
