@@ -97,9 +97,15 @@ public class OrderService {
         final int orderId = Integer.parseInt(request.getParameter("id"));
 
         BookOrder order = orderDAO.get(orderId);
-        request.setAttribute("order", order);
 
-        final String detailPage = "order_detail.jsp";
-        CommonUtil.forwardToPage(detailPage, request, response);
+        if (order == null) {
+            final String message = "Could not find order with ID " + orderId + ".";
+            CommonUtil.showMessageBackend(message, request, response);
+        } else {
+            request.setAttribute("order", order);
+            final String detailPage = "order_detail.jsp";
+            CommonUtil.forwardToPage(detailPage, request, response);
+
+        }
     }
 }
