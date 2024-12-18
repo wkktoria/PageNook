@@ -92,4 +92,14 @@ public class OrderService {
         final String message = "Thank you. Your order has been received. We will deliver your books within a few days.";
         CommonUtil.showMessageFrontend(message, request, response);
     }
+
+    public void viewOrderDetailForAdmin() throws ServletException, IOException {
+        final int orderId = Integer.parseInt(request.getParameter("id"));
+
+        BookOrder order = orderDAO.get(orderId);
+        request.setAttribute("order", order);
+
+        final String detailPage = "order_detail.jsp";
+        CommonUtil.forwardToPage(detailPage, request, response);
+    }
 }
