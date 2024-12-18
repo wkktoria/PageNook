@@ -36,12 +36,12 @@ public class ShoppingCart {
         return total;
     }
 
-    public double getTotalAmount() {
-        double total = 0;
+    public float getTotalAmount() {
+        float total = 0;
 
         for (final Book next : cart.keySet()) {
             Integer quantity = cart.get(next);
-            double subTotal = quantity * next.getPrice();
+            float subTotal = quantity * next.getPrice();
             total += subTotal;
         }
 

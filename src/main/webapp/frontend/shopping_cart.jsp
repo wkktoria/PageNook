@@ -78,6 +78,8 @@
                 <table style="border: 0;">
                     <tr>
                         <td></td>
+                    </tr>
+                    <tr>
                         <td>
                             <button type="submit">Update</button>
                         </td>
@@ -85,7 +87,7 @@
                             <a href="${pageContext.request.contextPath}/">Continue Shopping</a>
                         </td>
                         <td>
-                            <a href="#">Checkout</a>
+                            <a href="checkout">Checkout</a>
                         </td>
                     </tr>
                 </table>
