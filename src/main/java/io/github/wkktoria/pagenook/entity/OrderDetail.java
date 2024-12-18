@@ -9,6 +9,9 @@ import java.io.Serializable;
         @Index(name = "order_fk_idx", columnList = "order_id"),
         @Index(name = "book_fk_2_idx", columnList = "book_id")
 })
+@NamedQueries({
+        @NamedQuery(name = "OrderDetail.countByBook", query = "select count(*) from OrderDetail od where od.book.bookId = :bookId")
+})
 public class OrderDetail implements Serializable {
     private OrderDetailId id = new OrderDetailId();
     private Book book;

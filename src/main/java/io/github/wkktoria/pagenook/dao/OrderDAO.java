@@ -32,4 +32,8 @@ public class OrderDAO extends JpaDao<BookOrder> implements GenericDAO<BookOrder>
     public long count() {
         return 0;
     }
+
+    public long countOrderDetailByBook(final int bookId) {
+        return super.countWithNamedQuery("OrderDetail.countByBook", "bookId", bookId);
+    }
 }

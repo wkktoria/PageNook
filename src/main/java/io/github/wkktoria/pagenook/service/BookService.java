@@ -2,6 +2,7 @@ package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.BookDAO;
 import io.github.wkktoria.pagenook.dao.CategoryDAO;
+import io.github.wkktoria.pagenook.dao.OrderDAO;
 import io.github.wkktoria.pagenook.entity.Book;
 import io.github.wkktoria.pagenook.entity.Category;
 import io.github.wkktoria.pagenook.util.CommonUtil;
@@ -22,6 +23,7 @@ import java.util.List;
 public class BookService {
     private final BookDAO bookDAO;
     private final CategoryDAO categoryDAO;
+    private final OrderDAO orderDAO;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
@@ -31,6 +33,7 @@ public class BookService {
 
         bookDAO = new BookDAO();
         categoryDAO = new CategoryDAO();
+        orderDAO = new OrderDAO();
     }
 
     public void listBook(final String message) throws ServletException, IOException {
@@ -172,10 +175,17 @@ public class BookService {
                 final String message = "Could not delete the book with ID " + bookId + ", because it has reviews.";
                 CommonUtil.showMessageBackend(message, request, response);
             } else {
-                bookDAO.delete(bookId);
+                long countByOrder = orderDAO.countOrderDetailByBook(bookId);
 
-                final String message = "The book has been deleted successfully.";
-                listBook(message);
+                if (countByOrder > 0) {
+                    final String message = "Could not delete book with ID " + bookId + ", because there are orders associated with it.";
+                    CommonUtil.showMessageBackend(message, request, response);
+                } else {
+                    bookDAO.delete(bookId);
+
+                    final String message = "The book has been deleted successfully.";
+                    listBook(message);
+                }
             }
         }
     }
