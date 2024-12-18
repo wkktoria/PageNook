@@ -1,6 +1,7 @@
 package io.github.wkktoria.pagenook.service;
 
 import io.github.wkktoria.pagenook.dao.CustomerDAO;
+import io.github.wkktoria.pagenook.dao.OrderDAO;
 import io.github.wkktoria.pagenook.dao.ReviewDAO;
 import io.github.wkktoria.pagenook.entity.Customer;
 import io.github.wkktoria.pagenook.util.CommonUtil;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class CustomerService {
     private final CustomerDAO customerDAO;
     private final ReviewDAO reviewDAO;
+    private final OrderDAO orderDAO;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
@@ -27,6 +29,7 @@ public class CustomerService {
 
         customerDAO = new CustomerDAO();
         reviewDAO = new ReviewDAO();
+        orderDAO = new OrderDAO();
     }
 
     public void listCustomers(final String message) throws ServletException, IOException {
@@ -107,7 +110,7 @@ public class CustomerService {
     }
 
     public void deleteCustomer() throws ServletException, IOException {
-        final Integer customerId = Integer.parseInt(request.getParameter("id"));
+        final int customerId = Integer.parseInt(request.getParameter("id"));
 
         if (customerDAO.get(customerId) == null) {
             final String message = "Could not find customer with ID " + customerId
@@ -115,9 +118,13 @@ public class CustomerService {
             CommonUtil.showMessageBackend(message, request, response);
         } else {
             long reviewCount = reviewDAO.countByCustomer(customerId);
+            long orderCount = orderDAO.countByCustomer(customerId);
 
             if (reviewCount > 0) {
                 final String message = "Could not delete the customer with ID " + customerId + ", because he/she posted reviews for books.";
+                CommonUtil.showMessageBackend(message, request, response);
+            } else if (orderCount > 0) {
+                final String message = "Could not delete customer with ID " + customerId + ", because he/she placed orders.";
                 CommonUtil.showMessageBackend(message, request, response);
             } else {
                 customerDAO.delete(customerId);
