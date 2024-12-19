@@ -52,6 +52,7 @@ class OrderDAOTest extends BaseDAOTest {
         order.setRecipientPhone(customer.getPhone());
         order.setShippingAddress(customer.getAddress() + ", " + customer.getZipcode()
                 + " " + customer.getCity() + ", " + customer.getCountry());
+        order.setPaymentMethod("Cash on Delivery");
 
         Set<OrderDetail> orderDetails = new HashSet<>();
         OrderDetail orderDetail = new OrderDetail();
@@ -81,6 +82,7 @@ class OrderDAOTest extends BaseDAOTest {
         order.setRecipientPhone(customer.getPhone());
         order.setShippingAddress(customer.getAddress() + ", " + customer.getZipcode()
                 + " " + customer.getCity() + ", " + customer.getCountry());
+        order.setPaymentMethod("Cash on Delivery");
 
         Set<OrderDetail> orderDetails = new HashSet<>();
 
@@ -120,6 +122,24 @@ class OrderDAOTest extends BaseDAOTest {
     @Test
     void testListAll() {
         List<BookOrder> listOrders = orderDAO.listAll();
+
+        assertFalse(listOrders.isEmpty());
+    }
+
+    @Test
+    void testListByCustomerNoOrders() {
+        final int customerId = -1;
+
+        List<BookOrder> listOrders = orderDAO.listByCustomer(customerId);
+
+        assertTrue(listOrders.isEmpty());
+    }
+
+    @Test
+    void testListByCustomerSomeOrders() {
+        final int customerId = customerDAO.listAll().getFirst().getCustomerId();
+
+        List<BookOrder> listOrders = orderDAO.listByCustomer(customerId);
 
         assertFalse(listOrders.isEmpty());
     }

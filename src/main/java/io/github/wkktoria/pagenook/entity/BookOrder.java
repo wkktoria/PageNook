@@ -16,7 +16,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 })
 @NamedQueries({
         @NamedQuery(name = "BookOrder.findAll", query = "select bo from BookOrder bo order by bo.orderDate desc"),
-        @NamedQuery(name = "BookOrder.countByCustomer", query = "select count(bo.orderId) from BookOrder bo where bo.customer.customerId = :customerId")
+        @NamedQuery(name = "BookOrder.countByCustomer", query = "select count(bo.orderId) from BookOrder bo where bo.customer.customerId = :customerId"),
+        @NamedQuery(name = "BookOrder.findByCustomer", query = "select bo from BookOrder bo where bo.customer.customerId = :customerId order by bo.orderDate desc"),
 })
 public class BookOrder implements Serializable {
     private Integer orderId;

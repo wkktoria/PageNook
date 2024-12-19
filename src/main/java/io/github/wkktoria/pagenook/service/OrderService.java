@@ -108,4 +108,30 @@ public class OrderService {
 
         }
     }
+
+    public void listOrderByCustomer() throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("loggedCustomer");
+        List<BookOrder> listOrders = orderDAO.listByCustomer(customer.getCustomerId());
+
+        request.setAttribute("listOrders", listOrders);
+        final String historyPage = "frontend/order_list.jsp";
+        CommonUtil.forwardToPage(historyPage, request, response);
+    }
+
+    public void showOrderDetailForCustomer() throws ServletException, IOException {
+        final int orderId = Integer.parseInt(request.getParameter("id"));
+
+        BookOrder order = orderDAO.get(orderId);
+
+        if (order == null) {
+            final String message = "Could not find order with ID " + orderId + ".";
+            CommonUtil.showMessageFrontend(message, request, response);
+        } else {
+            request.setAttribute("order", order);
+            final String detailPage = "frontend/order_detail.jsp";
+            CommonUtil.forwardToPage(detailPage, request, response);
+
+        }
+    }
 }
