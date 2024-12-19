@@ -3,7 +3,9 @@ package io.github.wkktoria.pagenook.dao;
 import io.github.wkktoria.pagenook.entity.BookOrder;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDAO extends JpaDao<BookOrder> implements GenericDAO<BookOrder> {
     @Override
@@ -16,6 +18,22 @@ public class OrderDAO extends JpaDao<BookOrder> implements GenericDAO<BookOrder>
     @Override
     public BookOrder get(Object orderId) {
         return super.find(BookOrder.class, orderId);
+    }
+
+    public BookOrder get(final Integer orderId, final Integer customerId) {
+        Map<String, Object> parameters = new HashMap<>() {
+            {
+                put("orderId", orderId);
+                put("customerId", customerId);
+            }
+        };
+        List<BookOrder> result = super.findWithNamedQuery("BookOrder.findByIdAndCustomer", parameters);
+
+        if (!result.isEmpty()) {
+            return result.getFirst();
+        }
+
+        return null;
     }
 
     @Override

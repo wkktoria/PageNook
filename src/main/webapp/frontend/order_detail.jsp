@@ -18,86 +18,94 @@
 <body>
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <h1 class="page-heading">Your Order ID: ${order.orderId}</h1>
-    <hr style="width: 60%"/>
-</div>
+<c:if test="${order == null}">
+    <div class="center">
+        <h2 class="page-heading">Sorry, you are not authorized to view this order.</h2>
+    </div>
+</c:if>
 
-<div class="center">
-    <table>
-        <tr>
-            <td class="left"><b>Order Status:</b></td>
-            <td class="left">${order.status}</td>
-        </tr>
-        <tr>
-            <td class="left"><b>Order Date:</b></td>
-            <td class="left">${order.orderDate}</td>
-        </tr>
-        <tr>
-            <td class="left"><b>Quantity:</b></td>
-            <td class="left">${order.bookCopies}</td>
-        </tr>
-        <tr>
-            <td class="left"><b>Total Amount:</b></td>
-            <td class="left"><fmt:formatNumber value="${order.total}" type="currency"/></td>
-        </tr>
-        <tr>
-            <td class="left"><b>Recipient Name:</b></td>
-            <td class="left">${order.recipientName}</td>
-        </tr>
-        <tr>
-            <td class="left"><b>Recipient Phone:</b></td>
-            <td class="left">${order.recipientPhone}</td>
-        </tr>
-        <tr>
-            <td class="left"><b>Ship to:</b></td>
-            <td class="left">${order.shippingAddress}</td>
-        </tr>
-        <tr>
-            <td class="left"><b>Payment Method:</b></td>
-            <td class="left">${order.paymentMethod}</td>
-        </tr>
-    </table>
-</div>
+<c:if test="${order != null}">
+    <div class="center">
+        <h1 class="page-heading">Your Order ID: ${order.orderId}</h1>
+        <hr style="width: 60%"/>
+    </div>
 
-<div class="center">
-    <h3>Ordered Books</h3>
-    <table>
-        <tr>
-            <th>Index</th>
-            <th>Book</th>
-            <th>Author</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
-        <c:forEach items="${order.orderDetails}" var="orderDetail" varStatus="status">
+    <div class="center">
+        <table>
             <tr>
-                <td>${status.index + 1}</td>
-                <td>
-                    <img style="vertical-align: middle;" class="book-small"
-                         src="data:image/jpeg;base64,${orderDetail.book.base64Image}" alt="Book Cover"/>
-                        ${orderDetail.book.title}
-                </td>
-                <td>${orderDetail.book.author}</td>
-                <td><fmt:formatNumber value="${orderDetail.book.price}" type="currency"/></td>
-                <td>${orderDetail.quantity}</td>
-                <td><fmt:formatNumber value="${orderDetail.subtotal}" type="currency"/></td>
+                <td class="left"><b>Order Status:</b></td>
+                <td class="left">${order.status}</td>
             </tr>
-        </c:forEach>
-        <tr>
-            <td colspan="4" class="right">
-                <b>TOTAL:</b>
-            </td>
-            <td>
-                <b>${order.bookCopies}</b>
-            </td>
-            <td>
-                <b><fmt:formatNumber value="${order.total}" type="currency"/></b>
-            </td>
-        </tr>
-    </table>
-</div>
+            <tr>
+                <td class="left"><b>Order Date:</b></td>
+                <td class="left">${order.orderDate}</td>
+            </tr>
+            <tr>
+                <td class="left"><b>Quantity:</b></td>
+                <td class="left">${order.bookCopies}</td>
+            </tr>
+            <tr>
+                <td class="left"><b>Total Amount:</b></td>
+                <td class="left"><fmt:formatNumber value="${order.total}" type="currency"/></td>
+            </tr>
+            <tr>
+                <td class="left"><b>Recipient Name:</b></td>
+                <td class="left">${order.recipientName}</td>
+            </tr>
+            <tr>
+                <td class="left"><b>Recipient Phone:</b></td>
+                <td class="left">${order.recipientPhone}</td>
+            </tr>
+            <tr>
+                <td class="left"><b>Ship to:</b></td>
+                <td class="left">${order.shippingAddress}</td>
+            </tr>
+            <tr>
+                <td class="left"><b>Payment Method:</b></td>
+                <td class="left">${order.paymentMethod}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="center">
+        <h3>Ordered Books</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <th>Book</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            <c:forEach items="${order.orderDetails}" var="orderDetail" varStatus="status">
+                <tr>
+                    <td>${status.index + 1}</td>
+                    <td>
+                        <img style="vertical-align: middle;" class="book-small"
+                             src="data:image/jpeg;base64,${orderDetail.book.base64Image}" alt="Book Cover"/>
+                            ${orderDetail.book.title}
+                    </td>
+                    <td>${orderDetail.book.author}</td>
+                    <td><fmt:formatNumber value="${orderDetail.book.price}" type="currency"/></td>
+                    <td>${orderDetail.quantity}</td>
+                    <td><fmt:formatNumber value="${orderDetail.subtotal}" type="currency"/></td>
+                </tr>
+            </c:forEach>
+            <tr>
+                <td colspan="4" class="right">
+                    <b>TOTAL:</b>
+                </td>
+                <td>
+                    <b>${order.bookCopies}</b>
+                </td>
+                <td>
+                    <b><fmt:formatNumber value="${order.total}" type="currency"/></b>
+                </td>
+            </tr>
+        </table>
+    </div>
+</c:if>
 
 <jsp:directive.include file="footer.jsp"/>
 

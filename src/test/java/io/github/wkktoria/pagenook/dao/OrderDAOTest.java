@@ -143,4 +143,24 @@ class OrderDAOTest extends BaseDAOTest {
 
         assertFalse(listOrders.isEmpty());
     }
+
+    @Test
+    void testGetByIdAndCustomerNotNull() {
+        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        final int customerId = customerDAO.listAll().getFirst().getCustomerId();
+
+        BookOrder order = orderDAO.get(orderId, customerId);
+
+        assertNotNull(order);
+    }
+
+    @Test
+    void testGetByIdAndCustomerNull() {
+        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        final int customerId = -1;
+
+        BookOrder order = orderDAO.get(orderId, customerId);
+
+        assertNull(order);
+    }
 }
