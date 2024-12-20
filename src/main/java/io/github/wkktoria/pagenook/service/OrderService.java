@@ -134,13 +134,21 @@ public class OrderService {
 
     public void showEditOrderForm() throws ServletException, IOException {
         final Integer orderId = Integer.parseInt(request.getParameter("id"));
-        BookOrder order = orderDAO.get(orderId);
 
-        if (order == null) {
+        if (orderDAO.get(orderId) == null) {
             final String message = "Could not find order with ID " + orderId + ".";
             CommonUtil.showMessageBackend(message, request, response);
         } else {
-            request.setAttribute("order", order);
+            HttpSession session = request.getSession();
+            Object isPendingBook = session.getAttribute("newBookPendingToAddToOrder");
+
+            if (isPendingBook == null) {
+                BookOrder order = orderDAO.get(orderId);
+                session.setAttribute("order", order);
+            } else {
+                session.removeAttribute("newBookPendingToAddToOrder");
+            }
+
             final String editPage = "order_form.jsp";
             CommonUtil.forwardToPage(editPage, request, response);
         }

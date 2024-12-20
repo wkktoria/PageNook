@@ -135,7 +135,7 @@
 
     <div class="center">
         <br/>
-        <a href="#">Add Books</a> |
+        <a href="javascript:showAddBookPopup()"><b>Add Books</b></a> |
         <input type="submit" value="Save"/> |
         <input type="button" value="Cancel"/>
     </div>
@@ -146,6 +146,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
     });
+
+    function showAddBookPopup() {
+        const width = 600;
+        const left = (screen.width - width) / 2;
+        const height = 300;
+        const top = (screen.height - height) / 2;
+        window.open("add_book_form", "_blank", "width=" + width + ", height=" + height + ", top=" + top + ", left=" + left);
+    }
 </script>
 </body>
 </html>

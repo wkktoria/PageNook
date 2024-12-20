@@ -108,7 +108,7 @@
 
 <div class="center">
     <br/>
-    <a href="#">Edit this Order</a> |
+    <a href="edit_order?id=${order.orderId}">Edit this Order</a> |
     <a href="#">Delete this Order</a>
 </div>
 
