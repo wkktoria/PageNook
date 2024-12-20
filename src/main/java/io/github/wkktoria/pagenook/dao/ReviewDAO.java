@@ -56,4 +56,8 @@ public class ReviewDAO extends JpaDao<Review> implements GenericDAO<Review> {
     public long countByCustomer(final int customerId) {
         return super.countWithNamedQuery("Review.countByCustomer", "customerId", customerId);
     }
+
+    public List<Review> listMostRecent() {
+        return super.findWithNamedQuery("Review.listAll", 0, 3);
+    }
 }

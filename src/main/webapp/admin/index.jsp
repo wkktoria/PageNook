@@ -58,6 +58,26 @@
 
 <div class="center">
     <h2 class="page-heading">Recent Reviews:</h2>
+    <table>
+        <tr>
+            <th>Book</th>
+            <th>Rating</th>
+            <th>Headline</th>
+            <th>Customer</th>
+            <th>Review On</th>
+        </tr>
+        <c:forEach items="${listMostRecentReviews}" var="review" varStatus="status">
+            <tr>
+                <td>${review.book.title}</td>
+                <td>${review.rating}</td>
+                <td>
+                    <a href="edit_review?id=${review.reviewId}">${review.headline}</a>
+                </td>
+                <td>${review.customer.fullname}</td>
+                <td>${review.reviewTime}</td>
+            </tr>
+        </c:forEach>
+    </table>
     <hr style="width: 60%"/>
 </div>
 

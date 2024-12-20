@@ -110,4 +110,11 @@ class ReviewDAOTest {
 
         assertNull(result);
     }
+
+    @Test
+    void testListMostRecent() {
+        List<Review> recentReviews = reviewDAO.listMostRecent();
+
+        assertFalse(recentReviews.isEmpty());
+    }
 }
