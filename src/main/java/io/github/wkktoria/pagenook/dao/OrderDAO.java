@@ -37,8 +37,8 @@ public class OrderDAO extends JpaDao<BookOrder> implements GenericDAO<BookOrder>
     }
 
     @Override
-    public void delete(Object id) {
-
+    public void delete(Object orderId) {
+        super.delete(BookOrder.class, orderId);
     }
 
     @Override

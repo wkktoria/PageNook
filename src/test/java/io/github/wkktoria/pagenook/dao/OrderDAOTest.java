@@ -206,4 +206,15 @@ class OrderDAOTest extends BaseDAOTest {
 
         assertTrue(totalOrders > 0);
     }
+
+    @Test
+    void testDelete() {
+        Integer orderId = orderDAO.listAll().getFirst().getOrderId();
+
+        orderDAO.delete(orderId);
+
+        BookOrder order = orderDAO.get(orderId);
+
+        assertNull(order);
+    }
 }
