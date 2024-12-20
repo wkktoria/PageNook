@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +29,30 @@
 
 <div class="center">
     <h2 class="page-heading">Recent Sales:</h2>
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Ordered by</th>
+            <th>Book Copies</th>
+            <th>Total</th>
+            <th>Payment Method</th>
+            <th>Status</th>
+            <th>Order Date</th>
+        </tr>
+        <c:forEach items="${listMostRecentSales}" var="order" varStatus="status">
+            <tr>
+                <td>
+                    <a href="view_order?id=${order.orderId}">${order.orderId}</a>
+                </td>
+                <td>${order.customer.fullname}</td>
+                <td>${order.bookCopies}</td>
+                <td><fmt:formatNumber value="${order.total}" type="currency"/></td>
+                <td>${order.paymentMethod}</td>
+                <td>${order.status}</td>
+                <td>${order.orderDate}</td>
+            </tr>
+        </c:forEach>
+    </table>
     <hr style="width: 60%"/>
 </div>
 

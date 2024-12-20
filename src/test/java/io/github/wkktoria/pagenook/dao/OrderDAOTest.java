@@ -217,4 +217,11 @@ class OrderDAOTest extends BaseDAOTest {
 
         assertNull(order);
     }
+
+    @Test
+    void testListMostRecentSales() {
+        List<BookOrder> recentOrders = orderDAO.listMostRecentSales();
+
+        assertFalse(recentOrders.isEmpty());
+    }
 }

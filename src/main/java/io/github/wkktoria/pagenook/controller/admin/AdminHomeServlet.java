@@ -1,6 +1,7 @@
 package io.github.wkktoria.pagenook.controller.admin;
 
-import jakarta.servlet.RequestDispatcher;
+import io.github.wkktoria.pagenook.dao.OrderDAO;
+import io.github.wkktoria.pagenook.entity.BookOrder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,14 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
+
+import static io.github.wkktoria.pagenook.util.CommonUtil.forwardToPage;
 
 @WebServlet("/admin/")
 public class AdminHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        OrderDAO orderDAO = new OrderDAO();
+        List<BookOrder> listMostRecentSales = orderDAO.listMostRecentSales();
+        request.setAttribute("listMostRecentSales", listMostRecentSales);
+
         final String homepage = "index.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-        dispatcher.forward(request, response);
+        forwardToPage(homepage, request, response);
     }
 
     @Override
