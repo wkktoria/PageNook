@@ -5,7 +5,8 @@
 ### Jetty
 
 - Configure `MAVEN_OPTS` setting up:
-    - `MYSQL_HOST` - host of the database (e.g. localhost:3306),
+    - `MYSQL_HOST` - host of the database (e.g. localhost),
+    - `MYSQL_PORT` - port on which MySQL is running (the default is 3306),
     - `MYSQL_DATABASE` - name of database,
     - `MYSQL_USER` - username,
     - `MYSQL_PASSWORD` - password.
@@ -15,7 +16,7 @@
 ./mvnw jetty:run
 ```
 
-Or (if `MAVEN_OPTS` is not configured yet):
+Configuring `MAVEN_OPTS` and running Jetty can be done with single command:
 
 ```shell
 MAVEN_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -DMYSQL_USER=username -DMYSQL_PASSWORD=password" ./mvnw jetty:run
@@ -32,7 +33,7 @@ docker build -t pagenook .
 - Create Docker container:
 
 ```shell
-docker create -p 8082:8082 -e CATALINA_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -DMYSQL_USER=username -DMYSQL_PASSWORD=password" --name pagenook pagenook
+docker create -p <PORT>:<PORT> -e CATALINA_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -DMYSQL_USER=username -DMYSQL_PASSWORD=password" --name pagenook pagenook
 ```
 
 - Start the container:
