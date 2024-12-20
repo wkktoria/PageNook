@@ -1,7 +1,6 @@
 package io.github.wkktoria.pagenook.controller.admin;
 
-import io.github.wkktoria.pagenook.dao.OrderDAO;
-import io.github.wkktoria.pagenook.dao.ReviewDAO;
+import io.github.wkktoria.pagenook.dao.*;
 import io.github.wkktoria.pagenook.entity.BookOrder;
 import io.github.wkktoria.pagenook.entity.Review;
 import jakarta.servlet.ServletException;
@@ -21,12 +20,30 @@ public class AdminHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderDAO orderDAO = new OrderDAO();
         ReviewDAO reviewDAO = new ReviewDAO();
+        UserDAO userDAO = new UserDAO();
+        BookDAO bookDAO = new BookDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
 
         List<BookOrder> listMostRecentSales = orderDAO.listMostRecentSales();
         request.setAttribute("listMostRecentSales", listMostRecentSales);
 
         List<Review> listMostRecentReviews = reviewDAO.listMostRecent();
         request.setAttribute("listMostRecentReviews", listMostRecentReviews);
+
+        long totalUsers = userDAO.count();
+        request.setAttribute("totalUsers", totalUsers);
+
+        long totalBooks = bookDAO.count();
+        request.setAttribute("totalBooks", totalBooks);
+
+        long totalCustomers = customerDAO.count();
+        request.setAttribute("totalCustomers", totalCustomers);
+
+        long totalReviews = reviewDAO.count();
+        request.setAttribute("totalReviews", totalReviews);
+
+        long totalOrders = orderDAO.count();
+        request.setAttribute("totalOrders", totalOrders);
 
         final String homepage = "index.jsp";
         forwardToPage(homepage, request, response);

@@ -83,6 +83,9 @@
 
 <div class="center">
     <h2 class="page-heading">Statistics:</h2>
+    <span>Total Users: ${totalUsers}</span> <span>Total Books: ${totalBooks}</span>
+    <span>Total Customers: ${totalCustomers}</span> <span>Total Reviews: ${totalReviews}</span>
+    <span>Total Orders: ${totalOrders}</span>
     <hr style="width: 60%"/>
 </div>
 
