@@ -18,6 +18,9 @@ import static jakarta.persistence.GenerationType.IDENTITY;
         @NamedQuery(name = "Review.findByCustomerAndBook",
                 query = "select r from Review  r where r.customer.customerId = :customerId and r.book.bookId = :bookId"),
         @NamedQuery(name = "Review.countByCustomer", query = "select count(r.reviewId) from Review r where r.customer.customerId = :customerId"),
+        @NamedQuery(name = "Review.mostFavoredBooks",
+                query = "select r.book, count(r.book.bookId) as ReviewCount, avg(r.rating) as AverageRating from Review r "
+                        + "group by r.book.bookId having avg(r.rating) >= 4.0 order by ReviewCount desc, AverageRating desc"),
 })
 public class Review implements Serializable {
     private Integer reviewId;

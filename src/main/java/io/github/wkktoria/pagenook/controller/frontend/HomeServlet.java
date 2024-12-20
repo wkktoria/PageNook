@@ -24,6 +24,9 @@ public class HomeServlet extends HttpServlet {
         List<Book> listBestSellingBooks = bookDAO.listBestSellingBooks();
         request.setAttribute("listBestSellingBooks", listBestSellingBooks);
 
+        List<Book> listFavoredBooks = bookDAO.listMostFavoredBooks();
+        request.setAttribute("listFavoredBooks", listFavoredBooks);
+
         final String homepage = "frontend/index.jsp";
         CommonUtil.forwardToPage(homepage, request, response);
     }
