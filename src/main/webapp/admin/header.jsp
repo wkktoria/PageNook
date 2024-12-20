@@ -41,5 +41,10 @@
                 <img src="../images/order.svg" alt="User" height="40" width="40"/><br/>Orders
             </a>
         </div>
+        <div>
+            <a href="list_article">
+                <img src="../images/article.svg" alt="Article" height="40" width="40"/><br/>Articles
+            </a>
+        </div>
     </div>
 </div>
