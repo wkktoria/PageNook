@@ -199,4 +199,11 @@ class OrderDAOTest extends BaseDAOTest {
             assertEquals(expectedSubtotal, orderDetail.getSubtotal(), 0);
         }
     }
+
+    @Test
+    void testCount() {
+        long totalOrders = orderDAO.count();
+
+        assertTrue(totalOrders > 0);
+    }
 }
