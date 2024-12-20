@@ -8,10 +8,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -162,5 +159,44 @@ class OrderDAOTest extends BaseDAOTest {
         BookOrder order = orderDAO.get(orderId, customerId);
 
         assertNull(order);
+    }
+
+    @Test
+    void testUpdateShippingAddress() {
+        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        BookOrder order = orderDAO.get(orderId);
+        order.setShippingAddress("New Shipping Address");
+
+        orderDAO.update(order);
+
+        BookOrder updatedOrder = orderDAO.get(orderId);
+
+        assertEquals("New Shipping Address", updatedOrder.getShippingAddress());
+    }
+
+    @Test
+    void testUpdateOrderDetail() {
+        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        BookOrder order = orderDAO.get(orderId);
+        Iterator<OrderDetail> iterator = order.getOrderDetails().iterator();
+
+        while (iterator.hasNext()) {
+            OrderDetail orderDetail = iterator.next();
+            orderDetail.setQuantity(3);
+            orderDetail.setSubtotal(120);
+        }
+
+        orderDAO.update(order);
+
+        iterator = order.getOrderDetails().iterator();
+
+        final int expectedQuantity = 3;
+        final float expectedSubtotal = 120;
+
+        while (iterator.hasNext()) {
+            OrderDetail orderDetail = iterator.next();
+            assertEquals(expectedQuantity, orderDetail.getQuantity());
+            assertEquals(expectedSubtotal, orderDetail.getSubtotal(), 0);
+        }
     }
 }
