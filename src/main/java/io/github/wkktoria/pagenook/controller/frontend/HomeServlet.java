@@ -2,7 +2,7 @@ package io.github.wkktoria.pagenook.controller.frontend;
 
 import io.github.wkktoria.pagenook.dao.BookDAO;
 import io.github.wkktoria.pagenook.entity.Book;
-import jakarta.servlet.RequestDispatcher;
+import io.github.wkktoria.pagenook.util.CommonUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,11 +17,14 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         BookDAO bookDAO = new BookDAO();
+
         List<Book> listNewBooks = bookDAO.listNewBooks();
         request.setAttribute("listNewBooks", listNewBooks);
 
+        List<Book> listBestSellingBooks = bookDAO.listBestSellingBooks();
+        request.setAttribute("listBestSellingBooks", listBestSellingBooks);
+
         final String homepage = "frontend/index.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
-        dispatcher.forward(request, response);
+        CommonUtil.forwardToPage(homepage, request, response);
     }
 }

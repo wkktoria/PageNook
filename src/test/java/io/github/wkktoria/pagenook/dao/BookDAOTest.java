@@ -192,4 +192,11 @@ class BookDAOTest extends BaseDAOTest {
 
         assertTrue(numOfBooks > 0);
     }
+
+    @Test
+    void testListBestSellingBooks() {
+        List<Book> topBestSellingBooks = bookDAO.listBestSellingBooks();
+
+        assertFalse(topBestSellingBooks.isEmpty());
+    }
 }
