@@ -77,7 +77,7 @@ class CustomerDAOTest extends BaseDAOTest {
 
     @Test
     void testDeleteSuccess() {
-        Integer customerId = customerDAO.listAll().getLast().getCustomerId();
+        Integer customerId = customerDAO.listAll().getFirst().getCustomerId();
 
         customerDAO.delete(customerId);
 
