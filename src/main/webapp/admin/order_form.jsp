@@ -115,7 +115,7 @@
                         </label>
                     </td>
                     <td><fmt:formatNumber value="${orderDetail.subtotal}" type="currency"/></td>
-                    <td><a href="#">Remove</a></td>
+                    <td><a href="remove_book_from_order?id=${orderDetail.book.bookId}">Remove</a></td>
                 </tr>
             </c:forEach>
             <tr>
@@ -137,7 +137,7 @@
         <br/>
         <a href="javascript:showAddBookPopup()"><b>Add Books</b></a> |
         <input type="submit" value="Save"/> |
-        <input type="button" value="Cancel"/>
+        <input type="button" value="Cancel" onclick="javascript:window.location.href='list_order';"/>
     </div>
 </form>
 
