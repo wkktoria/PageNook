@@ -111,7 +111,8 @@
                     <td><fmt:formatNumber value="${orderDetail.book.price}" type="currency"/></td>
                     <td>
                         <label>
-                            <input type="number" name="quantity" value="${orderDetail.quantity}" size="5"/>
+                        	<input type="hidden" name="bookId" value="${orderDetail.book.bookId}" />
+                            <input type="number" name="quantity${status.index + 1}" value="${orderDetail.quantity}" size="5"/>
                         </label>
                     </td>
                     <td><fmt:formatNumber value="${orderDetail.subtotal}" type="currency"/></td>
@@ -145,6 +146,32 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#orderForm").validate({
+            rules: {
+                recipientName: "required",
+                recipientPhone: "required",
+                shippingAddress: "required",
+                <c:forEach items="${order.orderDetails}" var="book" varStatus="status">
+                quantity${status.index + 1}: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+        		</c:forEach>
+            },
+            messages: {
+            	recipientName: "Please enter recipient name.",
+            	recipientPhone: "Please enter recipient phone number.",
+            	shippingAddress: "Please enter shipping address.",
+                <c:forEach items="${order.orderDetails}" var="book" varStatus="status">
+            	quantity${status.index + 1}: {
+                	required: "Please enter quantity.",
+                	number: "Quantity must be a number.",
+                	min: "Quantity must be greater than 0."
+            	},
+    			</c:forEach>
+            }
+        });
     });
 
     function showAddBookPopup() {
