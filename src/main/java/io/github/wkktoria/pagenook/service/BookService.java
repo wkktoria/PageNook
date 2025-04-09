@@ -65,7 +65,8 @@ public class BookService {
         Book existingBook = bookDAO.findByTitle(request.getParameter("title"));
 
         if (existingBook != null) {
-            final String message = "Could not crete new book, because the book with title " + title + " already exists.";
+            final String message = "Could not crete new book, because the book with title " + title
+                    + " already exists.";
             listBook(message);
             return;
         }
@@ -156,11 +157,22 @@ public class BookService {
             long size = part.getSize();
             byte[] imageBytes = new byte[(int) size];
 
-            InputStream inputStream = part.getInputStream();
-            inputStream.read(imageBytes);
-            inputStream.close();
+            try (InputStream inputStream = part.getInputStream()) {
+                int bytesRead;
+                int totalBytesRead = 0;
 
-            book.setImage(imageBytes);
+                while (totalBytesRead < size) {
+                    bytesRead = inputStream.read(imageBytes, totalBytesRead, (int) (size - totalBytesRead));
+                    if (bytesRead == -1) {
+                        throw new IOException("Unexpected end of stream. Not all bytes has been read");
+                    }
+                    totalBytesRead += bytesRead;
+                }
+
+                book.setImage(imageBytes);
+            } catch (IOException exception) {
+                throw new ServletException("Error reading image");
+            }
         }
     }
 
@@ -178,7 +190,8 @@ public class BookService {
                 long countByOrder = orderDAO.countOrderDetailByBook(bookId);
 
                 if (countByOrder > 0) {
-                    final String message = "Could not delete book with ID " + bookId + ", because there are orders associated with it.";
+                    final String message = "Could not delete book with ID " + bookId
+                            + ", because there are orders associated with it.";
                     CommonUtil.showMessageBackend(message, request, response);
                 } else {
                     bookDAO.delete(bookId);

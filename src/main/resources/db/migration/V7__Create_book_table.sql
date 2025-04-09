@@ -5,7 +5,7 @@ create table `book`
     `author`           varchar(64)  not null,
     `description`      mediumtext   not null,
     `isbn`             varchar(15)  not null,
-    `image`            blob         not null,
+    `image`            longblob     not null,
     `price`            float        not null,
     `publish_date`     date         not null,
     `last_update_time` datetime     not null,
