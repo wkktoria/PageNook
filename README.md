@@ -27,7 +27,7 @@ MAVEN_OPTS="-DMYSQL_HOST=localhost -DMYSQL_PORT=3306 -DMYSQL_DATABASE=pagenook -
 - Build Docker image:
 
 ```shell
-docker build -t pagenook .
+docker build -t pagenook --build-arg PORT=<PORT> .
 ```
 
 - Create Docker container:
