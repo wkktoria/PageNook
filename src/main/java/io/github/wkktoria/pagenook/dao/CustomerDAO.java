@@ -12,7 +12,6 @@ public class CustomerDAO extends JpaDao<Customer> implements GenericDAO<Customer
     @Override
     public Customer create(Customer customer) {
         customer.setRegisterDate(new Date());
-        customer.setPassword(HashGeneratorUtil.generateMD5(customer.getPassword()));
         return super.create(customer);
     }
 
