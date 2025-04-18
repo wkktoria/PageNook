@@ -219,4 +219,12 @@ public class OrderService {
 		final String message = "The order with ID " + order.getOrderId() + " has been updated successfully.";
 		listAllOrder(message);
 	}
+
+	public void deleteOrder() throws ServletException, IOException {
+		Integer orderId = Integer.parseInt(request.getParameter("id"));
+		orderDAO.delete(orderId);
+
+		final String message = "The order with ID " + orderId + " has been deleted.";
+		listAllOrder(message);
+	}
 }
