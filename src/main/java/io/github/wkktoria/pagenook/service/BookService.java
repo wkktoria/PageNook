@@ -133,12 +133,12 @@ public class BookService {
         final String isbn = request.getParameter("isbn");
         float price = Float.parseFloat(request.getParameter("price"));
 
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date publishDate;
         try {
             publishDate = dateFormat.parse(request.getParameter("publishDate"));
         } catch (ParseException e) {
-            throw new ServletException("Error parsing publish date (format is MM/dd/yyyy)");
+            throw new ServletException("Error parsing publish date (format is yyyy-MM-dd)");
         }
 
         book.setTitle(title);

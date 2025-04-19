@@ -9,18 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/stylesheet.css">
     <link rel="stylesheet" href="../css/richtext.min.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script async src="../js/jquery.richtext.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
-            integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="
             crossorigin="anonymous"></script>
     <title><c:if test="${book != null}">Edit Book</c:if><c:if test="${book == null}">Create New Book</c:if> | PageNook -
         Administration</title>
@@ -74,29 +68,37 @@
             <tr>
                 <td>Title:</td>
                 <td><label for="title"></label><input id="title" type="text" name="title" size="20"
-                                                      value="${book.title}"/></td>
+                                                      value="${book.title}" required/></td>
             </tr>
             <tr>
                 <td>Author:</td>
                 <td><label for="author"></label><input id="author" type="text" name="author" size="20"
-                                                       value="${book.author}"/></td>
+                                                       value="${book.author}" required/></td>
             </tr>
             <tr>
                 <td>ISBN:</td>
                 <td><label for="isbn"></label><input id="isbn" type="text" name="isbn" size="20"
-                                                     value="${book.isbn}"/></td>
+                                                     value="${book.isbn}" required/></td>
             </tr>
             <tr>
                 <td>Publish Date:</td>
-                <td><label for="publishDate"></label><input id="publishDate" type="text" name="publishDate"
+                <td><label for="publishDate"></label><input id="publishDate" type="date" name="publishDate"
                                                             size="20"
-                                                            value="<fmt:formatDate pattern="MM/dd/yyyy" value='${book.publishDate}'/>"/>
+                                                            value="<fmt:formatDate pattern="yyyy-MM-dd" value='${book.publishDate}'/>"
+                                                            required/>
                 </td>
             </tr>
             <tr>
                 <td>Book Image:</td>
                 <td>
-                    <label for="bookImage"></label><input id="bookImage" type="file" name="bookImage" size="20"/>
+                    <c:if test="${book == null}">
+                        <label for="bookImage"></label>
+                        <input id="bookImage" type="file" name="bookImage" size="20" required/>
+                    </c:if>
+                    <c:if test="${book != null}">
+                        <label for="bookImage"></label>
+                        <input id="bookImage" type="file" name="bookImage" size="20"/>
+                    </c:if>
                     <br/>
                     <img id="thumbnail" alt="Image Preview" src="data:image/jpg;base64,${book.base64Image}"
                          style="width: 20%; margin-top: 10px;"/>
@@ -105,13 +107,14 @@
             <tr>
                 <td>Price:</td>
                 <td><label for="price"></label><input id="price" type="text" name="price" size="20"
-                                                      value="${book.price}"/></td>
+                                                      value="${book.price}" required/></td>
             </tr>
             <tr>
                 <td>Description:</td>
                 <td>
                     <label for="description"></label>
-                    <textarea rows="5" cols="50" name="description" id="description">${book.description}</textarea>
+                    <textarea rows="5" cols="50" name="description" id="description"
+                              required>${book.description}</textarea>
                 </td>
             </tr>
             <tr>
@@ -128,36 +131,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#publishDate").datepicker();
         $("#description").richText();
 
         $("#bookImage").change(function () {
             showImageThumbnail(this);
-        });
-
-        $("#bookForm").validate({
-            rules: {
-                category: "required",
-                title: "required",
-                author: "required",
-                isbn: "required",
-                publishDate: "required",
-                <c:if test="${book == null}">
-                bookImage: "required",
-                </c:if>
-                price: "required",
-                description: "required"
-            },
-            messages: {
-                category: "Please select a category for the book.",
-                title: "Please enter a title of the book.",
-                author: "Please enter an author of the book.",
-                isbn: "Please enter ISBN of the book.",
-                publishDate: "Please enter a publish date of the book.",
-                bookImage: "Please choose an image of the book.",
-                price: "Please enter a price of the book.",
-                description: "Please enter a description of the book.",
-            }
         });
 
         $("#buttonCancel").click(function () {
