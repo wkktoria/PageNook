@@ -140,7 +140,7 @@ public class Customer implements Serializable {
         this.zipcode = zipcode;
     }
 
-    @Column(name = "password", nullable = false, length = 16)
+    @Column(name = "password", nullable = false, length = 32)
     public String getPassword() {
         return this.password;
     }

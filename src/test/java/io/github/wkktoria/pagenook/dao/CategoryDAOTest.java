@@ -1,14 +1,13 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Category;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CategoryDAOTest extends BaseDAOTest {
     private static CategoryDAO categoryDAO;
 
@@ -24,6 +23,7 @@ class CategoryDAOTest extends BaseDAOTest {
         BaseDAOTest.tearDown();
     }
 
+    @Order(1)
     @Test
     void testCreate() {
         Category category = new Category();
@@ -34,9 +34,10 @@ class CategoryDAOTest extends BaseDAOTest {
         assertTrue(createdCategory.getCategoryId() > 0);
     }
 
+    @Order(2)
     @Test
     void testUpdate() {
-        Category category = categoryDAO.listAll().getFirst();
+        Category category = categoryDAO.get(2);
         category.setName("Updated Test Category");
 
         Category updatedCategory = categoryDAO.update(category);
@@ -46,7 +47,7 @@ class CategoryDAOTest extends BaseDAOTest {
 
     @Test
     void testGet() {
-        Integer categoryId = categoryDAO.listAll().getFirst().getCategoryId();
+        Integer categoryId = 1;
 
         Category foundCategory = categoryDAO.get(categoryId);
 
@@ -55,7 +56,7 @@ class CategoryDAOTest extends BaseDAOTest {
 
     @Test
     void testDelete() {
-        Integer categoryId = categoryDAO.listAll().getFirst().getCategoryId();
+        Integer categoryId = 2;
 
         categoryDAO.delete(categoryId);
 
@@ -78,7 +79,7 @@ class CategoryDAOTest extends BaseDAOTest {
 
     @Test
     void testFindByName() {
-        final String name = "Test Category";
+        final String name = "Category";
         Category category = categoryDAO.findByName(name);
 
         assertNotNull(category);

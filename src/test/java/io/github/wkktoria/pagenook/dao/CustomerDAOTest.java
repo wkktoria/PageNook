@@ -1,6 +1,7 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Customer;
+import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.*;
 
@@ -10,9 +11,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * If the database is empty, it may be needed to run testCreate first to make rest of the tests work properly.
- */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CustomerDAOTest extends BaseDAOTest {
     private static CustomerDAO customerDAO;
@@ -20,6 +18,7 @@ class CustomerDAOTest extends BaseDAOTest {
     @BeforeAll
     static void setUp() {
         BaseDAOTest.setUp();
+
         customerDAO = new CustomerDAO();
     }
 
@@ -57,17 +56,18 @@ class CustomerDAOTest extends BaseDAOTest {
 
     @Test
     void testGetSuccess() {
-        Integer customerId = customerDAO.listAll().getFirst().getCustomerId();
+        Integer customerId = 1;
 
         Customer customer = customerDAO.get(customerId);
 
         assertNotNull(customer);
     }
 
+    @Order(2)
     @Test
     void testUpdate() {
         final String fullName = "Updated Test Customer";
-        Customer customer = customerDAO.listAll().getLast();
+        Customer customer = customerDAO.get(2);
         customer.setFullname(fullName);
 
         Customer updatedCustomer = customerDAO.update(customer);
@@ -77,7 +77,7 @@ class CustomerDAOTest extends BaseDAOTest {
 
     @Test
     void testDeleteSuccess() {
-        Integer customerId = customerDAO.listAll().getFirst().getCustomerId();
+        Integer customerId = 2;
 
         customerDAO.delete(customerId);
 
@@ -108,7 +108,7 @@ class CustomerDAOTest extends BaseDAOTest {
 
     @Test
     void testFindByEmail() {
-        final String email = customerDAO.listAll().getFirst().getEmail();
+        final String email = "test@email.com";
         Customer customer = customerDAO.findByEmail(email);
 
         assertNotNull(customer);
@@ -116,8 +116,8 @@ class CustomerDAOTest extends BaseDAOTest {
 
     @Test
     void testCheckLoginSuccess() {
-        final String email = customerDAO.listAll().getFirst().getEmail();
-        final String password = "secret";
+        final String email = "test@email.com";
+        final String password = "mysecret";
 
         Customer customer = customerDAO.checkLogin(email, password);
 

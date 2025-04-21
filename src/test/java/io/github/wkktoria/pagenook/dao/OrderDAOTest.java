@@ -4,17 +4,13 @@ import io.github.wkktoria.pagenook.entity.Book;
 import io.github.wkktoria.pagenook.entity.BookOrder;
 import io.github.wkktoria.pagenook.entity.Customer;
 import io.github.wkktoria.pagenook.entity.OrderDetail;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * The customer and book database tables should contain some records to make these tests works properly.
- */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class OrderDAOTest extends BaseDAOTest {
     private static OrderDAO orderDAO;
     private static CustomerDAO customerDAO;
@@ -27,11 +23,6 @@ class OrderDAOTest extends BaseDAOTest {
         orderDAO = new OrderDAO();
         customerDAO = new CustomerDAO();
         bookDAO = new BookDAO();
-
-        orderDAO.create(new BookOrder(customerDAO.listAll().getFirst(), new Date(),
-                "Test Address", "Test Recipient",
-                "1234567890", "Test Payment Method",
-                100, "Test Status"));
     }
 
     @AfterAll
@@ -39,6 +30,7 @@ class OrderDAOTest extends BaseDAOTest {
         BaseDAOTest.tearDown();
     }
 
+    @Order(1)
     @Test
     void testCreateOrderWithOneBook() {
         BookOrder order = new BookOrder();
@@ -83,7 +75,7 @@ class OrderDAOTest extends BaseDAOTest {
 
         Set<OrderDetail> orderDetails = new HashSet<>();
 
-        Book firstBook = bookDAO.listAll().getFirst();
+        Book firstBook = bookDAO.get(1);
         OrderDetail firstBookOrderDetail = new OrderDetail();
         firstBookOrderDetail.setBook(firstBook);
         firstBookOrderDetail.setBookOrder(order);
@@ -92,7 +84,7 @@ class OrderDAOTest extends BaseDAOTest {
 
         orderDetails.add(firstBookOrderDetail);
 
-        Book secondBook = bookDAO.listAll().getLast();
+        Book secondBook = bookDAO.get(2);
         OrderDetail secondBookOrderDetail = new OrderDetail();
         secondBookOrderDetail.setBook(secondBook);
         secondBookOrderDetail.setBookOrder(order);
@@ -143,8 +135,8 @@ class OrderDAOTest extends BaseDAOTest {
 
     @Test
     void testGetByIdAndCustomerNotNull() {
-        final int orderId = orderDAO.listAll().getFirst().getOrderId();
-        final int customerId = customerDAO.listAll().getFirst().getCustomerId();
+        final int orderId = 1;
+        final int customerId = 1;
 
         BookOrder order = orderDAO.get(orderId, customerId);
 
@@ -153,7 +145,7 @@ class OrderDAOTest extends BaseDAOTest {
 
     @Test
     void testGetByIdAndCustomerNull() {
-        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        final int orderId = 1;
         final int customerId = -1;
 
         BookOrder order = orderDAO.get(orderId, customerId);
@@ -161,9 +153,10 @@ class OrderDAOTest extends BaseDAOTest {
         assertNull(order);
     }
 
+    @Order(2)
     @Test
     void testUpdateShippingAddress() {
-        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        final int orderId = 2;
         BookOrder order = orderDAO.get(orderId);
         order.setShippingAddress("New Shipping Address");
 
@@ -174,9 +167,10 @@ class OrderDAOTest extends BaseDAOTest {
         assertEquals("New Shipping Address", updatedOrder.getShippingAddress());
     }
 
+    @Order(3)
     @Test
     void testUpdateOrderDetail() {
-        final int orderId = orderDAO.listAll().getFirst().getOrderId();
+        final int orderId = 2;
         BookOrder order = orderDAO.get(orderId);
         Iterator<OrderDetail> iterator = order.getOrderDetails().iterator();
 

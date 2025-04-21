@@ -8,9 +8,6 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * If the database is empty, the testCreate test should be run to make all the rests work properly.
- */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ArticleDAOTest extends BaseDAOTest {
     private static ArticleDAO articleDAO;

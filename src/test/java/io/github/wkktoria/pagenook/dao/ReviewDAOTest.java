@@ -1,18 +1,14 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Review;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * The book and customer database tables should contain some records to make these tests work properly.
- */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReviewDAOTest {
     private static ReviewDAO reviewDAO;
     private static BookDAO bookDAO;
@@ -24,10 +20,6 @@ class ReviewDAOTest {
         reviewDAO = new ReviewDAO();
         bookDAO = new BookDAO();
         customerDAO = new CustomerDAO();
-
-        reviewDAO.create(new Review(bookDAO.listAll().getFirst(),
-                customerDAO.listAll().getFirst(), 5, "Test Review",
-                "This is a test review.", new Date()));
     }
 
     @AfterAll
@@ -35,11 +27,12 @@ class ReviewDAOTest {
         BaseDAOTest.tearDown();
     }
 
+    @Order(1)
     @Test
     void testCreate() {
         Review review = new Review();
-        review.setBook(bookDAO.listAll().getFirst());
-        review.setCustomer(customerDAO.listAll().getFirst());
+        review.setBook(bookDAO.get(1));
+        review.setCustomer(customerDAO.get(1));
         review.setHeadline("Test Review");
         review.setRating(5);
         review.setComment("This is a test review.");
@@ -51,16 +44,17 @@ class ReviewDAOTest {
 
     @Test
     void testGet() {
-        Integer reviewId = reviewDAO.listAll().getFirst().getReviewId();
+        Integer reviewId = 1;
 
         Review review = reviewDAO.get(reviewId);
 
         assertNotNull(review);
     }
 
+    @Order(2)
     @Test
     void testUpdate() {
-        Review review = reviewDAO.listAll().getFirst();
+        Review review = reviewDAO.get(2);
         review.setHeadline("Updated Test Review");
 
         Review updatedReview = reviewDAO.update(review);
@@ -84,7 +78,7 @@ class ReviewDAOTest {
 
     @Test
     void testDelete() {
-        Integer reviewId = reviewDAO.listAll().getFirst().getReviewId();
+        Integer reviewId = 2;
 
         reviewDAO.delete(reviewId);
 
@@ -93,8 +87,8 @@ class ReviewDAOTest {
 
     @Test
     void testFindByCustomerAndBookFound() {
-        int customerId = customerDAO.listAll().getFirst().getCustomerId();
-        int bookId = bookDAO.listAll().getFirst().getBookId();
+        int customerId = 1;
+        int bookId = 1;
 
         Review result = reviewDAO.findByCustomerAndBook(customerId, bookId);
 

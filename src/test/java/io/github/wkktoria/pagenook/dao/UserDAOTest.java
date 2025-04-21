@@ -2,22 +2,21 @@ package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.User;
 import jakarta.persistence.PersistenceException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserDAOTest extends BaseDAOTest {
     private static UserDAO userDAO;
 
     @BeforeAll
     static void setUp() {
         BaseDAOTest.setUp();
+
         userDAO = new UserDAO();
-        userDAO.create(new User("testuser@gmail.com", "Test User", "Str0ngP@sw00rd"));
     }
 
     @AfterAll
@@ -25,6 +24,7 @@ class UserDAOTest extends BaseDAOTest {
         BaseDAOTest.tearDown();
     }
 
+    @Order(1)
     @Test
     void testCreate() {
         User user = new User();
@@ -46,10 +46,10 @@ class UserDAOTest extends BaseDAOTest {
         });
     }
 
-
+@Order(2)
     @Test
     void testUpdate() {
-        User user = userDAO.listAll().getFirst();
+        User user = userDAO.get(2);
         user.setFullName("Updated Test User");
         user.setEmail("updateduser@gmail.com");
 
@@ -60,7 +60,7 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testGetFound() {
-        Integer userId = userDAO.listAll().getFirst().getUserId();
+        Integer userId = 1;
 
         User foundUser = userDAO.get(userId);
 
@@ -78,7 +78,7 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testDelete() {
-        Integer userId = userDAO.listAll().getFirst().getUserId();
+        Integer userId = 2;
 
         userDAO.delete(userId);
 
@@ -110,7 +110,7 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testFindByEmail() {
-        final String email = "testuser@gmail.com";
+        final String email = "test@email.com";
         User user = userDAO.findByEmail(email);
 
         assertNotNull(user);
@@ -118,8 +118,8 @@ class UserDAOTest extends BaseDAOTest {
 
     @Test
     void testCheckLoginSuccess() {
-        final String email = "testuser@gmail.com";
-        final String password = "Str0ngP@sw00rd";
+        final String email = "test@email.com";
+        final String password = "mysecret";
 
         boolean loginResult = userDAO.checkLogin(email, password);
 

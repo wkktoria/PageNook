@@ -16,9 +16,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * If the database is empty, the testCreate test should be run to make all the tests work properly.
- */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BookDAOTest extends BaseDAOTest {
     private static BookDAO bookDAO;
@@ -28,10 +25,8 @@ class BookDAOTest extends BaseDAOTest {
     static void setUp() {
         BaseDAOTest.setUp();
 
-        categoryDAO = new CategoryDAO();
-        categoryDAO.create(new Category("Test Category"));
-
         bookDAO = new BookDAO();
+        categoryDAO = new CategoryDAO();
     }
 
     @AfterAll
@@ -39,19 +34,15 @@ class BookDAOTest extends BaseDAOTest {
         BaseDAOTest.tearDown();
     }
 
-    @Test
     @Order(1)
+    @Test
     void testCreate() throws ParseException, IOException {
         Book newBook = new Book();
 
-        Category category = categoryDAO.listAll().getFirst();
+        Category category = categoryDAO.findByName("Category");
         newBook.setCategory(category);
 
-        if (bookDAO.listAll().isEmpty()) {
-            newBook.setTitle("Test Title");
-        } else {
-            newBook.setTitle("Test Title@" + DateFormat.getDateTimeInstance().format(new Date()));
-        }
+        newBook.setTitle("Test Title@" + DateFormat.getDateTimeInstance().format(new Date()));
         newBook.setAuthor("Test Author");
         newBook.setDescription("This is a test description");
         newBook.setPrice(21.37f);
@@ -87,27 +78,28 @@ class BookDAOTest extends BaseDAOTest {
 
     @Test
     void testFindByTitleExists() {
-        final String title = "Test Title";
+        final String title = "Title";
         Book book = bookDAO.findByTitle(title);
 
         assertNotNull(book);
     }
 
+    @Order(2)
     @Test
     void testUpdate() {
-        Category category = categoryDAO.listAll().getLast();
+        String newTitle = "New Title";
 
-        Book book = bookDAO.listAll().getFirst();
-        book.setCategory(category);
+        Book book = bookDAO.get(3);
+        book.setTitle(newTitle);
 
         Book updatedBook = bookDAO.update(book);
 
-        assertEquals(category.getName(), updatedBook.getCategory().getName());
+        assertEquals(newTitle, updatedBook.getTitle());
     }
 
     @Test
     void testDeleteSuccess() {
-        Integer bookId = bookDAO.listAll().getLast().getBookId();
+        Integer bookId = 3;
 
         bookDAO.delete(bookId);
 
@@ -133,7 +125,7 @@ class BookDAOTest extends BaseDAOTest {
 
     @Test
     void testGetSuccess() {
-        Integer bookId = bookDAO.listAll().getFirst().getBookId();
+        Integer bookId = 1;
 
         Book book = bookDAO.get(bookId);
 
@@ -149,7 +141,7 @@ class BookDAOTest extends BaseDAOTest {
 
     @Test
     void testListByCategory() {
-        Integer categoryId = bookDAO.listAll().getFirst().getCategory().getCategoryId();
+        Integer categoryId = 1;
         List<Book> listBooks = bookDAO.listByCategory(categoryId);
         assertFalse(listBooks.isEmpty());
     }
@@ -179,7 +171,7 @@ class BookDAOTest extends BaseDAOTest {
 
     @Test
     void testSearchByDescription() {
-        final String keyword = "description";
+        final String keyword = "Description";
         List<Book> result = bookDAO.search(keyword);
 
         assertFalse(result.isEmpty());
@@ -187,7 +179,7 @@ class BookDAOTest extends BaseDAOTest {
 
     @Test
     void testCountByCategory() {
-        final int categoryId = categoryDAO.listAll().getFirst().getCategoryId();
+        final int categoryId = 1;
         long numOfBooks = bookDAO.countByCategory(categoryId);
 
         assertTrue(numOfBooks > 0);
