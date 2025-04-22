@@ -1,7 +1,6 @@
 package io.github.wkktoria.pagenook.dao;
 
 import io.github.wkktoria.pagenook.entity.Customer;
-import io.github.wkktoria.pagenook.util.HashGeneratorUtil;
 import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.*;
 
@@ -32,10 +31,10 @@ class CustomerDAOTest extends BaseDAOTest {
     void testCreate() {
         Customer customer = new Customer();
         customer.setEmail("customer " + DateFormat.getDateTimeInstance().format(new Date()) + "@email.com");
-        customer.setFullname("Test Customer");
+        customer.setFirstname("Test Customer");
         customer.setCity("New York");
         customer.setCountry("United Stated");
-        customer.setAddress("Test Address in New York");
+        customer.setAddressLine1("Test Address in New York");
         customer.setPassword("secret");
         customer.setPhone("1234567890");
         customer.setZipcode("1001");
@@ -68,11 +67,11 @@ class CustomerDAOTest extends BaseDAOTest {
     void testUpdate() {
         final String fullName = "Updated Test Customer";
         Customer customer = customerDAO.get(2);
-        customer.setFullname(fullName);
+        customer.setFirstname(fullName);
 
         Customer updatedCustomer = customerDAO.update(customer);
 
-        assertEquals(fullName, updatedCustomer.getFullname());
+        assertEquals(fullName, updatedCustomer.getFirstname());
     }
 
     @Test

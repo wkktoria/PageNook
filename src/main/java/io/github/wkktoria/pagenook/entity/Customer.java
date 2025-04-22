@@ -23,9 +23,12 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Customer implements Serializable {
     private Integer customerId;
     private String email;
-    private String fullname;
-    private String address;
+    private String firstname;
+    private String lastname;
+    private String addressLine1;
+    private String addressLine2;
     private String city;
+    private String state;
     private String country;
     private String phone;
     private String zipcode;
@@ -37,12 +40,16 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
-    public Customer(String email, String fullname, String address, String city, String country, String phone,
-                    String zipcode, String password, Date registerDate) {
+    public Customer(String email, String firstname, String lastname, String addressLine1, String addressLine2,
+                    String city, String state, String country, String phone, String zipcode, String password,
+                    Date registerDate) {
         this.email = email;
-        this.fullname = fullname;
-        this.address = address;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
         this.city = city;
+        this.state = state;
         this.country = country;
         this.phone = phone;
         this.zipcode = zipcode;
@@ -50,17 +57,10 @@ public class Customer implements Serializable {
         this.registerDate = registerDate;
     }
 
-    public Customer(String email, String fullname, String address, String city, String country, String phone,
-                    String zipcode, String password, Date registerDate, Set<Review> reviews, Set<BookOrder> bookOrders) {
-        this.email = email;
-        this.fullname = fullname;
-        this.address = address;
-        this.city = city;
-        this.country = country;
-        this.phone = phone;
-        this.zipcode = zipcode;
-        this.password = password;
-        this.registerDate = registerDate;
+    public Customer(String email, String firstname, String lastname, String addressLine1, String addressLine2,
+                    String city, String state, String country, String phone, String zipcode, String password,
+                    Date registerDate, Set<Review> reviews, Set<BookOrder> bookOrders) {
+        this(email, firstname, lastname, addressLine1, addressLine2, city, state, country, phone, zipcode, password, registerDate);
         this.reviews = reviews;
         this.bookOrders = bookOrders;
     }
@@ -86,22 +86,40 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    @Column(name = "fullname", nullable = false, length = 30)
-    public String getFullname() {
-        return this.fullname;
+    @Column(name = "firstname", nullable = false, length = 30)
+    public String getFirstname() {
+        return this.firstname;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    @Column(name = "address", nullable = false, length = 128)
-    public String getAddress() {
-        return this.address;
+    @Column(name = "lastname", nullable = false, length = 30)
+    public String getLastname() {
+        return this.firstname;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    @Column(name = "address_line1", nullable = false, length = 128)
+    public String getAddressLine1() {
+        return this.addressLine1;
+    }
+
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    @Column(name = "address_line2", nullable = false, length = 128)
+    public String getAddressLine2() {
+        return this.addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
     }
 
     @Column(name = "city", nullable = false, length = 32)
@@ -111,6 +129,15 @@ public class Customer implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Column(name = "state", nullable = false, length = 45)
+    public String getState() {
+        return this.state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Column(name = "country", nullable = false, length = 64)
