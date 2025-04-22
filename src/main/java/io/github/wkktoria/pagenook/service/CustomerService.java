@@ -13,8 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CustomerService {
     private final CustomerDAO customerDAO;
@@ -200,6 +199,23 @@ public class CustomerService {
         readCustomerFields(customer);
         customerDAO.update(customer);
         showCustomerProfile();
+    }
+
+    public void newCustomer() throws ServletException, IOException {
+        String[] countryCodes = Locale.getISOCountries();
+        Map<String, String> mapCountries = new TreeMap<>();
+
+        for (String countryCode : countryCodes) {
+            Locale locale = new Locale("", countryCode);
+            String code = locale.getCountry();
+            String name = locale.getDisplayCountry();
+            mapCountries.put(name, code);
+        }
+
+        request.setAttribute("mapCountries", mapCountries);
+
+        final String customerForm = "customer_form.jsp";
+        CommonUtil.forwardToPage(customerForm, request, response);
     }
 
     private void readCustomerFields(Customer customer) {

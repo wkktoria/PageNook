@@ -55,9 +55,18 @@
                                                                    value="${customer.email}"/></td>
             </tr>
             <tr>
-                <td class="right">Full Name:</td>
-                <td class="left"><label for="fullname"></label><input id="fullname" type="text" name="fullname"
-                                                                      size="45" value="${customer.fullname}"/></td>
+                <td class="right">First Name:</td>
+                <td class="left">
+                    <label for="firstname"></label>
+                    <input id="firstname" type="text" name="firstname" size="45" value="${customer.firstname}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="right">Last Name:</td>
+                <td class="left">
+                    <label for="lastname"></label>
+                    <input id="lastname" type="text" name="lastname" size="45" value="${customer.lastname}"/>
+                </td>
             </tr>
             <tr>
                 <td class="right">Password:</td>
@@ -77,14 +86,32 @@
                 </td>
             </tr>
             <tr>
-                <td class="right">Address:</td>
-                <td class="left"><label for="address"></label><input id="address" type="text" name="address" size="45"
-                                                                     value="${customer.address}"/></td>
+                <td class="right">Address Line 1:</td>
+                <td class="left">
+                    <label for="address1"></label>
+                    <input id="address1" type="text" name="address1" size="45" value="${customer.addressLine1}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="right">Address Line 2:</td>
+                <td class="left">
+                    <label for="address2"></label>
+                    <input id="address2" type="text" name="address2" size="45" value="${customer.addressLine2}"/>
+                </td>
             </tr>
             <tr>
                 <td class="right">City:</td>
-                <td class="left"><label for="city"></label><input id="city" type="text" name="city" size="45"
-                                                                  value="${customer.city}"/></td>
+                <td class="left">
+                    <label for="city"></label>
+                    <input id="city" type="text" name="city" size="45" value="${customer.city}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="right">State:</td>
+                <td class="left">
+                    <label for="state"></label>
+                    <input id="state" type="text" name="state" size="45" value="${customer.state}"/>
+                </td>
             </tr>
             <tr>
                 <td class="right">Zip Code:</td>
@@ -93,8 +120,14 @@
             </tr>
             <tr>
                 <td class="right">Country:</td>
-                <td class="left"><label for="country"></label><input id="country" type="text" name="country" size="45"
-                                                                     value="${customer.country}"/></td>
+                <td class="left">
+                    <label for="country"></label>
+                    <select name="country" id="country">
+                        <c:forEach items="${mapCountries}" var="country">
+                            <option value="${country.value}">${country.key}</option>
+                        </c:forEach>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -116,7 +149,8 @@
                     required: true,
                     email: true
                 },
-                fullname: "required",
+                firstname: "required",
+                lastname: "required",
                 <c:if test="${customer == null}">
                 password: "required",
                 confirmPassword: {
@@ -125,8 +159,10 @@
                 },
                 </c:if>
                 phone: "required",
-                address: "required",
+                address1: "required",
+                address2: "required",
                 city: "required",
+                state: "required",
                 zipcode: "required",
                 country: "required"
             },
@@ -135,7 +171,8 @@
                     required: "Please enter an e-mail address.",
                     email: "Please enter a valid e-mail address.",
                 },
-                fullname: "Please enter full name.",
+                firstname: "Please enter first name.",
+                lastname: "Please enter first name.",
                 <c:if test="${customer == null}">
                 password: "Please enter password.",
                 confirmPassword: {
@@ -144,8 +181,10 @@
                 },
                 </c:if>
                 phone: "Please enter phone number.",
-                address: "Pleas enter address.",
+                address1: "Pleas enter address line 1.",
+                address2: "Pleas enter address line 2.",
                 city: "Please enter city.",
+                state: "Please enter state.",
                 zipcode: "Please enter zip code.",
                 country: "Please enter country.",
             }
