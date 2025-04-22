@@ -33,8 +33,10 @@ class CustomerDAOTest extends BaseDAOTest {
         customer.setEmail("customer " + DateFormat.getDateTimeInstance().format(new Date()) + "@email.com");
         customer.setFirstname("Test Customer");
         customer.setCity("New York");
+        customer.setState("New York");
         customer.setCountry("United Stated");
         customer.setAddressLine1("Test Address in New York");
+        customer.setAddressLine2("Second Line of Test Address");
         customer.setPassword("secret");
         customer.setPhone("1234567890");
         customer.setZipcode("1001");
