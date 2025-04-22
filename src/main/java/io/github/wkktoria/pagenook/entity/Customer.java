@@ -97,11 +97,16 @@ public class Customer implements Serializable {
 
     @Column(name = "lastname", nullable = false, length = 30)
     public String getLastname() {
-        return this.firstname;
+        return this.lastname;
     }
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    @Transient
+    public String getFullname() {
+        return this.firstname + " " + this.lastname;
     }
 
     @Column(name = "address_line1", nullable = false, length = 128)
