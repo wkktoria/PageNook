@@ -124,7 +124,8 @@
                     <label for="country"></label>
                     <select name="country" id="country">
                         <c:forEach items="${mapCountries}" var="country">
-                            <option value="${country.value}">${country.key}</option>
+                            <option value="${country.value}"
+                                    <c:if test="${customer.country eq country.value}">selected</c:if>>${country.key}</option>
                         </c:forEach>
                     </select>
                 </td>

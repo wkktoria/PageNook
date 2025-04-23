@@ -78,6 +78,7 @@ public class CustomerService {
             final String message = "Could not find customer with ID " + customerId + ".";
             request.setAttribute("message", message);
         } else {
+            generateCountryList();
             customer.setPassword(null);
             request.setAttribute("customer", customer);
         }
@@ -202,17 +203,7 @@ public class CustomerService {
     }
 
     public void newCustomer() throws ServletException, IOException {
-        String[] countryCodes = Locale.getISOCountries();
-        Map<String, String> mapCountries = new TreeMap<>();
-
-        for (String countryCode : countryCodes) {
-            Locale locale = new Locale("", countryCode);
-            String code = locale.getCountry();
-            String name = locale.getDisplayCountry();
-            mapCountries.put(name, code);
-        }
-
-        request.setAttribute("mapCountries", mapCountries);
+        generateCountryList();
 
         final String customerForm = "customer_form.jsp";
         CommonUtil.forwardToPage(customerForm, request, response);
@@ -249,5 +240,19 @@ public class CustomerService {
         customer.setState(state);
         customer.setZipcode(zipCode);
         customer.setCountry(country);
+    }
+
+    private void generateCountryList() {
+        String[] countryCodes = Locale.getISOCountries();
+        Map<String, String> mapCountries = new TreeMap<>();
+
+        for (String countryCode : countryCodes) {
+            Locale locale = new Locale("", countryCode);
+            String code = locale.getCountry();
+            String name = locale.getDisplayCountry();
+            mapCountries.put(name, code);
+        }
+
+        request.setAttribute("mapCountries", mapCountries);
     }
 }
