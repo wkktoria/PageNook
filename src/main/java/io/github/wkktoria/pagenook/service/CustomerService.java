@@ -79,7 +79,6 @@ public class CustomerService {
             request.setAttribute("message", message);
         } else {
             generateCountryList();
-            customer.setPassword(null);
             request.setAttribute("customer", customer);
         }
 
@@ -209,6 +208,13 @@ public class CustomerService {
         CommonUtil.forwardToPage(customerForm, request, response);
     }
 
+    public void showCustomerRegistrationForm() throws ServletException, IOException {
+        generateCountryList();
+
+        final String registerForm = "frontend/register_form.jsp";
+        CommonUtil.forwardToPage(registerForm, request, response);
+    }
+
     private void readCustomerFields(Customer customer) {
         final String email = request.getParameter("email");
         final String firstname = request.getParameter("firstname");
@@ -228,11 +234,7 @@ public class CustomerService {
 
         customer.setFirstname(firstname);
         customer.setLastname(lastname);
-
-        if (password != null && !password.isEmpty()) {
-            customer.setPassword(HashGeneratorUtil.generateMD5(password));
-        }
-
+        customer.setPassword(password);
         customer.setPhone(phone);
         customer.setAddressLine1(addressLine1);
         customer.setAddressLine2(addressLine2);

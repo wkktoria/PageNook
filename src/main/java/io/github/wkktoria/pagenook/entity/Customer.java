@@ -128,6 +128,11 @@ public class Customer implements Serializable {
         this.addressLine2 = addressLine2;
     }
 
+    @Transient
+    public String getAddress() {
+        return this.addressLine1 + " " + this.addressLine2;
+    }
+
     @Column(name = "city", nullable = false, length = 32)
     public String getCity() {
         return this.city;

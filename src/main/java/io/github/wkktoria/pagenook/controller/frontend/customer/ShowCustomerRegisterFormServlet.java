@@ -1,5 +1,6 @@
 package io.github.wkktoria.pagenook.controller.frontend.customer;
 
+import io.github.wkktoria.pagenook.service.CustomerService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,8 +14,7 @@ import java.io.IOException;
 public class ShowCustomerRegisterFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final String registerForm = "frontend/register_form.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(registerForm);
-        dispatcher.forward(request, response);
+        CustomerService customerService = new CustomerService(request, response);
+        customerService.showCustomerRegistrationForm();
     }
 }
