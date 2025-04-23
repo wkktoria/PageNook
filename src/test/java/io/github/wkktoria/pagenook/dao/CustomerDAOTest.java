@@ -31,10 +31,11 @@ class CustomerDAOTest extends BaseDAOTest {
     void testCreate() {
         Customer customer = new Customer();
         customer.setEmail("customer " + DateFormat.getDateTimeInstance().format(new Date()) + "@email.com");
-        customer.setFirstname("Test Customer");
+        customer.setFirstname("Test");
+        customer.setLastname("Customer");
         customer.setCity("New York");
         customer.setState("New York");
-        customer.setCountry("United Stated");
+        customer.setCountry("USA");
         customer.setAddressLine1("Test Address in New York");
         customer.setAddressLine2("Second Line of Test Address");
         customer.setPassword("secret");
