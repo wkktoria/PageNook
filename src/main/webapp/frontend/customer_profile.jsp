@@ -20,20 +20,32 @@
             <td class="left">${loggedCustomer.email}</td>
         </tr>
         <tr>
-            <td class="left bold">Full Name:</td>
-            <td class="left">${loggedCustomer.fullname}</td>
+            <td class="left bold">First Name:</td>
+            <td class="left">${loggedCustomer.firstname}</td>
+        </tr>
+        <tr>
+            <td class="left bold">Last Name:</td>
+            <td class="left">${loggedCustomer.lastname}</td>
         </tr>
         <tr>
             <td class="left bold">Phone Number:</td>
             <td class="left">${loggedCustomer.phone}</td>
         </tr>
         <tr>
-            <td class="left bold">Address:</td>
-            <td class="left">${loggedCustomer.address}</td>
+            <td class="left bold">Address Line 1:</td>
+            <td class="left">${loggedCustomer.addressLine1}</td>
+        </tr>
+        <tr>
+            <td class="left bold">Address Line 2:</td>
+            <td class="left">${loggedCustomer.addressLine2}</td>
         </tr>
         <tr>
             <td class="left bold">City:</td>
             <td class="left">${loggedCustomer.city}</td>
+        </tr>
+        <tr>
+            <td class="left bold">State:</td>
+            <td class="left">${loggedCustomer.state}</td>
         </tr>
         <tr>
             <td class="left bold">Zip Code:</td>
@@ -41,7 +53,7 @@
         </tr>
         <tr>
             <td class="left bold">Country:</td>
-            <td class="left">${loggedCustomer.country}</td>
+            <td class="left">${loggedCustomer.countryName}</td>
         </tr>
         <tr>
             <td colspan="2">
