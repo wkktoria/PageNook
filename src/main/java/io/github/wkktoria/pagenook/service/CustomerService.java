@@ -220,11 +220,14 @@ public class CustomerService {
 
     private void readCustomerFields(Customer customer) {
         final String email = request.getParameter("email");
-        final String fullName = request.getParameter("fullname");
+        final String firstname = request.getParameter("firstname");
+        final String lastname = request.getParameter("lastname");
         final String password = request.getParameter("password");
         final String phone = request.getParameter("phone");
-        final String address = request.getParameter("address");
+        final String addressLine1 = request.getParameter("address1");
+        final String addressLine2 = request.getParameter("address2");
         final String city = request.getParameter("city");
+        final String state = request.getParameter("state");
         final String zipCode = request.getParameter("zipcode");
         final String country = request.getParameter("country");
 
@@ -232,15 +235,18 @@ public class CustomerService {
             customer.setEmail(email);
         }
 
-        customer.setFirstname(fullName);
+        customer.setFirstname(firstname);
+        customer.setLastname(lastname);
 
         if (password != null && !password.isEmpty()) {
             customer.setPassword(HashGeneratorUtil.generateMD5(password));
         }
 
         customer.setPhone(phone);
-        customer.setAddressLine1(address);
+        customer.setAddressLine1(addressLine1);
+        customer.setAddressLine2(addressLine2);
         customer.setCity(city);
+        customer.setState(state);
         customer.setZipcode(zipCode);
         customer.setCountry(country);
     }

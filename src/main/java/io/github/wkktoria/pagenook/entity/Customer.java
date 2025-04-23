@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -145,13 +146,18 @@ public class Customer implements Serializable {
         this.state = state;
     }
 
-    @Column(name = "country", nullable = false, length = 64)
+    @Column(name = "country", nullable = false, length = 4)
     public String getCountry() {
         return this.country;
     }
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Transient
+    public String getCountryName() {
+        return new Locale("", this.country).getDisplayCountry();
     }
 
     @Column(name = "phone", nullable = false, length = 15)

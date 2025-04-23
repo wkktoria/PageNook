@@ -54,7 +54,7 @@
                 <td>${customer.firstname}</td>
                 <td>${customer.lastname}</td>
                 <td>${customer.city}</td>
-                <td>${customer.country}</td>
+                <td>${customer.countryName}</td>
                 <td><fmt:formatDate pattern="MM/dd/yyyy" value='${customer.registerDate}'/></td>
                 <td>
                     <a href="edit_customer?id=${customer.customerId}">Edit</a> |
