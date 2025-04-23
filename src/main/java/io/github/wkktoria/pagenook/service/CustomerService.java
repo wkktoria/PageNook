@@ -190,13 +190,20 @@ public class CustomerService {
     }
 
     public void showCustomerProfileEditForm() throws ServletException, IOException {
+        generateCountryList();
+
         final String editPage = "frontend/edit_profile.jsp";
         CommonUtil.forwardToPage(editPage, request, response);
     }
 
     public void updateCustomerProfile() throws ServletException, IOException {
         Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+        final String oldPassword = customer.getPassword();
         readCustomerFields(customer);
+        final String currentPassword = customer.getPassword();
+        if (!oldPassword.equals(currentPassword)) {
+            customer.setPassword(HashGeneratorUtil.generateMD5(currentPassword));
+        }
         customerDAO.update(customer);
         showCustomerProfile();
     }
@@ -232,9 +239,12 @@ public class CustomerService {
             customer.setEmail(email);
         }
 
+        if (password != null && !password.isEmpty()) {
+            customer.setPassword(password);
+        }
+
         customer.setFirstname(firstname);
         customer.setLastname(lastname);
-        customer.setPassword(password);
         customer.setPhone(phone);
         customer.setAddressLine1(addressLine1);
         customer.setAddressLine2(addressLine2);
