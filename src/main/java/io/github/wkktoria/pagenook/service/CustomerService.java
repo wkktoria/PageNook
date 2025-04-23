@@ -247,7 +247,7 @@ public class CustomerService {
         Map<String, String> mapCountries = new TreeMap<>();
 
         for (String countryCode : countryCodes) {
-            Locale locale = new Locale("", countryCode);
+            Locale locale = Locale.forLanguageTag("und-" + countryCode);
             String code = locale.getCountry();
             String name = locale.getDisplayCountry();
             mapCountries.put(name, code);

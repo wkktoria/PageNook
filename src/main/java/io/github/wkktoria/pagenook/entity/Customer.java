@@ -157,7 +157,7 @@ public class Customer implements Serializable {
 
     @Transient
     public String getCountryName() {
-        return new Locale("", this.country).getDisplayCountry();
+        return Locale.forLanguageTag("und-" + this.country).getDisplayCountry();
     }
 
     @Column(name = "phone", nullable = false, length = 15)
