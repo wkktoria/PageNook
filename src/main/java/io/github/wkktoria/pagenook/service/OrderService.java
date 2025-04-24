@@ -65,9 +65,9 @@ public class OrderService {
         final String shippingAddress = address + ", " + city + ", " + zipcode + ", " + country;
 
         BookOrder order = new BookOrder();
-        order.setRecipientName(recipientName);
-        order.setRecipientPhone(recipientPhone);
-        order.setShippingAddress(shippingAddress);
+        order.setFirstname(recipientName);
+        order.setPhone(recipientPhone);
+        order.setAddressLine1(shippingAddress);
         order.setPaymentMethod(paymentMethod);
 
         HttpSession session = request.getSession();
@@ -176,9 +176,9 @@ public class OrderService {
         final String paymentMethod = request.getParameter("paymentMethod");
         final String orderStatus = request.getParameter("orderStatus");
 
-        order.setRecipientName(recipientName);
-        order.setRecipientPhone(recipientPhone);
-        order.setShippingAddress(shippingAddress);
+        order.setFirstname(recipientName);
+        order.setPhone(recipientPhone);
+        order.setAddressLine1(shippingAddress);
         order.setPaymentMethod(paymentMethod);
         order.setStatus(orderStatus);
 
