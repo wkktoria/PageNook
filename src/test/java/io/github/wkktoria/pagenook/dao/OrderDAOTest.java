@@ -38,9 +38,14 @@ class OrderDAOTest extends BaseDAOTest {
 
         order.setCustomer(customer);
         order.setFirstname(customer.getFirstname());
+        order.setLastname(customer.getLastname());
         order.setPhone(customer.getPhone());
-        order.setAddressLine1(customer.getAddressLine1() + ", " + customer.getZipcode()
-                + " " + customer.getCity() + ", " + customer.getCountry());
+        order.setAddressLine1(customer.getAddressLine1());
+        order.setAddressLine2(customer.getAddressLine2());
+        order.setCity(customer.getCity());
+        order.setState(customer.getState());
+        order.setZipcode(customer.getZipcode());
+        order.setCountry(customer.getCountry());
         order.setPaymentMethod("Cash on Delivery");
 
         Set<OrderDetail> orderDetails = new HashSet<>();
@@ -68,9 +73,14 @@ class OrderDAOTest extends BaseDAOTest {
 
         order.setCustomer(customer);
         order.setFirstname(customer.getFirstname());
+        order.setLastname(customer.getLastname());
         order.setPhone(customer.getPhone());
-        order.setAddressLine1(customer.getAddressLine1() + ", " + customer.getZipcode()
-                + " " + customer.getCity() + ", " + customer.getCountry());
+        order.setAddressLine1(customer.getAddressLine1());
+        order.setAddressLine2(customer.getAddressLine2());
+        order.setCity(customer.getCity());
+        order.setState(customer.getState());
+        order.setZipcode(customer.getZipcode());
+        order.setCountry(customer.getCountry());
         order.setPaymentMethod("Cash on Delivery");
 
         Set<OrderDetail> orderDetails = new HashSet<>();
