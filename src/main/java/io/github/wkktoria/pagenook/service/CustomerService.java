@@ -13,8 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CustomerService {
     private final CustomerDAO customerDAO;
@@ -79,7 +78,7 @@ public class CustomerService {
             final String message = "Could not find customer with ID " + customerId + ".";
             request.setAttribute("message", message);
         } else {
-            customer.setPassword(null);
+            generateCountryList();
             request.setAttribute("customer", customer);
         }
 
@@ -191,24 +190,48 @@ public class CustomerService {
     }
 
     public void showCustomerProfileEditForm() throws ServletException, IOException {
+        generateCountryList();
+
         final String editPage = "frontend/edit_profile.jsp";
         CommonUtil.forwardToPage(editPage, request, response);
     }
 
     public void updateCustomerProfile() throws ServletException, IOException {
         Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+        final String oldPassword = customer.getPassword();
         readCustomerFields(customer);
+        final String currentPassword = customer.getPassword();
+        if (!oldPassword.equals(currentPassword)) {
+            customer.setPassword(HashGeneratorUtil.generateMD5(currentPassword));
+        }
         customerDAO.update(customer);
         showCustomerProfile();
     }
 
+    public void newCustomer() throws ServletException, IOException {
+        generateCountryList();
+
+        final String customerForm = "customer_form.jsp";
+        CommonUtil.forwardToPage(customerForm, request, response);
+    }
+
+    public void showCustomerRegistrationForm() throws ServletException, IOException {
+        generateCountryList();
+
+        final String registerForm = "frontend/register_form.jsp";
+        CommonUtil.forwardToPage(registerForm, request, response);
+    }
+
     private void readCustomerFields(Customer customer) {
         final String email = request.getParameter("email");
-        final String fullName = request.getParameter("fullname");
+        final String firstname = request.getParameter("firstname");
+        final String lastname = request.getParameter("lastname");
         final String password = request.getParameter("password");
         final String phone = request.getParameter("phone");
-        final String address = request.getParameter("address");
+        final String addressLine1 = request.getParameter("address1");
+        final String addressLine2 = request.getParameter("address2");
         final String city = request.getParameter("city");
+        final String state = request.getParameter("state");
         final String zipCode = request.getParameter("zipcode");
         final String country = request.getParameter("country");
 
@@ -216,16 +239,32 @@ public class CustomerService {
             customer.setEmail(email);
         }
 
-        customer.setFullname(fullName);
-
         if (password != null && !password.isEmpty()) {
-            customer.setPassword(HashGeneratorUtil.generateMD5(password));
+            customer.setPassword(password);
         }
 
+        customer.setFirstname(firstname);
+        customer.setLastname(lastname);
         customer.setPhone(phone);
-        customer.setAddress(address);
+        customer.setAddressLine1(addressLine1);
+        customer.setAddressLine2(addressLine2);
         customer.setCity(city);
+        customer.setState(state);
         customer.setZipcode(zipCode);
         customer.setCountry(country);
+    }
+
+    private void generateCountryList() {
+        String[] countryCodes = Locale.getISOCountries();
+        Map<String, String> mapCountries = new TreeMap<>();
+
+        for (String countryCode : countryCodes) {
+            Locale locale = Locale.forLanguageTag("und-" + countryCode);
+            String code = locale.getCountry();
+            String name = locale.getDisplayCountry();
+            mapCountries.put(name, code);
+        }
+
+        request.setAttribute("mapCountries", mapCountries);
     }
 }

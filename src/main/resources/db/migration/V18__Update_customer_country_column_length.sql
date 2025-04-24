@@ -1,0 +1,1 @@
+alter table `customer` modify column country varchar(4) not null;

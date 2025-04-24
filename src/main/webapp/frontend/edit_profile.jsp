@@ -32,12 +32,22 @@
         <table class="form">
             <tr>
                 <td class="right">E-mail:</td>
-                <td class="left"><b>${loggedCustomer.email}</b> (cannot be changed)</td>
+                <td class="left">
+                    <b>${loggedCustomer.email}</b> (cannot be changed)
+                </td>
             </tr>
             <tr>
-                <td class="right">Full Name:</td>
-                <td class="left"><label for="fullname"></label><input id="fullname" type="text" name="fullname"
-                                                                      size="45" value="${loggedCustomer.fullname}"/>
+                <td class="right">First Name:</td>
+                <td class="left">
+                    <label for="firstname"></label>
+                    <input id="firstname" type="text" name="firstname" size="45" value="${loggedCustomer.firstname}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="right">Last Name:</td>
+                <td class="left">
+                    <label for="lastname"></label>
+                    <input id="lastname" type="text" name="lastname" size="45" value="${loggedCustomer.lastname}"/>
                 </td>
             </tr>
             <tr>
@@ -47,15 +57,32 @@
                 </td>
             </tr>
             <tr>
-                <td class="right">Address:</td>
-                <td class="left"><label for="address"></label><input id="address" type="text" name="address" size="45"
-                                                                     value="${loggedCustomer.address}"/>
+                <td class="right">Address Line 1:</td>
+                <td class="left">
+                    <label for="address1"></label>
+                    <input id="address1" type="text" name="address1" size="45" value="${loggedCustomer.addressLine1}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="right">Address Line 2:</td>
+                <td class="left">
+                    <label for="address2"></label>
+                    <input id="address2" type="text" name="address2" size="45" value="${loggedCustomer.addressLine2}"/>
                 </td>
             </tr>
             <tr>
                 <td class="right">City:</td>
-                <td class="left"><label for="city"></label><input id="city" type="text" name="city" size="45"
-                                                                  value="${loggedCustomer.city}"/></td>
+                <td class="left">
+                    <label for="city"></label>
+                    <input id="city" type="text" name="city" size="45" value="${loggedCustomer.city}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="right">State:</td>
+                <td class="left">
+                    <label for="state"></label>
+                    <input id="state" type="text" name="state" size="45" value="${loggedCustomer.state}"/>
+                </td>
             </tr>
             <tr>
                 <td class="right">Zip Code:</td>
@@ -65,8 +92,14 @@
             </tr>
             <tr>
                 <td class="right">Country:</td>
-                <td class="left"><label for="country"></label><input id="country" type="text" name="country" size="45"
-                                                                     value="${loggedCustomer.country}"/>
+                <td class="left">
+                    <label for="country"></label>
+                    <select name="country" id="country">
+                        <c:forEach items="${mapCountries}" var="country">
+                            <option value="${country.value}"
+                                    <c:if test="${loggedCustomer.country eq country.value}">selected</c:if>>${country.key}</option>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -104,12 +137,14 @@
                     required: true,
                     email: true
                 },
-                fullname: "required",
+                firstname: "required",
+                lastname: "required",
                 confirmPassword: {
                     equalTo: "#password"
                 },
                 phone: "required",
-                address: "required",
+                address1: "required",
+                address2: "required",
                 city: "required",
                 zipcode: "required",
                 country: "required"
@@ -119,12 +154,14 @@
                     required: "Please enter an e-mail address.",
                     email: "Please enter a valid e-mail address.",
                 },
-                fullname: "Please enter full name.",
+                firstname: "Please enter first name.",
+                lastname: "Please enter last name.",
                 confirmPassword: {
                     equalTo: "Confirm password does not match the password.",
                 },
                 phone: "Please enter phone number.",
-                address: "Pleas enter address.",
+                address1: "Pleas enter address line 1.",
+                address2: "Pleas enter address line 2.",
                 city: "Please enter city.",
                 zipcode: "Please enter zip code.",
                 country: "Please enter country.",

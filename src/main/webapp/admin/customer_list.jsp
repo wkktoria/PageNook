@@ -20,7 +20,7 @@
 
 <div class="center">
     <h1 class="page-heading">Customers Management</h1>
-    <a href="customer_form.jsp">Create New Customer</a>
+    <a href="new_customer">Create New Customer</a>
     <hr style="width: 60%"/>
 </div>
 
@@ -37,7 +37,8 @@
             <th scope="col">Index</th>
             <th scope="col">ID</th>
             <th scope="col">E-mail</th>
-            <th scope="col">Full Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
             <th scope="col">City</th>
             <th scope="col">Country</th>
             <th scope="col">Registered Date</th>
@@ -50,9 +51,10 @@
                 <td>${status.index + 1}</td>
                 <td>${customer.customerId}</td>
                 <td>${customer.email}</td>
-                <td>${customer.fullname}</td>
+                <td>${customer.firstname}</td>
+                <td>${customer.lastname}</td>
                 <td>${customer.city}</td>
-                <td>${customer.country}</td>
+                <td>${customer.countryName}</td>
                 <td><fmt:formatDate pattern="MM/dd/yyyy" value='${customer.registerDate}'/></td>
                 <td>
                     <a href="edit_customer?id=${customer.customerId}">Edit</a> |
