@@ -3,10 +3,7 @@ package io.github.wkktoria.pagenook.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -201,6 +198,11 @@ public class BookOrder implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Transient
+    public String getCountryName() {
+        return Locale.forLanguageTag("und-" + this.country).getDisplayCountry();
     }
 
     @Column(name = "payment_method", nullable = false, length = 20)
