@@ -37,10 +37,15 @@ class OrderDAOTest extends BaseDAOTest {
         Customer customer = customerDAO.listAll().getFirst();
 
         order.setCustomer(customer);
-        order.setRecipientName(customer.getFirstname());
-        order.setRecipientPhone(customer.getPhone());
-        order.setShippingAddress(customer.getAddressLine1() + ", " + customer.getZipcode()
-                + " " + customer.getCity() + ", " + customer.getCountry());
+        order.setFirstname(customer.getFirstname());
+        order.setLastname(customer.getLastname());
+        order.setPhone(customer.getPhone());
+        order.setAddressLine1(customer.getAddressLine1());
+        order.setAddressLine2(customer.getAddressLine2());
+        order.setCity(customer.getCity());
+        order.setState(customer.getState());
+        order.setZipcode(customer.getZipcode());
+        order.setCountry(customer.getCountry());
         order.setPaymentMethod("Cash on Delivery");
 
         Set<OrderDetail> orderDetails = new HashSet<>();
@@ -67,10 +72,15 @@ class OrderDAOTest extends BaseDAOTest {
         Customer customer = customerDAO.listAll().getFirst();
 
         order.setCustomer(customer);
-        order.setRecipientName(customer.getFirstname());
-        order.setRecipientPhone(customer.getPhone());
-        order.setShippingAddress(customer.getAddressLine1() + ", " + customer.getZipcode()
-                + " " + customer.getCity() + ", " + customer.getCountry());
+        order.setFirstname(customer.getFirstname());
+        order.setLastname(customer.getLastname());
+        order.setPhone(customer.getPhone());
+        order.setAddressLine1(customer.getAddressLine1());
+        order.setAddressLine2(customer.getAddressLine2());
+        order.setCity(customer.getCity());
+        order.setState(customer.getState());
+        order.setZipcode(customer.getZipcode());
+        order.setCountry(customer.getCountry());
         order.setPaymentMethod("Cash on Delivery");
 
         Set<OrderDetail> orderDetails = new HashSet<>();
@@ -158,13 +168,13 @@ class OrderDAOTest extends BaseDAOTest {
     void testUpdateShippingAddress() {
         final int orderId = 2;
         BookOrder order = orderDAO.get(orderId);
-        order.setShippingAddress("New Shipping Address");
+        order.setAddressLine1("New Shipping Address");
 
         orderDAO.update(order);
 
         BookOrder updatedOrder = orderDAO.get(orderId);
 
-        assertEquals("New Shipping Address", updatedOrder.getShippingAddress());
+        assertEquals("New Shipping Address", updatedOrder.getAddressLine1());
     }
 
     @Order(3)
