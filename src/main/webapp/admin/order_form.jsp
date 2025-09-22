@@ -33,6 +33,7 @@
 
 	<form action="update_order" method="post" id="orderForm">
 		<div class="center">
+            <h2>Order Overview:</h2>
 			<table>
 				<tr>
 					<td class="left"><b>Ordered by:</b></td>
@@ -42,40 +43,41 @@
 					<td class="left"><b>Order Date:</b></td>
 					<td class="left">${order.orderDate}</td>
 				</tr>
+                <tr>
+                    <td class="left"><b>Payment Method:</b></td>
+                    <td class="left"><label> <select name="paymentMethod">
+                        <option value="Cash on Delivery" <c:if test="${order.paymentMethod eq 'Cash on Delivery'}">selected="selected"</c:if>>Cash on Delivery</option>
+                        <option value="PayPal" <c:if test="${order.paymentMethod eq 'PayPal'}">selected="selected"</c:if>>PayPal or Credit Card</option>
+                    </select>
+                    </label></td>
+                </tr>
+                <tr>
+                    <td class="left"><b>Order Status:</b></td>
+                    <td class="left"><label> <select name="orderStatus">
+                        <option value="Processing" <c:if test="${order.status eq 'Processing'}">selected</c:if>>Processing</option>
+                        <option value="Shipping" <c:if test="${order.status eq 'Shipping'}">selected</c:if>>Shipping</option>
+                        <option value="Delivered" <c:if test="${order.status eq 'Delivered'}">selected</c:if>>Delivered</option>
+                        <option value="Completed" <c:if test="${order.status eq 'Completed'}">selected</c:if>>Completed</option>
+                        <option value="Canceled" <c:if test="${order.status eq 'Canceled'}">selected</c:if>>Canceled</option>
+                    </select>
+                    </label></td>
+                </tr>
 				<tr>
 					<td class="left"><b>Recipient Name:</b></td>
 					<td class="left"><label> <input type="text"
-							name="recipientName" value="${order.recipientName}" size="45" />
+							name="recipientName" value="${order.firstname}" size="45" />
 					</label></td>
 				</tr>
 				<tr>
 					<td class="left"><b>Recipient Phone:</b></td>
 					<td class="left"><label> <input type="text"
-							name="recipientPhone" value="${order.recipientPhone}" size="45" />
+							name="recipientPhone" value="${order.phone}" size="45" />
 					</label></td>
 				</tr>
 				<tr>
 					<td class="left"><b>Ship to:</b></td>
 					<td class="left"><label> <input type="text"
-							name="shippingAddress" value="${order.shippingAddress}" size="45" />
-					</label></td>
-				</tr>
-				<tr>
-					<td class="left"><b>Payment Method:</b></td>
-					<td class="left"><label> <select name="paymentMethod">
-								<option value="Cash on Delivery">Cash on Delivery</option>
-						</select>
-					</label></td>
-				</tr>
-				<tr>
-					<td class="left"><b>Order Status:</b></td>
-					<td class="left"><label> <select name="orderStatus">
-								<option value="Processing" <c:if test="${order.status eq 'Processing'}">selected</c:if>>Processing</option>
-								<option value="Shipping" <c:if test="${order.status eq 'Shipping'}">selected</c:if>>Shipping</option>
-								<option value="Delivered" <c:if test="${order.status eq 'Delivered'}">selected</c:if>>Delivered</option>
-								<option value="Completed" <c:if test="${order.status eq 'Completed'}">selected</c:if>>Completed</option>
-								<option value="Canceled" <c:if test="${order.status eq 'Canceled'}">selected</c:if>>Canceled</option>
-						</select>
+							name="shippingAddress" value="${order.addressLine1}" size="45" />
 					</label></td>
 				</tr>
 			</table>
