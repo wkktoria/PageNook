@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import static io.github.wkktoria.pagenook.util.CountryUtil.generateCountryList;
+
 public class OrderService {
     private final OrderDAO orderDAO;
     private final HttpServletRequest request;
@@ -160,6 +162,8 @@ public class OrderService {
             } else {
                 session.removeAttribute("newBookPendingToAddToOrder");
             }
+
+            generateCountryList(request);
 
             final String editPage = "order_form.jsp";
             CommonUtil.forwardToPage(editPage, request, response);

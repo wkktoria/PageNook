@@ -33,7 +33,7 @@
 
 	<form action="update_order" method="post" id="orderForm">
 		<div class="center">
-            <h2>Order Overview:</h2>
+            <h2>Order Overview</h2>
 			<table>
 				<tr>
 					<td class="left"><b>Ordered by:</b></td>
@@ -62,24 +62,68 @@
                     </select>
                     </label></td>
                 </tr>
+            </table>
+            <h2>Recipient Information</h2>
+            <table>
 				<tr>
-					<td class="left"><b>Recipient Name:</b></td>
-					<td class="left"><label> <input type="text"
-							name="recipientName" value="${order.firstname}" size="45" />
+					<td class="left"><b>First Name:</b></td>
+					<td class="left"><label><input type="text"
+							name="firstname" id="firstname" value="${order.firstname}" size="45" />
+					</label></td>
+				</tr>
+                <tr>
+                    <td class="left"><b>Last Name:</b></td>
+                    <td class="left"><label><input type="text"
+                                                    name="lastname" id="lastname" value="${order.lastname}" size="45" />
+                    </label></td>
+                </tr>
+				<tr>
+					<td class="left"><b>Phone:</b></td>
+					<td class="left"><label><input type="text"
+							name="phone" id="phone" value="${order.phone}" size="45" />
 					</label></td>
 				</tr>
 				<tr>
-					<td class="left"><b>Recipient Phone:</b></td>
-					<td class="left"><label> <input type="text"
-							name="recipientPhone" value="${order.phone}" size="45" />
+					<td class="left"><b>Address Line 1:</b></td>
+					<td class="left"><label><input type="text"
+							name="address1" id="address1" value="${order.addressLine1}" size="45" />
 					</label></td>
 				</tr>
-				<tr>
-					<td class="left"><b>Ship to:</b></td>
-					<td class="left"><label> <input type="text"
-							name="shippingAddress" value="${order.addressLine1}" size="45" />
-					</label></td>
-				</tr>
+                <tr>
+                    <td class="left"><b>Address Line 2:</b></td>
+                    <td class="left"><label><input type="text"
+                                                    name="address2" id="address2" value="${order.addressLine2}" size="45" />
+                    </label></td>
+                </tr>
+                <tr>
+                    <td class="left"><b>City:</b></td>
+                    <td class="left"><label><input type="text"
+                                                    name="city" id="city" value="${order.city}" size="45" />
+                    </label></td>
+                </tr>
+                <tr>
+                    <td class="left"><b>State:</b></td>
+                    <td class="left"><label><input type="text"
+                                                    name="state" id="state" value="${order.state}" size="45" />
+                    </label></td>
+                </tr>
+                <tr>
+                    <td class="left"><b>Zip Code:</b></td>
+                    <td class="left"><label><input type="text"
+                                                    name="zipcode" id="zipcode" value="${order.zipcode}" size="45" />
+                    </label></td>
+                </tr>
+                <tr>
+                    <td class="left"><b>Country:</b></td>
+                    <td class="left"><label><select name="country" id="country">
+                        <c:forEach items="${mapCountries}" var="country">
+                            <option value="${country.value}"
+                                    <c:if test="${order.country eq country.value}">selected</c:if>>${country.key}</option>
+                        </c:forEach>
+                    </select>
+                    </label></td>
+                </tr>
+
 			</table>
 		</div>
 

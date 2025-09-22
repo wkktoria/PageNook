@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
+import static io.github.wkktoria.pagenook.util.CountryUtil.generateCountryList;
+
 public class CustomerService {
     private final CustomerDAO customerDAO;
     private final ReviewDAO reviewDAO;
@@ -78,7 +80,7 @@ public class CustomerService {
             final String message = "Could not find customer with ID " + customerId + ".";
             request.setAttribute("message", message);
         } else {
-            generateCountryList();
+            generateCountryList(request);
             request.setAttribute("customer", customer);
         }
 
@@ -190,7 +192,7 @@ public class CustomerService {
     }
 
     public void showCustomerProfileEditForm() throws ServletException, IOException {
-        generateCountryList();
+        generateCountryList(request);
 
         final String editPage = "frontend/edit_profile.jsp";
         CommonUtil.forwardToPage(editPage, request, response);
@@ -209,14 +211,14 @@ public class CustomerService {
     }
 
     public void newCustomer() throws ServletException, IOException {
-        generateCountryList();
+        generateCountryList(request);
 
         final String customerForm = "customer_form.jsp";
         CommonUtil.forwardToPage(customerForm, request, response);
     }
 
     public void showCustomerRegistrationForm() throws ServletException, IOException {
-        generateCountryList();
+        generateCountryList(request);
 
         final String registerForm = "frontend/register_form.jsp";
         CommonUtil.forwardToPage(registerForm, request, response);
@@ -252,19 +254,5 @@ public class CustomerService {
         customer.setState(state);
         customer.setZipcode(zipCode);
         customer.setCountry(country);
-    }
-
-    private void generateCountryList() {
-        String[] countryCodes = Locale.getISOCountries();
-        Map<String, String> mapCountries = new TreeMap<>();
-
-        for (String countryCode : countryCodes) {
-            Locale locale = Locale.forLanguageTag("und-" + countryCode);
-            String code = locale.getCountry();
-            String name = locale.getDisplayCountry();
-            mapCountries.put(name, code);
-        }
-
-        request.setAttribute("mapCountries", mapCountries);
     }
 }
