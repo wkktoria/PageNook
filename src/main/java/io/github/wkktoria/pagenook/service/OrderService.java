@@ -174,17 +174,34 @@ public class OrderService {
         HttpSession session = request.getSession();
         BookOrder order = (BookOrder) session.getAttribute("order");
 
-        final String recipientName = request.getParameter("recipientName");
-        final String recipientPhone = request.getParameter("recipientPhone");
-        final String shippingAddress = request.getParameter("shippingAddress");
+        final String firstname = request.getParameter("firstname");
+        final String lastname = request.getParameter("lastname");
+        final String phone = request.getParameter("phone");
+        final String address1 = request.getParameter("address1");
+        final String address2 = request.getParameter("address2");
+        final String city = request.getParameter("city");
+        final String state = request.getParameter("state");
+        final String zipcode = request.getParameter("zipcode");
+        final String country = request.getParameter("country");
         final String paymentMethod = request.getParameter("paymentMethod");
         final String orderStatus = request.getParameter("orderStatus");
 
-        order.setFirstname(recipientName);
-        order.setPhone(recipientPhone);
-        order.setAddressLine1(shippingAddress);
+        float shippingFee = Float.parseFloat(request.getParameter("shippingFee"));
+        float tax = Float.parseFloat(request.getParameter("tax"));
+
+        order.setFirstname(firstname);
+        order.setLastname(lastname);
+        order.setPhone(phone);
+        order.setAddressLine1(address1);
+        order.setAddressLine2(address2);
+        order.setCity(city);
+        order.setState(state);
+        order.setZipcode(zipcode);
+        order.setCountry(country);
         order.setPaymentMethod(paymentMethod);
         order.setStatus(orderStatus);
+        order.setShippingFee(shippingFee);
+        order.setTax(tax);
 
         final String[] arrayBookId = request.getParameterValues("bookId");
         final String[] arrayPrice = request.getParameterValues("price");
@@ -216,6 +233,8 @@ public class OrderService {
             totalAmount += subtotal;
         }
 
+        order.setSubtotal(totalAmount);
+        totalAmount = totalAmount + shippingFee + tax;
         order.setTotal(totalAmount);
 
         orderDAO.update(order);
