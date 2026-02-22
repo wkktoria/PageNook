@@ -19,6 +19,8 @@
         <flyway.version>10.15.0</flyway.version>
         <hibernate.version>6.4.5.Final</hibernate.version>
         <paypal.version>1.14.0</paypal.version>
+        <sl4fj.verion>2.0.17</sl4fj.verion>
+        <logback.version>1.5.32</logback.version>
     </properties>
 
     <dependencies>
@@ -84,6 +86,16 @@
             <artifactId>rest-api-sdk</artifactId>
             <version>${paypal.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${sl4fj.verion}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
