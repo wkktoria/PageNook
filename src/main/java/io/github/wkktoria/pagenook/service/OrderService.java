@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.paypal.api.payments.ItemList;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.ShippingAddress;
 import io.github.wkktoria.pagenook.controller.frontend.shoppingcart.ShoppingCart;
 import io.github.wkktoria.pagenook.dao.OrderDAO;
 import io.github.wkktoria.pagenook.entity.Book;
@@ -72,6 +75,58 @@ public class OrderService {
     }
 
     public void placeOrder() throws ServletException, IOException {
+        BookOrder order = readOrderInfo();
+
+        if (order.getPaymentMethod().equalsIgnoreCase("paypal")) {
+            PaymentService paymentService = new PaymentService(request, response);
+            request.getSession().setAttribute("order4Paypal", order);
+            paymentService.authorizePayment(order);
+        } else {
+            placeOrderCOD(order);
+        }
+    }
+
+    public Integer placeOrderPaypal(final Payment payment) {
+        BookOrder order = (BookOrder) request.getSession().getAttribute("order4Paypal");
+
+        ItemList itemList = payment.getTransactions().getFirst().getItemList();
+        ShippingAddress shippingAddress = itemList.getShippingAddress();
+        String shippingPhoneNumber = itemList.getShippingPhoneNumber();
+
+        String recipientName = shippingAddress.getRecipientName();
+        String[] names = recipientName.split(" ");
+
+        order.setFirstname(names[0]);
+        order.setLastname(names[1]);
+        order.setPhone(shippingPhoneNumber);
+        order.setAddressLine1(shippingAddress.getLine1());
+        order.setAddressLine2(shippingAddress.getLine2());
+        order.setZipcode(shippingAddress.getPostalCode());
+        order.setCity(shippingAddress.getCity());
+        order.setState(shippingAddress.getState());
+        order.setCountry(shippingAddress.getCountryCode());
+
+        return saveOrder(order);
+    }
+
+    private void placeOrderCOD(final BookOrder order) throws ServletException, IOException {
+        saveOrder(order);
+
+        final String message = "Thank you. Your order has been received. We will deliver your books within a few days.";
+        CommonUtil.showMessageFrontend(message, request, response);
+    }
+
+    private Integer saveOrder(final BookOrder order) {
+        BookOrder savedOrder = orderDAO.create(order);
+
+        ShoppingCart shoppingCart = (ShoppingCart) request.getSession().getAttribute("cart");
+        shoppingCart.clear();
+
+        return savedOrder.getOrderId();
+    }
+
+    private BookOrder readOrderInfo() {
+        final String paymentMethod = request.getParameter("paymentMethod");
         final String firstname = request.getParameter("firstname");
         final String lastname = request.getParameter("lastname");
         final String phone = request.getParameter("phone");
@@ -81,7 +136,6 @@ public class OrderService {
         final String state = request.getParameter("state");
         final String zipcode = request.getParameter("zipcode");
         final String country = request.getParameter("country");
-        final String paymentMethod = request.getParameter("paymentMethod");
 
         BookOrder order = new BookOrder();
         order.setFirstname(firstname);
@@ -131,11 +185,7 @@ public class OrderService {
         order.setShippingFee(shippingFee);
         order.setTotal(total);
 
-        orderDAO.create(order);
-        shoppingCart.clear();
-
-        final String message = "Thank you. Your order has been received. We will deliver your books within a few days.";
-        CommonUtil.showMessageFrontend(message, request, response);
+        return order;
     }
 
     public void viewOrderDetailForAdmin() throws ServletException, IOException {
