@@ -7,11 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/stylesheet.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <title>Edit Review | PageNook - Administration</title>
 </head>
 <body>
@@ -42,7 +37,7 @@
                 <td class="right">Headline:</td>
                 <td class="left">
                     <label>
-                        <input type="text" size="60" id="headline" name="headline" value="${review.headline}"/>
+                        <input type="text" size="60" id="headline" name="headline" value="${review.headline}" required/>
                     </label>
                 </td>
             </tr>
@@ -50,7 +45,7 @@
                 <td class="right">Comment:</td>
                 <td class="left">
                     <label>
-                        <textarea rows="5" cols="70" id="comment" name="comment">${review.comment}</textarea>
+                        <textarea rows="5" cols="70" id="comment" name="comment" required>${review.comment}</textarea>
                     </label>
                 </td>
             </tr>
@@ -68,16 +63,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#reviewForm').validate({
-            rules: {
-                headline: "required",
-                comment: "required"
-            }, messages: {
-                headline: "Please enter headline.",
-                comment: "Pleas enter comment."
-            }
-        });
-
         $("#buttonCancel").click(function () {
             history.back();
         });

@@ -29,7 +29,8 @@
             <tr>
                 <td>Password:</td>
                 <td><label>
-                    <input type="password" name="password" id="password" size="20" required maxlength="32" />
+                    <input type="password" name="password" id="password" size="20" required minlength="6"
+                           maxlength="32"/>
                 </label></td>
             </tr>
             <tr>
