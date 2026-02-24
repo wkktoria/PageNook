@@ -72,52 +72,56 @@
                 <td class="left"><b>First Name:</b></td>
                 <td class="left"><label><input type="text"
                                                name="firstname" id="firstname" value="${order.firstname}" size="45"
-                                               required/>
+                                               minlength="3" maxlength="30" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>Last Name:</b></td>
                 <td class="left"><label><input type="text"
                                                name="lastname" id="lastname" value="${order.lastname}" size="45"
-                                               required/>
+                                               minlength="3" maxlength="30" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>Phone:</b></td>
                 <td class="left"><label><input type="tel"
-                                               name="phone" id="phone" value="${order.phone}" size="45" required/>
+                                               name="phone" id="phone" value="${order.phone}" size="45"
+                                               minlength="9" maxlength="15" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>Address Line 1:</b></td>
                 <td class="left"><label><input type="text"
                                                name="address1" id="address1" value="${order.addressLine1}" size="45"
-                                               required/>
+                                               minlength="10" maxlength="128" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>Address Line 2:</b></td>
                 <td class="left"><label><input type="text"
                                                name="address2" id="address2" value="${order.addressLine2}" size="45"
-                                               required/>
+                                               minlength="10" maxlength="128" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>City:</b></td>
                 <td class="left"><label><input type="text"
-                                               name="city" id="city" value="${order.city}" size="45" required/>
+                                               name="city" id="city" value="${order.city}" size="45"
+                                               minlength="3" maxlength="32" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>State:</b></td>
                 <td class="left"><label><input type="text"
-                                               name="state" id="state" value="${order.state}" size="45" required/>
+                                               name="state" id="state" value="${order.state}" size="45"
+                                               minlength="3" maxlength="45" required/>
                 </label></td>
             </tr>
             <tr>
                 <td class="left"><b>Zip Code:</b></td>
                 <td class="left"><label><input type="text"
-                                               name="zipcode" id="zipcode" value="${order.zipcode}" size="45" required/>
+                                               name="zipcode" id="zipcode" value="${order.zipcode}" size="45"
+                                               minlength="5" maxlength="24" required/>
                 </label></td>
             </tr>
             <tr>
@@ -159,7 +163,7 @@
                                        value="${orderDetail.book.bookId}"/> <input type="number"
                                                                                    name="quantity${status.index + 1}"
                                                                                    value="${orderDetail.quantity}"
-                                                                                   size="5" required min="1"/>
+                                                                                   size="5" required step="1" min="1"/>
                     </label></td>
                     <td><fmt:formatNumber value="${orderDetail.subtotal}"
                                           type="currency"/></td>
@@ -170,12 +174,12 @@
             <tr>
                 <td colspan="7" class="right">
                     <p>Subtotal: <fmt:formatNumber value="${order.subtotal}" type="currency"/></p>
-                    <p>Tax: <label for="tax"></label><input type="text" size="5" name="tax" id="tax"
-                                                            value="${order.tax}" required min="0"/></p>
-                    <p>Shipping Fee: <label for="shippingFee"></label><input type="text" size="5" name="shippingFee"
+                    <p>Tax: <label for="tax"></label><input type="number" size="5" name="tax" id="tax"
+                                                            value="${order.tax}" required step="0.1" min="0.0"/></p>
+                    <p>Shipping Fee: <label for="shippingFee"></label><input type="number" size="5" name="shippingFee"
                                                                              id="shippingFee"
                                                                              value="${order.shippingFee}" required
-                                                                             min="0"/></p>
+                                                                             step="0.1" min="0.0"/></p>
                     <b>TOTAL: <fmt:formatNumber value="${order.total}" type="currency"/></b>
                 </td>
             </tr>
