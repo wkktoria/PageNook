@@ -34,8 +34,8 @@ public class ExecutePaymentServlet extends HttpServlet {
         PayerInfo payerInfo = payment.getPayer().getPayerInfo();
         Transaction transaction = payment.getTransactions().getFirst();
 
-        request.setAttribute("payer", payerInfo);
-        request.setAttribute("transaction", transaction);
+        session.setAttribute("payer", payerInfo);
+        session.setAttribute("transaction", transaction);
 
         String receiptPage = "frontend/payment_receipt.jsp";
         forwardToPage(receiptPage, request, response);

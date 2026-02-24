@@ -15,32 +15,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <title>Payment Receipt | PageNook - Online Bookstore</title>
 </head>
-<body>
-<jsp:directive.include file="header.jsp"/>
-
+<body onload="window.print()">
 <div class="center">
-    <h2>You have made payment successfully. Thank you for purchasing.</h2>
-
     <jsp:directive.include file="../common/receipt.jsp"/>
-
-    <div>
-        <br/>
-        <input type="button" value="Print Receipt" onclick="showPrintReceiptPopup()"/>
-    </div>
 </div>
-
-<jsp:directive.include file="footer.jsp"/>
-
-<script>
-    function showPrintReceiptPopup() {
-        const width = 600;
-        const height = 250;
-        const left = (screen.width - width) / 2;
-        const top = (screen.width - width) / 2;
-
-        window.open('frontend/print_receipt.jsp', '_blank',
-            'width=' + width + ", height=" + height + ", top=" + top + ", left=" + left);
-    }
-</script>
 </body>
 </html>
