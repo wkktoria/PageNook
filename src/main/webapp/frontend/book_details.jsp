@@ -3,100 +3,85 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <title>${book.title} | PageNook - Online Bookstore</title>
-</head>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="${book.title} "/>
+</jsp:include>
 <body>
-<jsp:directive.include file="header.jsp"/>
+<div class="container py-4">
+    <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <table class="book">
-        <tr>
-            <td colspan="3" style="text-align: left;">
-                <p id="bookTitle">${book.title}</p> by <span id="author">${book.author}</span>
-            </td>
-        </tr>
-        <tr>
-            <td rowspan="2">
-                <img class="book-large" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
-            </td>
-            <td style="vertical-align: top; text-align: left;">
+    <h2 class="mb-4">${book.title} <span class="text-muted fw-normal fs-4">by ${book.author}</span></h2>
+
+    <div class="row g-4">
+        <div class="col-sm-4">
+            <img class="img-fluid rounded shadow-sm" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
+        </div>
+        <div class="col-sm-6">
+            <div class="d-flex align-items-center gap-2 mb-2">
                 <jsp:directive.include file="book_rating.jsp"/>
-                <a href="#reviews"> ${fn:length(book.reviews)} Reviews</a>
-            </td>
-            <td rowspan="2" style="vertical-align: top; width: 20%;">
-                <h2>$${book.price}</h2>
-                <br/><br/>
-                <button id="buttonAddToCart">Add to Cart</button>
-            </td>
-        </tr>
-        <tr>
-            <td id="description">
-                ${book.description}
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-        <tr>
-            <td><h2 id="reviews">Customer Reviews</h2></td>
-            <td colspan="2" class="center">
-                <button id="buttonWriteReview">Write a Customer Review</button>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" class="left">
-                <table style="border: 0; margin: 0;">
-                    <c:forEach items="${book.reviews}" var="review">
-                        <tr>
-                            <td>
-                                <c:forTokens items="${review.stars}" delims="," var="star">
-                                    <c:if test="${star eq 'on'}">
-                                        <img alt="Star" src="images/rating-on.svg"/>
-                                    </c:if>
+                <a href="#reviews" class="text-decoration-none text-muted small">
+                    ${fn:length(book.reviews)} Reviews
+                </a>
+            </div>
+            <p class="text-secondary">${book.description}</p>
+        </div>
+        <div class="col-sm-2">
+            <div class="card border-0 shadow-sm text-center p-3">
+                <p class="fs-4 fw-bold mb-2">$${book.price}</p>
+                <button class="btn btn-primary w-100" id="buttonAddToCart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
 
-                                    <c:if test="${star eq 'off'}">
-                                        <img alt="Empty Star" src="images/rating-off.svg"/>
-                                    </c:if>
-                                </c:forTokens>
-                                <b>${review.headline}</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>by ${review.customer.fullname} on ${review.reviewTime}</td>
-                        </tr>
-                        <tr>
-                            <td><i>${review.comment}</i></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <hr class="my-4"/>
+
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <h3 id="reviews" class="mb-3">Customer Reviews</h3>
+            <button class="btn btn-outline-secondary" id="buttonWriteReview">Write a Customer Review</button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <c:forEach items="${book.reviews}" var="review">
+                <div class="card mb-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <c:forTokens items="${review.stars}" delims="," var="star">
+                                <c:if test="${star eq 'on'}">
+                                    <img alt="Star" src="images/rating-on.svg" width="16" height="16"/>
+                                </c:if>
+                                <c:if test="${star eq 'off'}">
+                                    <img alt="Empty Star" src="images/rating-off.svg" width="16" height="16"/>
+                                </c:if>
+                            </c:forTokens>
+                            <span class="fw-semibold">${review.headline}</span>
+                        </div>
+                        <p class="text-muted small mb-2">
+                            by <strong>${review.customer.fullname}</strong> on ${review.reviewTime}
+                        </p>
+                        <p class="mb-0 fst-italic text-secondary">${review.comment}</p>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+
+    <jsp:directive.include file="footer.jsp"/>
 </div>
 
-<jsp:directive.include file="footer.jsp"/>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("buttonWriteReview")
+            .addEventListener("click", function () {
+                window.location = "write_review?bookId=" + ${book.bookId};
+            });
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#buttonWriteReview").click(function () {
-            window.location = "write_review?bookId=" + ${book.bookId};
-        });
-
-        $("#buttonAddToCart").click(function () {
-            window.location = "add_to_cart?bookId=" + ${book.bookId};
-        });
+        document.getElementById("buttonAddToCart")
+            .addEventListener("click", function () {
+                window.location = "add_to_cart?bookId=" + ${book.bookId};
+            });
     });
 </script>
 </body>
