@@ -2,45 +2,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Books in ${category.name} | PageNook - Online Bookstore</title>
-    <script>
-        /*to prevent Firefox FOUC, this must be here*/
-        let FF_FOUC_FIX;
-    </script>
-</head>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="Books in ${category.name}"/>
+</jsp:include>
 <body>
-<jsp:directive.include file="header.jsp"/>
+<div class="container">
+    <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <h2>${category.name}</h2>
+    <h2 class="text-center">${category.name}</h2>
+
+    <div class="rowp">
+        <c:forEach var="book" items="${listBook}">
+            <jsp:directive.include file="book_group.jsp"/>
+        </c:forEach>
+    </div>
+
+    <jsp:directive.include file="footer.jsp"/>
 </div>
-
-<div class="center book-group">
-    <c:forEach var="book" items="${listBook}">
-        <div class="book">
-            <div>
-                <a href="view_book?id=${book.bookId}">
-                    <img class="book-small" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
-                </a>
-            </div>
-            <div>
-                <a href="view_book?id=${book.bookId}">
-                    <b>${book.title}</b>
-                </a>
-            </div>
-            <div>
-                <jsp:directive.include file="book_rating.jsp"/>
-            </div>
-            <div><i>by ${book.author}</i></div>
-            <div><b>$${book.price}</b></div>
-        </div>
-    </c:forEach>
-</div>
-
-<jsp:directive.include file="footer.jsp"/>
 </body>
 </html>

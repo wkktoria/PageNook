@@ -1,4 +1,4 @@
-<div class="col text-center">
+<div class="col-sm-3 text-center">
     <div>
         <a href="view_book?id=${book.bookId}">
             <img style="max-width: 128px; height: 164px;"

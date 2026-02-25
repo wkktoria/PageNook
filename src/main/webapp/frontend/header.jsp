@@ -45,7 +45,7 @@
     </div>
 </nav>
 
-<div class="row">
+<div class="row mb-2">
     <div class="col">
         <nav class="d-flex flex-wrap gap-2 justify-content-center py-2 border-top border-bottom">
             <c:forEach var="category" items="${listCategory}">
