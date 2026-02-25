@@ -1,7 +1,8 @@
-<div class="book">
+<div class="col text-center">
     <div>
         <a href="view_book?id=${book.bookId}">
-            <img class="book-small" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
+            <img style="max-width: 128px; height: 164px;"
+                 src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
         </a>
     </div>
     <div>
