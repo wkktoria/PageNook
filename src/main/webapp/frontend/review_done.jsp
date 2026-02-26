@@ -2,41 +2,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Review Posted | PageNook - Online Bookstore</title>
-</head>
-<body>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="Review Posted"/>
+</jsp:include>
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <table style="border: 0; width: 60%;">
-        <tr>
-            <td>
-                <h2>Your Reviews</h2>
-            </td>
-            <td></td>
-            <td>
-                <h2>${loggedCustomer.fullname}</h2>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <hr/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span id="bookTitle">${book.title}</span>
-                <img class="book-large" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
-            </td>
-            <td colspan="2">
-                <h3>Your review has been posted. Thank you!</h3>
-            </td>
-        </tr>
-    </table>
+<div class="container flex-grow-1">
+    <div class="my-5">
+        <h2 class="text-center mb-4">Your Reviews</h2>
+        <p class="text-center text-muted mb-5">
+            ${loggedCustomer.fullname}
+        </p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-4 text-center p-4">
+                            <img src="data:image/jpg;base64,${book.base64Image}"
+                                 alt="Book Cover"
+                                 class="img-fluid rounded"
+                                 style="max-height: 280px;">
+                        </div>
+                        <div class="col-md-8 p-4">
+                            <h4 class="fw-semibold mb-3">${book.title}</h4>
+
+                            <div class="alert alert-success mb-0" role="alert">
+                                <strong>Your review has been posted.</strong><br>
+                                Thank you for your feedback!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>

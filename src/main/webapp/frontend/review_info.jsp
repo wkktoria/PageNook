@@ -2,77 +2,100 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.css"
-          integrity="sha512-JEUoTOcC35/ovhE1389S9NxeGcVLIqOAEzlpcJujvyUaxvIXJN9VxPX0x1TwSo22jCxz2fHQPS1de8NgUyg+nA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.js"
-            integrity="sha512-09bUVOnphTvb854qSgkpY/UGKLW9w7ISXGrN0FR/QdXTkjs0D+EfMFMTB+CGiIYvBoFXexYwGUD5FD8xVU89mw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <title>Write Review | PageNook - Online Bookstore</title>
-</head>
-<body>
+
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="Your Review"/>
+</jsp:include>
+
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <form id="reviewForm">
-        <table style="border: 0; width: 60%;">
-            <tr>
-                <td>
-                    <h3>You have already written a review for this book.</h3>
-                </td>
-                <td></td>
-                <td>
-                    <h2>${loggedCustomer.fullname}</h2>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <hr/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span id="bookTitle">${book.title}</span>
-                    <img class="book-large" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
-                </td>
-                <td>
-                    <div id="rateYo"></div>
-                    <br/>
-                    <br/>
-                    <label>
-                        <input type="text" id="headline" name="headline" size="60" readonly value="${review.headline}"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <label>
-                        <textarea id="comment" name="comment" cols="70" rows="10" readonly>${review.comment}</textarea>
-                    </label>
-                </td>
-            </tr>
-        </table>
-    </form>
+<div class="container flex-grow-1 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="mb-0">Your Review</h2>
+                        <h4 class="text-muted mb-0">${loggedCustomer.fullname}</h4>
+                    </div>
+
+                    <hr class="mb-4"/>
+
+                    <div class="alert alert-info text-center mb-4">
+                        You have already written a review for this book.
+                    </div>
+
+                    <form id="reviewForm">
+                        <div class="row g-4">
+                            <div class="col-md-4 text-center">
+                                <img class="img-fluid rounded shadow-sm mb-3"
+                                     src="data:image/jpg;base64,${book.base64Image}"
+                                     alt="Book Cover"
+                                     style="max-width: 200px;"/>
+                                <h5 class="mb-0">${book.title}</h5>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Your Rating</label>
+                                    <div class="stars-readonly">
+                                        <c:forEach var="i" begin="1" end="5">
+                                            <span class="star ${i <= review.rating ? 'filled' : ''}">&#9733;</span>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="headline" class="form-label fw-bold">Headline</label>
+                                    <input id="headline" type="text"
+                                           class="form-control"
+                                           value="${review.headline}"
+                                           readonly/>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="comment" class="form-label fw-bold">Review Details</label>
+                                    <textarea id="comment" class="form-control"
+                                              rows="8"
+                                              readonly>${review.comment}</textarea>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="button"
+                                            onclick="history.back()"
+                                            class="btn btn-outline-secondary px-4">
+                                        Back
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#rateYo").rateYo({
-            starWidth: "40px",
-            fullStar: true,
-            rating: ${review.rating},
-            readOnly: true,
-        });
-    });
-</script>
+<style>
+    .stars-readonly {
+        font-size: 2rem;
+        display: flex;
+        gap: 4px;
+    }
+
+    .stars-readonly .star {
+        color: #ddd;
+    }
+
+    .stars-readonly .star.filled {
+        color: #ffc107;
+    }
+</style>
 </body>
 </html>
