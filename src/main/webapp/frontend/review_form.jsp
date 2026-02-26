@@ -2,100 +2,160 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.css"
-          integrity="sha512-JEUoTOcC35/ovhE1389S9NxeGcVLIqOAEzlpcJujvyUaxvIXJN9VxPX0x1TwSo22jCxz2fHQPS1de8NgUyg+nA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.js"
-            integrity="sha512-09bUVOnphTvb854qSgkpY/UGKLW9w7ISXGrN0FR/QdXTkjs0D+EfMFMTB+CGiIYvBoFXexYwGUD5FD8xVU89mw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <title>Write Review | PageNook - Online Bookstore</title>
-</head>
-<body>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="Write a Review"/>
+</jsp:include>
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <form id="reviewForm" method="post" action="submit_review">
-        <table style="border: 0; width: 60%;">
-            <tr>
-                <td>
-                    <h2>Your Reviews</h2>
-                </td>
-                <td></td>
-                <td>
-                    <h2>${loggedCustomer.fullname}</h2>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <hr/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span id="bookTitle">${book.title}</span>
-                    <img class="book-large" src="data:image/jpg;base64,${book.base64Image}" alt="Book Cover"/>
-                </td>
-                <td>
-                    <div id="rateYo"></div>
-                    <input type="hidden" id="rating" name="rating"/>
-                    <input type="hidden" id="bookId" name="bookId" value="${book.bookId}"/>
-                    <br/>
-                    <br/>
-                    <label>
-                        <input type="text" id="headline" name="headline" size="60"
-                               placeholder="Headline or summary for your review (required)"/>
-                    </label>
-                    <br/>
-                    <br/>
-                    <label>
-                    <textarea id="comment" name="comment" cols="70" rows="10"
-                              placeholder="Write your review details..."></textarea>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" class="center">
-                    <button type="submit">Submit</button>
-                    <button id="buttonCancel">Cancel</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+<div class="container flex-grow-1 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="mb-0">Your Review</h2>
+                        <h4 class="text-muted mb-0">${loggedCustomer.fullname}</h4>
+                    </div>
+
+                    <hr class="mb-4"/>
+
+                    <form id="reviewForm" method="post" action="submit_review">
+                        <div class="row g-4">
+                            <div class="col-md-4 text-center">
+                                <img class="img-fluid rounded shadow-sm mb-3"
+                                     src="data:image/jpg;base64,${book.base64Image}"
+                                     alt="Book Cover"
+                                     style="max-width: 200px;"/>
+                                <h5 class="mb-0">${book.title}</h5>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Your Rating <span
+                                            class="text-danger">*</span></label>
+                                    <div class="star-rating">
+                                        <input type="radio" id="star5" name="rating" value="5"/>
+                                        <label for="star5" title="5 stars">★</label>
+
+                                        <input type="radio" id="star4" name="rating" value="4"/>
+                                        <label for="star4" title="4 stars">★</label>
+
+                                        <input type="radio" id="star3" name="rating" value="3"/>
+                                        <label for="star3" title="3 stars">★</label>
+
+                                        <input type="radio" id="star2" name="rating" value="2"/>
+                                        <label for="star2" title="2 stars">★</label>
+
+                                        <input type="radio" id="star1" name="rating" value="1"/>
+                                        <label for="star1" title="1 star">★</label>
+                                    </div>
+                                    <div id="ratingError" class="text-danger small mt-1" style="display: none;">
+                                        Please select a rating
+                                    </div>
+                                    <input type="hidden" id="bookId" name="bookId" value="${book.bookId}"/>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="headline" class="form-label fw-bold">
+                                        Headline <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text"
+                                           id="headline"
+                                           name="headline"
+                                           class="form-control"
+                                           placeholder="Headline or summary for your review"
+                                           required
+                                           maxlength="128"/>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="comment" class="form-label fw-bold">
+                                        Review Details <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea id="comment"
+                                              name="comment"
+                                              class="form-control"
+                                              rows="8"
+                                              placeholder="Write your review details..."
+                                              required
+                                              maxlength="500"></textarea>
+                                </div>
+
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">Submit Review</button>
+                                    <button type="button" id="buttonCancel"
+                                            class="btn btn-outline-secondary btn-lg px-4">Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>
 
+<style>
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        gap: 5px;
+        font-size: 2.5rem;
+    }
+
+    .star-rating input[type="radio"] {
+        display: none;
+    }
+
+    .star-rating label {
+        cursor: pointer;
+        color: #ddd;
+        transition: color 0.2s;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #ffc107;
+    }
+
+    .star-rating input[type="radio"]:checked ~ label {
+        color: #ffc107;
+    }
+</style>
+
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#reviewForm").validate({
-            rules: {
-                headline: "required",
-                comment: "required",
-            },
-            messages: {
-                headline: "Please enter headline.",
-                comment: "Please enter review details.",
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("reviewForm");
+        const ratingInputs = document.querySelectorAll('input[name="rating"]');
+        const ratingError = document.getElementById("ratingError");
+        const starRating = document.querySelector(".star-rating");
+
+        form.addEventListener("submit", function (event) {
+            const ratingSelected = Array.from(ratingInputs).some(input => input.checked);
+
+            if (!ratingSelected) {
+                event.preventDefault();
+                ratingError.style.display = "block";
+                starRating.style.border = "2px solid #dc3545";
+                starRating.style.padding = "10px";
+                starRating.style.borderRadius = "5px";
             }
         });
 
-        $("#rateYo").rateYo({
-            starWidth: "40px",
-            fullStar: true,
-            onSet: function (rating, rateYoInstance) {
-                $("#rating").val(rating);
-            }
+        ratingInputs.forEach(input => {
+            input.addEventListener("change", function () {
+                ratingError.style.display = "none";
+                starRating.style.border = "none";
+                starRating.style.padding = "0";
+            });
         });
 
-        $("#buttonCancel").click(function () {
+        document.getElementById("buttonCancel").addEventListener("click", function () {
             history.back();
         });
     });
