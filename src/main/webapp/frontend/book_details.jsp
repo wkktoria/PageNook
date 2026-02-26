@@ -6,10 +6,10 @@
 <jsp:include page="page_head.jsp">
     <jsp:param name="pageTitle" value="${book.title} "/>
 </jsp:include>
-<body>
-<div class="container py-4">
-    <jsp:directive.include file="header.jsp"/>
+<body class="d-flex flex-column min-vh-100">
+<jsp:directive.include file="header.jsp"/>
 
+<div class="container flex-grow-1 py-4">
     <h2 class="mb-4">${book.title} <span class="text-muted fw-normal fs-4">by ${book.author}</span></h2>
 
     <div class="row g-4">
@@ -67,9 +67,9 @@
             </c:forEach>
         </div>
     </div>
-
-    <jsp:directive.include file="footer.jsp"/>
 </div>
+
+<jsp:directive.include file="footer.jsp"/>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

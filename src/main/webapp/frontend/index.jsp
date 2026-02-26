@@ -5,32 +5,42 @@
 <jsp:include page="page_head.jsp">
     <jsp:param name="pageTitle" value="Home"/>
 </jsp:include>
-<body>
-<div class="container">
-    <jsp:directive.include file="header.jsp"/>
+<body class="d-flex flex-column min-vh-100">
+<jsp:directive.include file="header.jsp"/>
 
-    <h2 class="text-center">New Books:</h2>
-    <div class="row justify-content-center mb-3">
-        <c:forEach var="book" items="${listNewBooks}">
-            <jsp:directive.include file="book_group.jsp"/>
-        </c:forEach>
-    </div>
+<div class="container flex-grow-1">
+    <section class="my-5">
+        <h2 class="text-center mb-4">New Books</h2>
+        <div class="row justify-content-center">
+            <c:forEach var="book" items="${listNewBooks}">
+                <jsp:directive.include file="book_group.jsp"/>
+            </c:forEach>
+        </div>
+    </section>
 
-    <h2 class="text-center">Best-Selling Books:</h2>
-    <div class="row justify-content-center mb-3">
-        <c:forEach var="book" items="${listBestSellingBooks}">
-            <jsp:directive.include file="book_group.jsp"/>
-        </c:forEach>
-    </div>
+    <hr class="my-5">
 
-    <h2 class="text-center">Most-Favored Books:</h2>
-    <div class="row justify-content-center mb-3">
-        <c:forEach var="book" items="${listFavoredBooks}">
-            <jsp:directive.include file="book_group.jsp"/>
-        </c:forEach>
-    </div>
+    <section class="my-5">
+        <h2 class="text-center mb-4">Best-Selling Books</h2>
+        <div class="row justify-content-center">
+            <c:forEach var="book" items="${listBestSellingBooks}">
+                <jsp:directive.include file="book_group.jsp"/>
+            </c:forEach>
+        </div>
+    </section>
 
-    <jsp:directive.include file="footer.jsp"/>
+    <hr class="my-5">
+
+    <section class="my-5">
+        <h2 class="text-center mb-4">Most-Favored Books</h2>
+        <div class="row justify-content-center">
+            <c:forEach var="book" items="${listFavoredBooks}">
+                <jsp:directive.include file="book_group.jsp"/>
+            </c:forEach>
+        </div>
+    </section>
 </div>
+
+<jsp:directive.include file="footer.jsp"/>
 </body>
 </html>

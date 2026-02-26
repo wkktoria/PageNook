@@ -6,10 +6,10 @@
 <jsp:include page="page_head.jsp">
     <jsp:param name="pageTitle" value="Results for ${keyword} "/>
 </jsp:include>
-<body>
-<div class="container">
-    <jsp:directive.include file="header.jsp"/>
+<body class="d-flex flex-column min-vh-100">
+<jsp:directive.include file="header.jsp"/>
 
+<div class="container flex-grow-1">
     <c:if test="${fn:length(result) == 0}">
         <div class="alert alert-info text-center my-5" role="alert">
             <h4 class="alert-heading">No results found</h4>
@@ -72,8 +72,8 @@
             </c:forEach>
         </div>
     </c:if>
-
-    <jsp:directive.include file="footer.jsp"/>
 </div>
+
+<jsp:directive.include file="footer.jsp"/>
 </body>
 </html>

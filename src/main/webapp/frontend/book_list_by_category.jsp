@@ -5,19 +5,21 @@
 <jsp:include page="page_head.jsp">
     <jsp:param name="pageTitle" value="Books in ${category.name}"/>
 </jsp:include>
-<body>
-<div class="container">
-    <jsp:directive.include file="header.jsp"/>
+<body class="d-flex flex-column min-vh-100">
+<jsp:directive.include file="header.jsp"/>
 
-    <h2 class="text-center">${category.name}</h2>
+<div class="container flex-grow-1">
+    <div class="my-5">
+        <h2 class="text-center mb-4">${category.name}</h2>
 
-    <div class="rowp">
-        <c:forEach var="book" items="${listBook}">
-            <jsp:directive.include file="book_group.jsp"/>
-        </c:forEach>
+        <div class="row">
+            <c:forEach var="book" items="${listBook}">
+                <jsp:directive.include file="book_group.jsp"/>
+            </c:forEach>
+        </div>
     </div>
-
-    <jsp:directive.include file="footer.jsp"/>
 </div>
+
+<jsp:directive.include file="footer.jsp"/>
 </body>
 </html>
