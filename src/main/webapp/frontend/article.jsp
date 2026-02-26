@@ -2,18 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>${article.title} | PageNook - Online Bookstore</title>
-</head>
-<body>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="${article.title}"/>
+</jsp:include>
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <h1 class="page-heading">${article.title}</h1>
-    <div>${article.content}</div>
+<div class="container flex-grow-1 py-5">
+    <article class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4">${article.title}</h1>
+            <div>
+                ${article.content}
+            </div>
+        </div>
+    </article>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>
