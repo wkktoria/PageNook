@@ -2,44 +2,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customer Login | PageNook - Online Bookstore</title>
-</head>
-<body>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="Customer Login"/>
+</jsp:include>
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <h2>Customer Login</h2>
+<div class="container flex-grow-1 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Customer Login</h2>
 
-    <c:if test="${message != null}">
-        <h4 class="message">${message}</h4>
-    </c:if>
+                    <c:if test="${message != null}">
+                        <div class="alert alert-danger" role="alert">
+                                ${message}
+                        </div>
+                    </c:if>
 
-    <form action="login" method="post" id="loginForm">
-        <table class="form">
-            <tr>
-                <td>Email:</td>
-                <td><label>
-                    <input type="email" name="email" id="email" size="20" required minlength="5" maxlength="64"/>
-                </label></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><label>
-                    <input type="password" name="password" id="password" size="20" required minlength="6"
-                           maxlength="32"/>
-                </label></td>
-            </tr>
-            <tr>
-                <td colspan="2" class="center">
-                    <button type="submit">Login</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+                    <form action="login" method="post" id="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   name="email"
+                                   id="email"
+                                   required
+                                   minlength="5"
+                                   maxlength="64"
+                                   placeholder="Enter your email"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   name="password"
+                                   id="password"
+                                   required
+                                   minlength="6"
+                                   maxlength="32"
+                                   placeholder="Enter your password"/>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <p class="text-muted mb-0">Don't have an account? <a href="register"
+                                                                                 class="text-decoration-none">Register
+                                here</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>

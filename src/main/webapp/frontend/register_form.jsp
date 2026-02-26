@@ -3,37 +3,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
-            integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI="
-            crossorigin="anonymous"></script>
-    <title>Register as a Customer | PageNook - Online Bookstore</title>
-</head>
-<body>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="Register as a Customer"/>
+</jsp:include>
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <h1 class="page-heading">Register as a Customer</h1>
-    <hr style="width: 60%"/>
-</div>
+<div class="container flex-grow-1 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Register as a Customer</h2>
 
-<div class="center">
-    <form action="register_customer" method="post" id="customerForm">
-        <jsp:directive.include file="../common/customer_form.jsp"/>
-    </form>
+                    <form action="register_customer" method="post" id="customerForm">
+                        <jsp:directive.include file="../common/customer_form.jsp"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>
-
-<script type="text/javascript" src="../js/customer-form.js"></script>
 </body>
 </html>
