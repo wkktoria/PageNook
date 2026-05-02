@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="page_head.jsp">
-    <jsp:param name="pageTitle" value="PageNook"/>
+    <jsp:param name="pageTitle" value="${pageTitle}"/>
 </jsp:include>
 <body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>

@@ -112,6 +112,7 @@ public class OrderService {
     private void placeOrderCOD(final BookOrder order) throws ServletException, IOException {
         saveOrder(order);
 
+        request.setAttribute("pageTitle", "Order Completed");
         final String message = "Thank you. Your order has been received. We will deliver your books within a few days.";
         CommonUtil.showMessageFrontend(message, request, response);
     }
