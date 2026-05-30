@@ -2,18 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/stylesheet.css">
-    <title>PageNook - Online Bookstore</title>
-</head>
-<body>
+<jsp:include page="page_head.jsp">
+    <jsp:param name="pageTitle" value="${pageTitle}"/>
+</jsp:include>
+<body class="d-flex flex-column min-vh-100">
 <jsp:directive.include file="header.jsp"/>
 
-<div class="center">
-    <h2 class="message">${message}</h2>
+<div class="container flex-grow-1 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="alert alert-info text-center" role="alert">
+                <h3 class="mb-0">${message}</h3>
+            </div>
+            <div class="text-center mt-4">
+                <a href="${pageContext.request.contextPath}/" class="btn btn-primary">Go to Home</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <jsp:directive.include file="footer.jsp"/>
